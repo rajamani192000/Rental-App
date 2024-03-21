@@ -1,0 +1,376 @@
+<div *ngIf="!isAddComponnet && !isEditComponnet" class="compoenet-inner-block">
+  <div class="component-header clearfix   ">
+    <div class="header-component-left">
+      <div class="back-icon">
+        <a (click)="location.back()"> <i class="fa fa-chevron-left" aria-hidden="true"></i> </a>
+      </div>
+      <span> Back </span>
+    </div>
+    <div class="header-component-right">
+      <a role="button" (click)="callAdd()" class="btn btn-blue"> Add Admin User </a>
+
+
+    </div>
+  </div>
+  <div class="component-contents">
+    <div class="search-block-wrap">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group relative search-icons search-icons-notRequired">
+            <input type="text" class="form-control" [(ngModel)]="term" [valueChanges]="term" notRequired>
+            <span class="floating-label">Eg: Advertisement Sub-Category Name</span>
+            <i class="fa fa-search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of search -->
+    <div class="tab-content">
+      <div class="tab-contents-wrap">
+        <div class="tab-contents-block">
+          <div class="tab-block-conetnts">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th> Username </th>
+                  <th> Email </th>
+                  <th> password </th>
+                  <th> Last Login</th>
+                  <th> Mobile </th>
+                  <th> Status </th>
+                  <th> Profile </th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="adminUserData?.length > 0 ">
+                  <tr
+                    *ngFor="let x of adminUserData | filter:term | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                    <td>{{x.username}}</td>
+                    <td>{{x.email}}</td>
+                    <td>{{x.password}}</td>
+                    <td>{{x.last_login_timestamp | date}}</td>
+                    <td>{{x.mobile}}</td>
+                    <td>{{x.status == true ? "Activated" : "Deactivated"}}</td>
+                    <td><img style="max-width: 13% !important;" src="{{x.imageUrl}}" alt="image" /></td>
+                    <td class="action-table text-center">
+                      <ul>
+                        <li>
+                          <a role="button" (click)="callEdit(x)" data-toggle="tooltip" title="Edit"> <img
+                              src="../.././../../assets/images/edit.png" alt="image" /> </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="adminUserData?.length == 0 ">
+                  <tr class="text-center no-data" *ngIf="data.message=='No records found' ">
+                    <td colspan="8">{{"No records found"}} </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event">
+            </pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isAddComponnet || isEditComponnet" class="compoenet-inner-block">
+  <div aria-labelledby="title">
+    <div class="component-header clearfix">
+      <div *ngIf="isAddComponnet && !isEditComponnet" class="header-component-left">
+        <div class="back-icon">
+          <a (click)="goback()" class="back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        </div>
+        Add User
+      </div>
+      <div *ngIf="!isAddComponnet && isEditComponnet" class="header-component-left">
+        <div class="back-icon">
+          <a (click)="goback()" class="back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        </div>
+        Edit User
+      </div>
+    </div>
+    <div class="component-contents">
+
+      <!-- end of search -->
+      <div class="tab-content">
+        <div class="tab-contents-wrap">
+          <div class="tab-contents-block">
+            <div class="tab-block-conetnts">
+
+              <div class="row" [formGroup]="productForm">
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Brand<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="brand" [items]="brandList"
+                      optionValueField="brand" optionTextField="brand" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder" (selectionChanges)="onBrandChange($event)">
+                    </ngx-select>
+                    <ngx-validation-message label="Brand"
+                      [showRequired]="(fval?.brand?.dirty || isSubmitted) && fval?.brand?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Type<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="type" [items]="typeList"
+                      optionValueField="type" optionTextField="type" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder" (selectionChanges)="onTypeChange($event)">
+                    </ngx-select>
+                    <ngx-validation-message label="type"
+                      [showRequired]="(fval?.type?.dirty || isSubmitted) && fval?.type?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Product Name<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="productName" [items]="modelList"
+                      optionValueField="model" optionTextField="model" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder" (selectionChanges)="onModelChange($event)">
+                    </ngx-select>
+                    <ngx-validation-message label="productName"
+                      [showRequired]="(fval?.productName?.dirty || isSubmitted) && fval?.productName?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="description" required>
+                    <span class="floating-label">Description<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Description"
+                      [showRequired]="(fval?.description?.dirty || isSubmitted) && fval?.description?.errors?.required"
+                      >
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="displayAmt" required>
+                    <span class="floating-label">Display Amt<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Display Amt"
+                      [showRequired]="(fval?.displayAmt?.dirty || isSubmitted) && fval?.displayAmt?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="productAmt" required>
+                    <span class="floating-label">Product Amt<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Product Amt"
+                      [showRequired]="(fval?.productAmt?.dirty || isSubmitted) && fval?.productAmt?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <textarea type="text" class="form-control" formControlName="specs" required></textarea>
+                    <span class="floating-label">Specification<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Specification"
+                      [showRequired]="(fval?.specs?.dirty || isSubmitted) && fval?.specs?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Select Availablity<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="availability" [items]="availabilityList"
+                      optionValueField="id" optionTextField="name" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder">
+                    </ngx-select>
+                    <ngx-validation-message label="Availability"
+                      [showRequired]="(fval?.availability?.dirty || isSubmitted) && fval?.availability?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+
+
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" type="file" (change)="onFileSelected($event)"
+                      accept="image/*">
+                    <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image"
+                      class="img-fluid mb-2" />
+                    <span class="floating-label">Select Image</span>
+                    <ngx-validation-message label="Image"
+                      [showRequired]="(fval?.imageurl?.dirty || isSubmitted) && fval?.imageurl?.errors?.required"
+                      [showPattern]="fval?.imageurl?.errors?.mobile">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+              </div>
+              <div class="block-heading pt-3">
+                Add Model Details
+              </div>
+              <div class="row" [formGroup]="productDetailsForm">
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Model Name<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="modelName" [items]="modelData"
+                      optionValueField="model" optionTextField="model" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder">
+                    </ngx-select>
+                    <ngx-validation-message label="type"
+                      [showRequired]="(fval?.modelName?.dirty || isSubmitted) && fval?.modelName?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="totalQty" required>
+                    <span class="floating-label">Total Qty<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Total Qty"
+                      [showRequired]="(fval?.totalQty?.dirty || isSubmitted) && fval?.totalQty?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="availableQty" required>
+                    <span class="floating-label">Available Qty<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="availableQty"
+                      [showRequired]="(fval?.availableQty?.dirty || isSubmitted) && fval?.availableQty?.errors?.required"
+                      [showPattern]="fval?.availableQty?.errors?.availableQty">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="modelAmt" required>
+                    <span class="floating-label">model Amt<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="One Day Amt"
+                      [showRequired]="(fval?.modelAmt?.dirty || isSubmitted) && fval?.modelAmt?.errors?.required"
+                      [showPattern]="fval?.modelAmt?.errors?.modelAmt">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="fourdayAmtDisc" required>
+                    <span class="floating-label">Four Day Disc Amt<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Four Day Amt"
+                      [showRequired]="(fval?.fourdayAmtDisc?.dirty || isSubmitted) && fval?.fourdayAmtDisc?.errors?.required"
+                      [showPattern]="fval?.fourdayAmtDisc?.errors?.fourdayAmtDisc">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="seveendayAmtDisc" required>
+                    <span class="floating-label">Seveen Day Disc Amt<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Seveen Day Amt"
+                      [showRequired]="(fval?.seveendayAmtDisc?.dirty || isSubmitted) && fval?.seveendayAmtDisc?.errors?.required"
+                      [showPattern]="fval?.seveendayAmtDisc?.errors?.seveendayAmtDisc">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="seveenDaysMoreDisc" required>
+                    <span class="floating-label">Seveen Day ++ Disc Amt<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Seveen Day Amt"
+                      [showRequired]="(fval?.seveenDaysMoreDisc?.dirty || isSubmitted) && fval?.seveenDaysMoreDisc?.errors?.required"
+                      [showPattern]="fval?.seveenDaysMoreDisc?.errors?.seveenDaysMoreDisc">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 d-flex align-items-start pt-3 pb-3" >
+                  <input type="button" *ngIf="isProductAddComponent" (click)="addProduct()" value="Add"
+                     class="btn btn-violet" [disabled]="isProductBtnSubmitted" />
+                   <input type="button" *ngIf="!isProductAddComponent" (click)="updateProduct()" value="Update"
+                     class="btn btn-violet" [disabled]="isProductBtnSubmitted" />
+                   <input type="button" value="Reset" (click)="resetDetails()" class="btn btn-reset" />
+                 </div>
+              </div>
+              <div class="block-heading">
+                Added Models
+              </div>
+              <div class="tableFixHead physicianHead">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th class="sn_class text-center">#</th>
+                      <th class="text-left">Model Name</th>
+                      <th class="text-left">Total Qty</th>
+                      <th class="text-left">Available Qty</th>
+                      <th class="text-right">model Amt</th>
+                      <th class="text-right">1 Day Amt</th>
+                      <th class="text-right">4 Day Amt</th>
+                      <th class="text-right">7 Day++ Amt</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="medicinebody">
+                    <tr *ngFor="let x of addedModelDetails; let id= index ">
+                      <td class="sn_class text-center">{{addedModelDetails.indexOf(x)+1}}</td>
+                      <td class="text-left">{{x?.modelName}}</td>
+                      <td class="text-left">{{x?.totalQty}}</td>
+                      <td class="text-center">{{x?.availableQty}}</td>
+                      <td class="text-right">{{x?.modelAmt}}</td>
+                      <td class="text-right">{{x?.discAmt?.fourdayAmtDisc}}</td>
+                      <td class="text-right">{{x?.discAmt?.seveendayAmtDisc}}</td>
+                      <td class="text-right">{{x?.discAmt?.seveenDaysMoreDisc}}</td>
+                      <td class="text-center action-table">
+                        <ul class="inner_button">
+                          <li [ngStyle]="{'display': isEditComponnet ? 'block'  : 'none' }">
+                            <a nbButton nbPopoverTrigger="hover" [nbPopover]="templateRef" nbPopoverPlacement="right">
+                              <img src="../.././../../assets/images/eye.png"
+                                [ngStyle]="{'opacity':isProductBtnSubmitted==true?'0.5':'1'}" alt="image" />
+                            </a>
+                          </li>
+                          <li
+                            [ngStyle]="{'display': (isEditComponnet && holdStatus) || isAddComponnet  ? 'block'  : 'none' }"
+                            [ngClass]="{'view-mode':editallow }">
+                            <a data-toggle="tooltip" title="Edit"
+                              (click)="isProductBtnSubmitted==true?null:callmodelEdit(x,id);">
+                              <img src="../.././../../assets/images/edit.png"
+                                [ngStyle]="{'opacity':isProductBtnSubmitted==true?'0.5':'1'}" alt="image" />
+                            </a>
+                          </li>
+                          <li
+                            [ngStyle]="{'display': (isEditComponnet && holdStatus) || isAddComponnet ? 'block'  : 'none' }"
+                            [ngClass]="{'view-mode':editallow }">
+                            <a data-toggle="tooltip" title="Delete"
+                              (click)="isProductBtnSubmitted==true?null:callmodeldelete(id)">
+                              <img src="../.././../../assets/images/delete.png" alt="image"
+                                [ngStyle]="{'opacity':isProductBtnSubmitted==true?'0.5':'1'}" />
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="button-controls">
+                    <input *ngIf="isAddComponnet && !isEditComponnet" type="button" (click)="onSave()" value="Save"
+                      class="btn btn-primary" [disabled]="isBtnSubmitted" />
+                    <input *ngIf="!isAddComponnet && isEditComponnet " type="button" (click)="onEdit()" value="Update"
+                      class="btn btn-primary" [disabled]="isBtnSubmitted" />
+                    <input type="button" (click)="goback()" value="Cancel" class="btn btn-clear" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="succesfull-info-popup" [ngClass]="{ 'open': popupAalert }">
+  <i class="far fa-thumbs-up"></i> <span>{{popupMessage}} </span>
+</div>
+<div class="succesfull-info-popup" [ngClass]="{ 'open': popupAalertFailed }">
+  <i class="far fa-thumbs-down"></i> <span>{{popupMessageFailed}} </span>
+</div>

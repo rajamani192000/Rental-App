@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "dindigulcamara"
+  },
+  "targets": {
+    "crazy-photography-studio": {
+      "hosting": {
+        "ngx-admin-demo": [
+          "crazy-photography-studio"
+        ]
+      }
+    },
+    "dindigulcamara": {
+      "hosting": {
+        "ngx-admin-demo": [
+          "dindigulcamara"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

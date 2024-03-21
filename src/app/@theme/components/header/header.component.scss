@@ -1,0 +1,107 @@
+@import 'bootstrap/scss/mixins/breakpoints';
+@import '@nebular/theme/styles/global/breakpoints';
+@import '../../styles/themes';
+
+@include nb-install-component() {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  }
+
+  nb-action {
+    height: auto;
+    display: flex;
+    align-content: center;
+  }
+
+  nb-user {
+    cursor: pointer;
+  }
+
+  ::ng-deep nb-search button {
+    padding: 0!important;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+
+    .header-title{
+      font-family: auto;
+      font-weight: bold;
+      font-size: 2rem;
+    }
+    .sidebar-toggle {
+      @include nb-ltr(padding-right, 1.25rem);
+      @include nb-rtl(padding-left, 1.25rem);
+      text-decoration: none;
+      color: nb-theme(text-hint-color);
+      nb-icon {
+        font-size: 1.75rem;
+      }
+    }
+
+    .logo {
+      width: 65% !important;
+      padding: 0 1.25rem;
+    }
+    .logowidth{
+      width: 10%;
+    }
+  }
+
+
+
+  @include media-breakpoint-down(sm) {
+    .control-item {
+      display: none;
+    }
+    .user-action {
+      border: none;
+      padding: 0;
+    }
+  }
+
+  @include media-breakpoint-down(is) {
+    nb-select {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .header-container {
+    display: flex !important;
+    align-items: center !important;
+    width: 47% !important;
+    justify-content: flex-end !important;
+  }
+
+  .logo img{
+    width: 73% !important;
+    padding: 0px;
+    white-space: nowrap;
+    text-decoration: none;
+      width: 75% !important;
+      margin: 0px !important;
+    }
+
+
+    .logo {
+      width: 50% !important;
+      padding: 0px !important;
+    }
+
+    .header-container .header-title{
+      font-family: auto !important;
+      font-weight: bold !important;
+      font-size: 1rem !important;
+    }
+
+}
+
+}

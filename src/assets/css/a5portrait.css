@@ -1,0 +1,39 @@
+@media print { 
+ .report-header-cell {
+  background: none !important;
+  border: none!important ;
+  color: black !important;
+  font-weight: 400 !important;
+}
+.report-header-cell .add-rreduce-paymenst{
+  display: contents !important;
+  font-weight: 600 !important; 
+  cursor: pointer !important;
+}
+.report-header-cell p{
+    font-size: 14px !important;
+    color: #333333 !important;
+    line-height: 20px !important;
+}
+.print-page-title {
+  font-size: 16px !important;
+}
+tr .ng-star-inserted {
+  font-size: 13px!important;
+} 
+table.report-container{
+  page-break-after: always;
+  width: 100%;
+  }
+  table.report-header{
+  display: table-header-group;
+  }
+  table.report-footer{
+  display: table-footer-group;
+  }
+  .full-width{
+      width: 100%;
+      max-width: 100%;
+  }  
+
+}

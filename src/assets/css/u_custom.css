@@ -1,0 +1,56 @@
+.view-registration-left {
+    width: 265px;
+}
+.view-registration-right {
+    width: calc(100% - 280px);
+}
+.view-registration-right .tab-contents-block {
+    margin-bottom: 0;
+}
+.tab-block-conetnts > .row:last-of-type > .col-md-4 > .form-group {
+    margin-bottom: 0px;
+}
+.tab-block-conetnts > .row:last-of-type > .col-md-3 > .form-group {
+    margin-bottom: 0px;
+}
+.clerfix-aligned {
+    display: flex;
+    align-items: start;
+}
+.view-registration-right .tab-contents-block:nth-child(2) {
+    background: #FCFAFB;
+}
+.view-registration-right .tab-contents-block:nth-child(4) {
+    background: #FCFAFB;
+}
+.view-list .tab-contents-block {
+    margin-bottom: 0;
+}
+.view-list .tab-contents-block:nth-child(2) {
+    background: #FCFAFB;
+}
+.view-list .tab-contents-block:nth-child(4) {
+    background: #FCFAFB;
+}
+.view-list .tab-contents-block {
+    padding: 15px;
+}
+.view-list .form-control {
+    font-size: 15px;
+    border-bottom: none!important;
+}
+.view-reg-profile-pic-det img {
+    width: 60%;
+}
+.floating-label {
+    font-size: 15px;
+}
+.form-control {
+    font-size: 16px !important;
+    opacity: 1 !important;
+    cursor: text;
+}
+.lag-section {
+    width: 200px;
+    padding: 15px;
+}

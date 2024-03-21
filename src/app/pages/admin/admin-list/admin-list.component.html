@@ -1,0 +1,186 @@
+<div *ngIf="!isAddComponnet && !isEditComponnet" class="compoenet-inner-block">
+  <div class="component-header clearfix   ">
+    <div class="header-component-left">
+      <div class="back-icon">
+        <a (click)="location.back()"> <i class="fa fa-chevron-left" aria-hidden="true"></i> </a>
+      </div>
+      <span> Back </span>
+    </div>
+    <div class="header-component-right">
+      <a role="button" (click)="callAdd()" class="btn btn-blue"> Add Admin User </a>
+
+
+    </div>
+  </div>
+  <div class="component-contents">
+    <div class="search-block-wrap">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group relative search-icons search-icons-notRequired">
+            <input type="text" class="form-control" [(ngModel)]="term" [valueChanges]="term" notRequired>
+            <span class="floating-label">Eg: Advertisement Sub-Category Name</span>
+            <i class="fa fa-search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of search -->
+    <div class="tab-content">
+      <div class="tab-contents-wrap">
+        <div class="tab-contents-block">
+          <div class="tab-block-conetnts">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th> Username </th>
+                  <th> Email </th>
+                  <th> password </th>
+                  <th> Last Login</th>
+                  <th> Mobile </th>
+                  <th> Status </th>
+                  <th> Profile </th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="adminUserData?.length > 0 ">
+                  <tr
+                    *ngFor="let x of adminUserData | filter:term | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                    <td>{{x.username}}</td>
+                    <td>{{x.email}}</td>
+                    <td>{{x.password}}</td>
+                    <td>{{x.last_login_timestamp | date}}</td>
+                    <td>{{x.mobile}}</td>
+                    <td>{{x.status == true ? "Activated" : "Deactivated"}}</td>
+                    <td><img style="max-width: 13% !important;"
+                      src="{{x.imageUrl}}" alt="image" /></td>
+                    <td class="action-table text-center">
+                      <ul>
+                        <li>
+                          <a role="button" (click)="callEdit(x)" data-toggle="tooltip" title="Edit"> <img
+                              src="../.././../../assets/images/edit.png" alt="image" /> </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="adminUserData?.length == 0 ">
+                  <tr class="text-center no-data" *ngIf="data.message=='No records found' ">
+                    <td colspan="8">{{"No records found"}} </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event">
+            </pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isAddComponnet || isEditComponnet" class="compoenet-inner-block">
+  <div [formGroup]="userForm" aria-labelledby="title">
+    <div class="component-header clearfix">
+      <div *ngIf="isAddComponnet && !isEditComponnet" class="header-component-left">
+        <div class="back-icon">
+          <a (click)="goback()" class="back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        </div>
+        Add User
+      </div>
+      <div *ngIf="!isAddComponnet && isEditComponnet" class="header-component-left">
+        <div class="back-icon">
+          <a (click)="goback()" class="back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        </div>
+        Edit User
+      </div>
+    </div>
+    <div class="component-contents">
+
+      <!-- end of search -->
+      <div class="tab-content">
+        <div class="tab-contents-wrap">
+          <div class="tab-contents-block">
+            <div class="tab-block-conetnts">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="username" required>
+                    <span class="floating-label">Username<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Username"
+                      [showRequired]="(fval?.username?.dirty || isSubmitted) && fval?.username?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="email" class="form-control" formControlName="email" required>
+                    <span class="floating-label">Email<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Email"
+                      [showRequired]="(fval?.email?.dirty || isSubmitted) && fval?.email?.errors?.required"
+                      [showPattern]="fval?.email?.errors?.email">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="password" required>
+                    <span class="floating-label">Password<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Password"
+                      [showRequired]="(fval?.password?.dirty || isSubmitted) && fval?.password?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" formControlName="mobile" required>
+                    <span class="floating-label">Mobile No<span class="required-asterisk">*</span></span>
+                    <ngx-validation-message label="Mobile"
+                      [showRequired]="(fval?.mobile?.dirty || isSubmitted) && fval?.mobile?.errors?.required"
+                      [showPattern]="fval?.mobile?.errors?.mobile">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                      <label> Select Status<span class="required-asterisk">*</span></label>
+                      <ngx-select class="form-control-select" formControlName="status" [items]="statusList" optionValueField="name" optionTextField="name" [multiple]="multiple" [allowClear]="allowClear" [placeholder]="placeholder">
+                      </ngx-select>
+                      <ngx-validation-message label="Status"
+                      [showRequired]="(fval?.status?.dirty || isSubmitted) && fval?.name?.errors?.status">
+                      </ngx-validation-message>
+                  </div>
+              </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <input type="text" class="form-control" type="file"
+                    (change)="onFileSelected($event)"
+                    accept="image/*">
+                    <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image" class="img-fluid mb-2" />
+                    <span class="floating-label">Image URL</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="button-controls">
+                    <input *ngIf="isAddComponnet && !isEditComponnet" type="button" (click)="onSave()" value="Save"
+                      class="btn btn-primary" [disabled]="isBtnSubmitted" />
+                    <input *ngIf="!isAddComponnet && isEditComponnet " type="button" (click)="onEdit()" value="Update"
+                      class="btn btn-primary" [disabled]="isBtnSubmitted" />
+                    <input type="button" (click)="goback()" value="Cancel" class="btn btn-clear" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="succesfull-info-popup" [ngClass]="{ 'open': popupAalert }">
+  <i class="far fa-thumbs-up"></i> <span>{{popupMessage}} </span>
+</div>

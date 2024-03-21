@@ -1,0 +1,261 @@
+ 
+@media print {
+    .row {
+        width: 100% !important;
+        margin-bottom: 15px !important;
+    } 
+   .left-side {
+        max-width: 45% !important; 
+        width: 45% !important; 
+        font-weight: 600 !important;
+        font-size: 14px !important; 
+   }
+   .right-side {
+        width: 55% !important; 
+        max-width: 55% !important; 
+        font-size: 16px !important; 
+   }
+    .right-side p {
+        margin: 0 !important;
+   }
+    .text-center {
+        text-align: center;
+   } 
+    label {
+        font-weight: 600 !important;
+   }
+   .right-side p strong{
+        font-size: 12px !important;
+   }
+    .container table, .container th, .container td {
+        border: 1px solid black !important;
+   }
+    .tbl-pprint {
+        padding: 0px !important;
+        margin: 0px !important;
+        width: 100% !important;
+   }
+    .tbl-ppthprint {
+        width: 35% !important;
+   }
+    .AuyHst .heading {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: 9pt;
+        padding-top: 4pt;
+        padding-left: 9pt;
+        text-indent: 0pt;
+        text-align: left;
+   }
+    .AuyHst .p, .AuyHst p, .AuyHst .content {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+        margin: 0pt;
+        padding-top: 5pt;
+        padding-left: 9pt;
+        text-indent: 0pt;
+        line-height: 108%;
+        text-align: left;
+   }
+    .AuyHst .tblbck {
+        background: #d2cfd1;
+   }
+    .AuyHst .tblbck-bd {
+        border: 2px solid gray;
+   }
+    .AuyHst .tbl1 {
+        margin-bottom: 5px;
+   }
+    .AuyHst .txtdec {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 9pt;
+        padding-top: 4pt;
+        padding-left: 9pt;
+        text-indent: 0pt;
+        text-align: left;
+        text-decoration: none;
+   }
+    .AuyHst #AuyHst .AuyHst {
+        width: 100%;
+   }
+    .AuyHst .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 2px;
+        width: 100%;
+   }
+    .AuyHst .grid-item {
+        border: 0px solid rgba(0, 0, 0, 0.8);
+        display: flex;
+       /* padding: 20px;
+        */
+       /* font-size: 30px;
+        */
+       /* text-align: center;
+        */
+   }
+    .AuyHst .grid-item .hh1 {
+        width: 40%;
+   }
+    .AuyHst .grid-item .hh2 {
+        width: 30%;
+   }
+    .AuyHst .grid-item .hh3 {
+        width: 30%;
+   }
+   .listpro li {
+    width: 100% !important;  
+    list-style-type:none !important;
+    }
+    .listpro li .left-side{
+        display: inline-flex !important;
+        font-weight:600 !important;
+        width: 45% !important;
+        font-weight: 600 !important;
+        font-size: 12px !important;
+    }
+    .listpro li .right-side{
+        display: inline-block !important;
+        width: 50% !important;
+        font-size: 14px !important;
+    }
+    .listpro li .right-side p{
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .listpro ul{
+        list-style-type:none !important;
+        width: 100% !important;
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+}
+.tbl-ppthprint {
+    width: 35% !important;
+}
+.tbl-pprint {
+    padding: 0px !important;
+    margin: 0px !important;
+    width: 100% !important;
+}
+
+
+.print-receipt-detail label span{
+    font-weight: 600;
+    font-size:14px !important;
+   }
+   .print-receipt-detail label p{
+     font-size:16px !important;
+    }
+    .print-doctor-name-grand-total .print-discont-text {
+     padding-top: 4px  !important;
+     font-size: 16px !important;
+     }
+     .print-grand-taotal {
+       font-size: 16px  !important;
+     } 
+     .tblbar{
+       height:35px
+     }
+     
+   .print-receipt-detail p {
+     font-size: 12px !important;
+   }
+   .print-receipt-detail b {
+     font-size: 13px !important;
+   }
+   .print-doctor-name-grand-total {
+     margin-right: 0px !important;
+   }
+   .print-address{
+       width:130px !important;
+       margin: 5px  !important;   
+    }
+    .lessfont span {
+     font-size: 12px !important;
+   }
+   .print-table-bt th , .print-table-bt td {
+    border-top: 0px solid #dee2e6;
+  } 
+  .printer-header h3 {
+    position: relative;
+    span{
+      position: absolute;
+    }
+  }
+  .printer-header .printdate{
+    display:block;
+    text-align: right;
+      p{
+          font-size: 11px;
+          margin: 0px;
+          margin-bottom: 4px;
+      } 
+
+   
+    .print-discont-text {
+      padding: 5px 5px  !important;
+    }
+    .print-discont-label {
+      padding: 5px 5px !important;
+    }
+
+    .print-table-part h5{
+      font-size:12px !important;
+      margin: 5px  !important;
+    }
+    .add-rreduce-paymenst
+    {
+      font-size: 12px;
+    }
+    .print-table-padding-04 td {
+      padding: 0.4rem !important;
+    }
+
+      .share-th{ 
+        display: none !important;
+      }
+      .action-table{
+          display: none !important;
+      }
+      .print-display-none{
+          display: none !important;
+      }
+      .bartext{
+        font-size: 8px !important;
+      }  
+      
+    .print-receipt-detail label{
+        margin-bottom: 10px !important;
+        display: block;
+       }
+     
+      #nb1{ 
+        position: absolute !important;
+        margin-top: -10px !important;
+       }
+       .print-receipt-bill-details {
+        padding-bottom: 1px;
+       } 
+       .sn_class{
+          padding-bottom: 10px !important;
+        }
+        .donebytext{
+          border-bottom: 0px solid #dee2e6 !important;
+         }    
+         .tbl-lab td{
+          vertical-align: bottom !important;   
+        }
+    }
+  

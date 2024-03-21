@@ -1,0 +1,12 @@
+@media print {
+  @page
+  {
+    size:6cm 3cm !important;
+ }
+ 
+}
+.bartext{
+  font-size: 8px !important;
+}
+
+ 

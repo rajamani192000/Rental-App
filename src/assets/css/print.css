@@ -1,0 +1,856 @@
+body
+{
+  font-family: 'Roboto', sans-serif!important;
+  font-size: 14px;
+  color: #333333;
+  -webkit-print-color-adjust: exact;
+}
+.ipprint{
+  white-space: nowrap;
+}
+
+.indent-print .print-receipt-detail {
+  width: 33% !important;
+}
+
+
+.sales-print{
+  white-space:nowrap;
+}
+
+.nb-theme-default nb-layout .layout
+{
+  font-family: 'Roboto', sans-serif!important;
+  font-size: 14px;
+}
+p, h1, h2, h3, h4, h5, h6
+{
+  margin-top: 0;
+}
+
+.oprow{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100% !important;
+  margin-right: 0;
+  margin-left: 0;
+  column-gap: 30% !important;
+}
+
+.opcolsix{
+  flex: 0 0 45%;
+  max-width: 45% !important;
+  width: 45% !important;
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.opcolseven{
+  flex: 0 0 42%;
+  max-width: 42% !important;
+  width: 42% !important;
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.top-fontsize{
+  font-size: 14px !important;
+}
+
+
+.footer-fontsize{
+  font-size: 12px !important;
+}
+
+.footer-tab{
+  text-align: right !important;
+}
+
+.foot-print-cls-two{
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  }
+
+ .payer-info li
+ {
+     list-style: none;
+ }
+ .lightbox-title {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+ul
+{
+    padding-left: 0;
+}
+.payer-info li {
+    width: 33.3%;
+    float: left;
+    margin-bottom: 10px;
+}
+.payer-info label {
+    font-size: 14px;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+.payer-info p {
+
+    margin: 0;
+    margin-top: 5px;
+    line-height: 1.6!important;
+}
+.block-heading-ehr {
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.payer-info-big li {
+    width: 100%;
+}
+.summary-dialog-box .tab-block-conetnts {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.payer-info::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.medical-history-dialog-block li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+}
+.summary-dialog-box .tab-block-conetnts:last-child {
+
+}
+.printer-hostital-logo
+{
+  max-width: 150px;
+    float: left;
+}
+.printer-hostital-logo img
+{
+  max-width: 100%;
+}
+.printer-hostital-details
+{
+  width: calc(100% - 150px);
+  float: left;
+  text-align: right;
+}
+.print-wrap
+{
+    margin: auto;
+    /* padding: 20px;
+    margin-top: 20px; */
+    font-size: 16px;
+}
+.printer-hostital-details h3
+{
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.printer-hostital-details address
+{
+  max-width: 250px;
+  margin-left: auto;
+  line-height: 22px;
+}
+.printer-hostital-details p
+{
+  display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+/* .printer-header
+{
+  padding-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+} */
+.print-receipt-bill-details h3
+{
+  font-size: 16px;
+  margin-bottom: 9px;
+  text-transform: uppercase;
+}
+.print-receipt-bill-details h4
+{
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  margin-top: 0;
+}
+.print-receipt-details address
+{
+  max-width: 250px;
+  margin-right: auto;
+  line-height: 22px;
+}
+.print-receipt-details p
+{
+  display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+.print-receipt-details
+{
+     width: 50%;
+    float: left;
+}
+.print-receipt-detail address
+{
+  max-width: 250px;
+  margin-right: auto;
+  line-height: 22px;
+}
+.print-receipt-detail p
+{
+  display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+.print-receipt-detail
+{
+  width: 25%;
+    float: left;
+}
+.print-bill-details
+{
+  width: 50%;
+  float: left;
+  text-align: right;
+}
+.print-bill-details-block p
+{
+  margin-bottom: 0;
+}
+.print-bill-details-block h3
+{
+  margin-bottom: 10px;
+}
+.print-bill-details-block
+{
+  margin-bottom: 20px;
+}
+.print-bill-details-block:last-child
+{
+  margin-bottom: 0;
+}
+ .print-receipt-bill-details
+{
+  padding-bottom: 20px;
+  /* border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 0; */
+}
+.print-table-part table th
+{
+  background: transparent;
+  color: #222b45;
+}
+.prict-table-th
+{
+  width: 100px;
+}
+.print-discont-label
+{
+  width: 140px;
+  float: right;
+}
+.print-discont-text
+{
+  width: 140px;
+  float: right;
+  padding: 10px 5px;
+    font-weight: 700;
+    border-bottom: 1px solid #dee2e6
+}
+.bb-none {
+  border-bottom: none!important;
+}
+.print-discont-label
+{
+  width: 140px;
+  float: right;
+  padding: 10px 5px;
+  border-bottom: 1px solid #e5e5e5;
+  padding-right: 0;
+}
+.print-discount-subtotal-wrap
+{
+    /* margin-right: -5px; */
+    margin-top: -5px;
+}
+.print-doctor-name-grand-total
+{
+  background: #F2F2F2;
+}
+.print-discont-doctor-name
+{
+  float: left;
+  padding: 10px;
+  font-weight: 700;
+  padding-top: 15px;
+}
+.print-discont-doctor-name span
+{
+  font-weight: 400;
+  padding-left: 5px;
+  font-size: 14px;
+}
+.print-grand-taotal
+{
+  font-size: 24px;
+  font-weight: 500;
+}
+.print-discont-subtotal-bck .print-grand-taotal
+{
+  border-bottom: none;
+}
+.print-discont-subtotal-bck .print-discont-text
+{
+
+}
+
+.clearfix::after {
+    display: block;
+    clear: both;
+    content: "";
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-left: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+}
+.table td {
+  padding: 15px 0px 15px 24px !important;
+}
+.table td, table th
+{
+  border-left: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+}
+.print-table-part table th {
+    background: transparent;
+    color: #222b45;
+}
+table.table thead th {
+    vertical-align: middle;
+}
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #e6e6e6;
+}
+.sn_class {
+    width: 80px;
+    max-width: 155px !important;
+    text-align: left;
+}
+.prict-table-th {
+    width: 100px;
+}
+ .text-right {
+    text-align: right !important;
+}
+.text-left {
+    text-align: left !important;
+}
+.text-center {
+  text-align: center !important;
+}
+.table tr:last-child td {
+    border-bottom: 1px solid #e6e6e6;
+}
+.table th, .table td {
+    vertical-align: middle;
+    word-break: break-word;
+}
+.prict-table-th.text-left
+{
+  width: auto;
+}
+.print-doctor-name-grand-total .print-discont-text
+{
+  border-bottom: none;
+}
+address {
+    margin-bottom: 10px;
+    font-style: normal;
+}
+.print-doctor-name-grand-total .print-discont-text {
+    padding-top: 15px;
+}
+.print-doctor-name-grand-total
+{
+    margin-right: -5px;
+}
+table {
+  border-collapse: collapse;
+}
+.component-header
+{
+  text-align: center;
+}
+.printer-hostital-details img, .print-receipt-details img
+{
+  vertical-align: middle;
+}
+.printer-hostital-details img, .print-receipt-detail img
+{
+  vertical-align: middle;
+}
+.print-bill-details-block p{
+  display: inline-block;
+  margin-left: 5px;
+
+}
+.print-bill-details-block h4{
+  display: inline-block;
+}
+
+@media print {
+    .print-doctor-name-grand-total {
+        background: #F2F2F2;
+    }
+   /* @page
+   {
+    size: landscape;
+    size:A5 portrait;
+  } */
+
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flex-container > div {
+  width: 25%;
+  text-align: left;
+}
+
+.flex-container h5{
+  font-weight: 400 !important;
+}
+#print-border{
+  /* border: 1px solid black; */
+}
+
+
+.responsive {
+  width: 30%;
+  height: auto;
+}
+
+.printer-dynamic-change
+{
+  position: relative;
+  height: 140px;
+}
+.printer-dynamic-change .printer-hostital-logo
+{
+  position: absolute;
+  width: auto;
+  left: 0;
+}
+.printer-dynamic-change .printer-hostital-logo img
+{
+max-height: 140px;
+}
+.printer-dynamic-change .printer-hostital-details
+{
+  position: absolute;
+  width: auto;
+  right: 0;
+}
+.printer-dynamic-change .printer-hostital-logo.p-logo-right
+{
+  right: 0;
+  left: auto;
+}
+.printer-dynamic-change .printer-hostital-logo.p-logo-center
+{
+  width: 100%;
+    max-width: 100%;
+    text-align: center;
+}
+.printer-dynamic-change .printer-hostital-details.p-details-left
+{
+  right: auto;
+  left: 0;
+  text-align: left;
+}
+.printer-dynamic-change .printer-hostital-details.p-details-center
+{
+  width: 100%;
+  text-align: center;
+
+}
+.printer-dynamic-change .printer-hostital-details.p-details-center address
+{
+  max-width: unset;
+}
+.pull-left {
+  float: left!important;
+}
+.print-page-title {
+  background: #F7F7F7;
+  padding: 5px;
+  display: block;
+}
+.print-wrap table th
+{
+  background: #F7F7F7;
+}
+
+.print-display-none
+{
+   display: none !important;
+}
+.print-doctor-name-grand-total .print-discont-text {
+  border-bottom: none;
+  text-transform: uppercase;
+}
+.print-wrap{
+  width: 100%;
+  height: 100%;
+}
+table{
+  width: 100%;
+}
+
+.report-header-cell {
+  background: none !important;
+  border: none!important ;
+  color: black !important;
+  font-weight: 400 !important;
+}
+.report-header-cell .add-rreduce-paymenst{
+  display: contents !important;
+  font-weight: 600 !important; 
+  cursor: pointer !important;
+}
+.report-header-cell p{
+    font-size: 14px !important;
+    color: #333333 !important;
+    line-height: 20px !important;
+}
+.print-page-title {
+  font-size: 16px !important;
+}
+tr .ng-star-inserted {
+  font-size: 13px!important;
+} 
+table.report-container{
+  page-break-after: always;
+  width: 100%;
+  }
+  table.report-header{
+  display: table-header-group;
+  }
+  table.report-footer{
+  display: table-footer-group;
+  }
+  .full-width{
+      width: 100%;
+      max-width: 100%;
+  } 
+  .footer-lab-lable {
+    font-size: 14px;
+    margin-top: 50px;
+    text-transform: none;
+    margin-left:50px;
+
+  }
+  .lab-txt-size
+  {
+    padding-top: 15px!important;
+  }
+.Print-table-packages tr:first-child td
+{
+  border-top: none;
+}
+.Print-table-packages tr:last-child td
+{
+  border-bottom: none;
+}
+.Print-table-lab p
+{
+  background: none;
+  color: black;
+}
+.Print-table-packages
+{
+  border: none;
+  background: none;
+}
+.Print-table-lab .Print-lab-groups-tr p
+{
+  top: -27px;
+  background: none;
+  color: black;
+  font-style: italic;
+  font-weight: 400;
+}
+.Print-table-lab .table th, .table td{
+  padding : 1px 0px 10px 24px!important;
+  border-bottom: 0px!important;
+  border-top:0px!important;
+  font-size: medium!important;
+  }
+  .input-error {
+    /* color: red; */
+    font-weight: bold;
+    font-size: 15px!important;
+    /*border: red 1px solid !important;*/
+  }
+  p.star-cls {
+    position: absolute;
+    top: -1px;
+    left: 105px;
+    font-size: 14px;
+  }
+  .end-star:before {
+    content: "***************";
+    position: absolute;
+    left: 20rem;
+    top: 2px;
+    font-size: 17px;
+    font-weight: bold;
+}
+  .end-star:after {
+    content: "***************";
+    position: absolute;
+    right: 20rem;
+    top: 2px;
+    font-size: 17px;
+    font-weight: bold;
+}
+.end-star{
+  position: relative;
+}
+.no-error {
+  font-size: 15px!important;
+}
+p.star-print-cls{
+  top: 50% !important;
+}
+.pad-print-clss {
+  padding-left: 43%;
+}
+.print-wdt {
+  text-align: left !important;
+  padding-left: 10px  !important;
+}
+.op-bill-cls {
+  display: flex !important;
+  column-gap: 8%;
+}
+.op-bill-head th {
+  background: none !important;
+}
+.pay-cls{
+  width: 30%;
+}
+.amt-cls {
+  width: 34%;
+}
+.amt-value {
+  width: 70%;
+}
+
+.ehr-line .medical-history-dialog-block {
+  border-bottom: 1px solid darkgrey;
+  margin-bottom: 4px;
+}
+
+.print-row{
+  display: block !important;
+}
+.pad-td-spc td {
+  padding-left: 20px!important;
+  border-right: 1px solid #f2f2f4;
+  
+}
+.pad-td-spc th {
+  padding: 5px 3px!important;
+}
+.presc-border{
+  border-bottom: 1px solid #f2f2f4;
+  margin-top: 10px !important;
+}
+.prescription-table-dataval small{
+  border-right: 1px solid #f2f2f4;
+}
+.bar-code-row{
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.headerfont{
+  font-size: 12px !important;
+} 
+
+.tablefont{
+  font-size: 9px !important;
+}
+
+.tablefontheader{
+  font-size: 9px !important;
+  text-align: center !important;
+}
+
+
+table tbody tr .tablefont{
+  font-size: 9px !important;
+  
+}
+
+.salesnetamount .headerfont .tablefontheader{
+  font-size: 9px !important;
+}
+
+.tablefont .tablefontheader .headerfont{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.serialvalue{
+  text-align: center !important;
+}
+
+.tablesales .table{
+  border-bottom: 1px solid #d3d3d3 !important;
+  padding-bottom: 8px;
+  /* border-collapse:; */
+}
+
+.tablesales td:first-child{
+  text-align: center !important;
+  padding: 0px !important;
+}
+.supplier-due-print {
+  display:flex;
+  justify-content: space-between;
+
+}
+.white-space {
+  white-space: nowrap !important;
+}
+.abstractPrint tr td{
+  font-size: 12px !important;
+}
+.ser-prt-cls th {
+  font-weight: 600 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  border-right: 1px solid #dee2e6 !important;
+  font-size: 15px;
+  
+}
+.border-none{
+  border-bottom: none;
+}
+.table{
+  white-space: break-spaces;
+}
+.pack-header{
+  display: flex;
+  gap: 20px;
+}
+.hide-data{
+  display: none;
+}
+.balance-cls{
+  font-size: 14px;
+}
+.medium-head{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.pack-cols th{
+  font-size: 12px !important;
+}
+
+.pkg-print-table{
+  white-space: nowrap !important;
+}
+
+
+.print-table-bt .tbl-border{
+  border: 1px solid #95a5a6 !important; 
+  border-collapse: collapse !important;
+}
+
+
+.specimenwidth{
+  width:20% !important;
+}
+
+.testwidth{
+  width:25% !important;
+}
+
+.resultwidth{
+  width:15% !important;
+}
+
+.unitwidth{
+  width:10% !important;
+}
+
+
+.referencevalwidth{
+  width:30% !important;  
+}
+
+.specimenleft{
+  margin-left: 15px !important;
+}
+
+/* CRM sales Invoice Print  Start*/
+.sales-invoice-print{
+  display: flex !important;
+  height: 60px !important;
+  justify-content: space-between !important;
+}
+.sales-invoice-print .col-lg-4 {
+  width: 33.3% !important;
+}
+.inner-contents .col-lg-6{
+  width: 50% !important;
+}
+.table-borderless{
+ border: none !important;
+}
+.sub-footer .col-lg-8{
+  width: 80% !important;
+}
+.sub-footer .col-lg-4{
+  width: 20% !important;
+}
+.editor-box-crm{
+  border: none !important;
+  padding-left: 0px !important;
+}
+.quote-footer{
+  border: none !important;
+}

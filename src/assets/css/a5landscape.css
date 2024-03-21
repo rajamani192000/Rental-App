@@ -1,0 +1,149 @@
+@media print {
+ 
+  body { 
+    width:17cm;
+    height:100%;
+    margin-left:0px ; 
+    margin-top:-210px ;
+    transform: scale(0.8,0.6);
+  } 
+ .ng-star-inserted {
+  font-size: 12px!important;
+}
+.printer-hostital-details address
+{
+  line-height: 16px;
+  margin-bottom: 5px;
+}
+.printer-hostital-details h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.printer-dynamic-change .printer-hostital-logo img {
+  max-height: 100px;
+}
+.printer-dynamic-change {
+  position: relative;
+  height: 100px;
+}
+
+.print-page-title {
+  background: #F7F7F7;
+  padding: 3px;
+  font-size: 14px!important;
+}
+.table th, .table td
+{
+  /* padding: 5px; */
+    font-size: 12px;
+}
+.print-receipt-bill-details h4 {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.print-receipt-bill-details h3 {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+.print-receipt-bill-details
+{
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 0; */
+}
+.print-discont-label {
+  width: 130px;
+  float: right;
+  padding: 5px 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+}
+.print-discont-text {
+  width: 130px;
+  float: right;
+  padding: 5px 0.75rem;
+  font-weight: 500;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.print-grand-taotal {
+  font-size: 16px;
+  font-weight: 500;
+}
+.print-discont-label {
+  width: 150px;
+  float: right;
+  padding: 4px 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+}
+.print-discont-text {
+  width: 150px;
+  float: right;
+  padding: 4px 0.75rem;
+  font-weight: 500;
+  border-bottom: 1px solid #dee2e6;
+}
+.print-discont-doctor-name {
+  float: left;
+  padding: 4px;
+  font-weight: 500;
+  /* width: 500px!important; */
+}
+.print-doctor-name-grand-total .print-discont-text {
+  padding-top: 4px;
+}
+.print-receipt-detail p
+{
+  margin-left: 0;
+} 
+
+.prict-table-th.text-left
+{
+  width: 450px !important;
+}
+  .sn_class {
+    width: 55px !important;
+    max-width: 55px;
+    text-align: left;
+  }
+  table{
+    width: 100%;
+  }
+  
+  .report-header-cell {
+    background: none !important;
+    border: none!important ;
+    color: black !important;
+    font-weight: 400 !important;
+  }
+  .report-header-cell .add-rreduce-paymenst{
+    display: contents !important;
+    font-weight: 600 !important; 
+    cursor: pointer !important;
+  }
+  .report-header-cell p{
+      font-size: 14px !important;
+      color: #333333 !important;
+      line-height: 20px !important;
+  }
+  .print-page-title {
+    font-size: 16px !important;
+  }
+  tr .ng-star-inserted {
+    font-size: 13px!important;
+  } 
+  table.report-container{
+    page-break-after: always;
+    width: 100%;
+    }
+    table.report-header{
+    display: table-header-group;
+    }
+    table.report-footer{
+    display: table-footer-group;
+    }
+    .full-width{
+        width: 100%;
+        max-width: 100%;
+    }  
+    
+}

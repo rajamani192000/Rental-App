@@ -1,0 +1,97 @@
+@import '../../styles/themes';
+@import '@nebular/theme/styles/global/breakpoints';
+@import 'bootstrap/scss/mixins/breakpoints';
+
+@include nb-install-component() {
+  width: 100%;
+
+  .socials {
+    font-size: 2rem;
+
+    a {
+      padding: 0.4rem;
+      color: nb-theme(text-hint-color);
+      transition: color ease-out 0.1s;
+
+      &:hover {
+        color: nb-theme(text-basic-color);
+      }
+    }
+  }
+
+
+
+
+  @include media-breakpoint-down(is) {
+    .socials {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (min-width:320px) and (min-width:481px) and (min-width:481px) and (min-width:641px) and (min-width:961px) and (min-width:1025px) and (min-width:1281px) {
+
+
+}
+
+.rights{
+  font: 16px 'Roboto', sans-serif;
+}
+.inline-data a {
+  color: #1b1b1b;
+}
+
+@media (min-width:981px){
+  .inline-data{
+    display: none;
+  }
+
+}
+
+@media (max-width:768px){
+  .inline-data a {
+    color: #222b45 !important;
+  }
+//   .inline-data li {
+//     text-align: center;
+//     display: inline-block;
+//     margin-right: 10px;
+//     width: 44px;
+//     height: 45px;
+// }
+  /* smartphones, iPhone, portrait 480x320 phones */
+  #ig_footer {
+    position: fixed;
+    width: 100%;
+    left:0;
+    z-index: 999999;
+    bottom: 0;
+    background-color: #FFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  #ig_footer ul li {
+    float: left;
+    width: 20%;
+    display: flex;
+    list-style: none;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  #ig_footer ul li i.fa-heart-o {
+    text-shadow: 1px 0 0 #000;
+  }
+
+  #ig_footer ul li img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-top: -4px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35),
+      inset 0 0 5px rgba(0, 0, 0, 0.9);
+  }
+}

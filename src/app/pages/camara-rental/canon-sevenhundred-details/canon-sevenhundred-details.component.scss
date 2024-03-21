@@ -1,0 +1,70 @@
+.component-content-color{
+  background-color: #f5f7fa !important;
+}
+
+span .price-left{
+font-weight: bold;
+}
+
+.dp-hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.component-content-color{
+  background-color: #f5f7fa !important;
+}
+.component-content-pro{
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+.list-form{
+  display: flex;
+  padding-left: 0px;
+}
+.sticky {
+  position: sticky !important;
+  top: 100px;
+}
+ngx-select span.ng-star-inserted {
+  color: #3366ff;
+}
+ngx-select span.ng-star-inserted {
+  color: #3366ff;
+}
+
+.row{
+  padding-left: 15px !important;
+  padding-right:15px !important;
+}
+
+#content {
+  overflow: hidden;
+  height: 4em;
+}
+
+#content2 {
+  overflow: hidden;
+  height: 4em;
+}

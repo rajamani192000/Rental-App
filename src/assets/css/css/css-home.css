@@ -1,0 +1,112 @@
+.listar-businesstype {
+    width: 50%;
+    float: left;
+    padding: 40px 60px;
+}
+
+.listar-business {
+    /*    padding-left: 2%;
+*/
+    background: #ffffff;
+}
+
+/*.listar-user{padding-right: 10%;}
+*/
+
+.listar-businesstype .listar-sectionhead {
+    text-align: left;
+}
+
+.listar-businesstype .listar-sectionhead .listar-sectiontitle {
+    background-position: bottom left;
+}
+
+/*.listar-businesstype .listar-sectionhead .listar-sectiontitle h2{line-height: 34px;}
+*/
+
+.listar-user .listar-sectionhead .listar-sectiontitle {
+    background: url(/assets/images/pattern-02.png) no-repeat bottom left;
+}
+
+.listar-user {
+    color: #fff;
+}
+
+.listar-user .listar-sectionhead .listar-sectiontitle h2 {
+    color: #fff;
+}
+
+.listar-businesstype ul {
+    width: 100%;
+    float: left;
+    list-style: none;
+}
+
+.listar-businesstype ul li {
+    width: 100%;
+    color: #151515;
+    background: #0000;
+    font-weight: 600;
+    padding: 11px 0px;
+    border-bottom: 1px solid #e5e5e5;
+    float: left;
+    position: relative;
+    list-style-type: none;
+}
+
+.listar-businesstype ul li+li {
+    margin-top: 0px;
+}
+
+.listar-businesstype ul li i {
+    margin-right: 7px;
+    color: #0094e8;
+}
+
+.listar-user ul li {
+    border-bottom: 1px solid #1a1a1d;
+}
+
+.listar-user {
+    background: url(/assets/images/home/bg-banner.png);
+    background-size: cover;
+}
+
+.listar-user h3 {
+    color: #fff !important
+}
+
+.listar-user ul li {
+    letter-spacing: 1px;
+    color: #ffffff !important;
+    font-weight: 500
+}
+
+.listar-user a.btn.btn-main-3 {
+    border: 1px solid #196ed3;
+    margin: 20px 0px 0px;
+    background: #196ed300;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.listar-user a.btn.btn-main-3:hover {
+    border: 1px solid #196ed3;
+    background: #196ed3;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.listar-user ul li i {
+    color: #196ed3;
+    background: #0000;
+}
+
+@media (max-width:700px) {
+    .listar-businesstype {
+        width: 100%;
+        float: left;
+        padding: 32px;
+        clear: both;
+    }
+}

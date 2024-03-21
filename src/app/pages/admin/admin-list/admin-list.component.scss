@@ -1,0 +1,93 @@
+.header-component-left{
+  line-height: 2em;
+}
+/***box table height**/
+
+.tab-block-conetnts{
+  background-color: white;
+}
+
+/***box table height**/
+.date-border .form-control.date-picker-controls{
+  width: 100% !important;
+}
+  .search-block-wrap {
+      padding: 15px 8px;
+}
+
+.block-heading{
+  border-left: 3px solid #3366ff;
+  padding-left: 4px;
+  line-height: 18px;
+  font-size: 16px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.height-area{
+  height: 33px !important;
+}
+
+.calenderimg{
+  top: 32px !important;
+}
+
+.pad-hieght{
+  padding: 15px 8px !important;
+}
+
+@media (max-width: 768px) {
+  table {
+    border: none;
+  }
+  table,
+  tr,
+  td {
+    display: block;
+    width: 100%;
+  }
+  td{
+    border: none !important;
+    padding: 10px 15px !important;
+  }
+  tr{
+    border: 1px solid grey;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+  }
+  thead,
+  th {
+    display: none;
+  }
+  tbody,
+  tfoot {
+
+    display: flex;
+    flex-direction: column;
+  }
+  td:nth-child(1)::before { content: "Date	: "; font-weight: bold; margin-right: 20px; }
+  td:nth-child(2)::before { content: "Supplier: "; font-weight: bold; margin-right: 20px;}
+  td:nth-child(3)::before { content: "Amount: "; font-weight: bold;margin-right: 20px; }
+  td:nth-child(4)::before { content: "Reason: "; font-weight: bold; margin-right: 20px;}
+  td:nth-child(5)::before { content: "No.: "; font-weight: bold;margin-right: 20px; }
+  td:nth-child(6)::before { content: "Comments: "; font-weight: bold;margin-right: 20px; }
+  td:nth-child(7)::before { content: "Action: "; font-weight: bold;margin-right: 20px; }
+/*-----Action Page icon-design for mobile-------*/
+  .act-cls {
+  display: flex !important;
+  gap: 20px;
+  }
+  td.status.not-active span,td.status.active span  {
+  width: 20% !important;
+  }
+  .date-border .form-control.date-picker-controls{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .date-border .calenderimg{
+    right: 16px;
+  }
+}
+
+table thead th:nth-child(3),table td:nth-child(3){
+  padding-right: 3%!important;
+}

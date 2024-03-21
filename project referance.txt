@@ -1,0 +1,216 @@
+brandlist=[
+      {
+      "brand": "Canon",
+        "types": [
+          {
+            "type": "DSLR",
+            "models": [
+              "Canon EOS 5D Mark IV",
+              "Canon EOS 200D Mark II",
+              "Canon EOS 700D"
+            ]
+          },
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Canon EOS R5",
+              "Canon EOS RP",
+              "Canon EOS M50 Mark II"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Nikon",
+        "types": [
+          {
+            "type": "DSLR",
+            "models": [
+              "Nikon D850",
+              "Nikon D3500"
+            ]
+          },
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Nikon Z7",
+              "Nikon Z50"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Sony",
+        "types": [
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Sony Alpha a7 III",
+              "Sony Alpha a6400"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Fujifilm",
+        "types": [
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Fujifilm X-T4",
+              "Fujifilm X-T30"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Panasonic",
+        "types": [
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Panasonic Lumix GH5",
+              "Panasonic Lumix G95"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Olympus",
+        "types": [
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Olympus OM-D E-M1 Mark III",
+              "Olympus OM-D E-M10 Mark IV"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Leica",
+        "types": [
+          {
+            "type": "Mirrorless",
+            "models": [
+              "Leica SL2"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "GoPro",
+        "types": [
+          {
+            "type": "Action Camera",
+            "models": [
+              "GoPro HERO10 Black",
+              "GoPro HERO9 Black"
+            ]
+          },
+          {
+            "type": "360 Camera",
+            "models": [
+              "GoPro MAX"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "DJI",
+        "types": [
+          {
+            "type": "Drone Camera",
+            "models": [
+              "DJI Mavic Air 2",
+              "DJI Mini 2",
+              "DJI Phantom 4 Pro V2.0",
+              "DJI Inspire 2"
+            ]
+          },
+          {
+            "type": "Gimbal",
+            "models": []
+          },
+          {
+            "type": "Tripod",
+            "models": []
+          }
+        ]
+    },
+    {
+      "brand": "Digitek",
+        "types": [
+          {
+            "type": "Tripod",
+            "models": [
+              "DTR 550 LW"
+            ]
+          }
+        ]
+    }
+    ]
