@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { Observable, Subject, from, throwError } from "rxjs";
+import { Observable, Subject, from, of, throwError } from "rxjs";
 import { catchError, finalize, map, switchMap, take, takeUntil } from "rxjs/operators";
 import { Location } from "@angular/common";
 import { environment } from "../../../../environments/environment";
@@ -27,7 +27,7 @@ export class ProductManageComponent implements OnInit {
   data: any = [];
   term: string;
   p: number = 1;
-  id: number;
+  id: string;
   availabilityList: any = ["In Stock", "Out of Stock"];
   typeList: Array<any> = [];
   brandList: Array<any> = [];
@@ -53,7 +53,7 @@ export class ProductManageComponent implements OnInit {
   selectedFileUrl: string | ArrayBuffer;
   popupAalert: boolean;
   popupMessage: string;
-  adminUserData: Array<any> = [];
+  productsData: Array<any> = [];
   logedInUser: any = {};
   productDetailsForm: FormGroup;
   typeListCopy: Array<any> = [];
@@ -63,9 +63,10 @@ export class ProductManageComponent implements OnInit {
   isdetailsSubmitted: boolean = false;
   addedModelDetails: Array<any> = [];
   popupMessageFailed: any;
-  popupAalertFailed: boolean;
+  popupAalertFailed: boolean=false;
   indexPosition: any;
-
+  imageError: boolean=false;
+  confirmDelete: boolean=false;
   constructor(
     private fb: FormBuilder,
     public location: Location,
@@ -85,7 +86,8 @@ export class ProductManageComponent implements OnInit {
       availability: [null, [Validators.required]],
       type: [null, [Validators.required]],
       brand: [null, [Validators.required]],
-      imageurl: [null, [Validators.required]]
+      imageurl: [null],
+      createdDate: [null],
     });
 
     this.productDetailsForm = this.fb.group({
@@ -103,7 +105,7 @@ export class ProductManageComponent implements OnInit {
   ngOnInit(): void {
     this.isAddComponnet = false;
     this.isEditComponnet = false;
-    this.getAdminUser();
+    this.getProducts();
     this.requiredDetails();
     // Retrieve the data from localStorage
     const storedData = localStorage.getItem('currentUser');
@@ -132,13 +134,19 @@ export class ProductManageComponent implements OnInit {
     return productDetails;
   }
 
-  getProducts(){
-   let a= {"discAmt": [
-      {"name": "fourdayAmtDisc","price": this.productDetailsForm.value.fourdayAmtDisc},
-      {"name": "seveendayAmtDisc","price": this.productDetailsForm.value.seveendayAmtDisc},
-      {"name": "seveenDaysMoreDisc","price": this.productDetailsForm.value.seveenDaysMoreDisc},
-    ]
-  }
+  getProducts() {
+    // let a = {
+    //   "discAmt": [
+    //     { "name": "fourdayAmtDisc", "price": this.productDetailsForm.value.fourdayAmtDisc },
+    //     { "name": "seveendayAmtDisc", "price": this.productDetailsForm.value.seveendayAmtDisc },
+    //     { "name": "seveenDaysMoreDisc", "price": this.productDetailsForm.value.seveenDaysMoreDisc },
+    //   ]
+    // }
+
+    this.commonSrvc.list("products") .subscribe((productsData: any[]) => {
+      this.productsData = productsData;
+    });
+
   }
   addProduct() {
     this.isdetailsSubmitted = true;
@@ -164,9 +172,9 @@ export class ProductManageComponent implements OnInit {
       totalQty: data.totalQty,
       availableQty: data.availableQty,
       modelAmt: data.modelAmt,
-      fourdayAmtDisc: data.fourdayAmtDisc,
-      seveendayAmtDisc: data.seveendayAmtDisc,
-      seveenDaysMoreDisc: data.seveenDaysMoreDisc
+      fourdayAmtDisc: data.discAmt.fourdayAmtDisc,
+      seveendayAmtDisc: data.discAmt.seveendayAmtDisc,
+      seveenDaysMoreDisc: data.discAmt.seveenDaysMoreDisc
     });
   }
   updateProduct() {
@@ -245,34 +253,29 @@ export class ProductManageComponent implements OnInit {
   }
 
 
-  getAdminUser() {
-    this.firestore
-      .collection('Admin')
-      .valueChanges()
-      .subscribe((adminUserData: any[]) => {
-        this.adminUserData = adminUserData;
-        // localStorage.setItem('products', JSON.stringify(this.products));
-        // this.originalArray = products;
-      });
-  }
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
+      this.imageError = false;
       this.productForm.patchValue({ image: file });
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.selectedFileUrl = reader.result;
-        this.productForm.controls['imageUrl'].setValue(this.selectedFileUrl);
       };
+    } else {
+      this.imageError = true;
     }
   }
 
   onSave() {
-    this.getProductUidandSave().subscribe(status => {
+    this.getProductUidandSave("save").subscribe(status => {
       if (status == "saved") {
+        this.selectedFile = null;
+        this.selectedFileUrl = null;
+        this.isBtnSubmitted =false;
+        this.goback();
         this.showConfirmationMessage('product Saved Successfully');
       } else if (status == "failed") {
         this.showConfirmationMessage('Product Saved Failed');
@@ -287,19 +290,15 @@ export class ProductManageComponent implements OnInit {
       switchMap(available => {
         if (available) {
           this.isSubmitted = true;
-          this.isBtnSubmitted = true;
           if (this.productForm.valid) {
             const formData = this.productForm.value;
             const productId = formData.email;
-            let imageFile;
-            this.adminSrvc.uploadImageGetUrl(this.productForm.value.productName, this.selectedFile).subscribe(
-              imageUrl => {
+            return this.adminSrvc.uploadImageGetUrl(this.productForm.value.productName, this.selectedFile).pipe(
+              switchMap(imageUrl => {
                 if (!imageUrl) {
-                  return;
+                  return of("failed"); // Return failed if image upload fails
                 }
-
-
-                let data = {
+                const data = {
                   "modelDet": this.addedModelDetails,
                   "productName": this.productForm.value.productName,
                   "id": uid,
@@ -308,29 +307,31 @@ export class ProductManageComponent implements OnInit {
                   "specs": this.productForm.value.specs,
                   "type": this.productForm.value.type,
                   "brand": this.productForm.value.brand,
+                  "productAmt": this.productForm.value.productAmt,
                   "imageurl": imageUrl,
                   "tenantId": this.logedInUser.tenantId,
-                  "availability": this.productForm.value.availability,
+                  "availability": this.productForm.value.availability == "In Stock" ? true : false,
                   "createdBy": this.logedInUser.username,
                   "createdDate": new Date()
-                }
-
+                };
                 // Use async/await for readability and error handling
                 return from(this.commonSrvc.createwithUid("products", uid, data)).pipe(
                   map(() => {
-                    return "saved"; // Return undefined if saved successfully
+                    return "saved"; // Return saved if successful
                   }),
                   catchError(() => {
-                    return "faild"; // Return Observable with undefined if save fails
+                    return of("failed"); // Return failed if save fails
                   })
                 );
-              },
-              error => {
+              }),
+              catchError(error => {
                 this.showConfirmationMessage('Error uploading image');
-              }
+                return of("failed"); // Return failed if image upload fails
+              })
             );
           } else {
             this.isBtnSubmitted = false;
+            return of("failed"); // Return failed if form is invalid
           }
         } else {
           // Retry generating a new UID recursively until it's unique
@@ -340,78 +341,7 @@ export class ProductManageComponent implements OnInit {
     );
   }
 
-  // onSave() {
-  //   this.isSubmitted = true;
-  //   this.isBtnSubmitted = true;
-  //   if (this.productForm.valid) {
-  //     const formData = this.productForm.value;
-  //     const productId = formData.email;
-  //     let imageFile;
-  //     this.adminSrvc.uploadImageGetUrl(formData.username, this.selectedFile).subscribe(
-  //       imageUrl => {
-  //         imageFile = imageUrl;
 
-  //         if (!imageFile || !productId) {
-  //           return;
-  //         }
-  //         this.adminSrvc.signUpWithEmailAndPassword(formData.email, formData.password)
-  //           .then((userCredential) => {
-  //             let data = {
-  //               "uid": userCredential.user.uid,
-  //               "username": formData.username,
-  //               "email": formData.email,
-  //               "password": formData.password,
-  //               "role": "Admin",
-  //               "mobile": formData.mobile,
-  //               "last_login_timestamp": new Date(),
-  //               "tenantId": this.logedInUser.tenantId,
-  //               "createdby": this.logedInUser.username,
-  //               "status": formData.status == "Activated" ? true : false,
-  //               "imageUrl": imageFile,
-  //               "createdDate": new Date(),
-  //             }
-
-  //             let b = {
-  //               "CameraID": "unique_identifier",
-  //               "productName": "Camera Name",
-  //               "Description": "Description",
-  //               "Brand": "Brand",
-  //               "Model": "Model",
-  //               "Type": "Type",
-  //               "RentalAmtPerDay": "Rental Amt per Day",
-  //               "AvailabilityStatus": "Availability Status",
-  //               "ImageURL": "Image URL",
-  //               "Tenant": "Tenant",
-  //               "CreatedBy": "Createdby",
-  //               "CreatedDate": "createddate"
-  //             }
-
-  //             this.adminSrvc.addUserToAdminCollection('Admin', userCredential.user.uid, data)
-  //               .then(() => {
-  //                 this.selectedFile = null;
-  //                 this.selectedFileUrl = null;
-  //                 this.goback();
-  //                 this.showConfirmationMessage('User Added successfully');
-  //               })
-  //               .catch((error) => {
-  //                 this.showConfirmationMessage('User Added Failed');
-  //               });
-  //             this.productForm.reset();
-  //             // You can perform further actions here, such as redirecting the user to a different page
-  //           })
-  //           .catch((error) => {
-  //             // Handle errors
-  //             console.log('Error signing up with email and password:', error);
-  //           });
-  //       },
-  //       error => {
-  //         console.error('Error uploading image:', error);
-  //       }
-  //     );
-  //   } else {
-  //     this.isBtnSubmitted = false;
-  //   }
-  // }
 
 
   signUpGoogle() {
@@ -469,60 +399,157 @@ export class ProductManageComponent implements OnInit {
     }, 3000); // Clear message after 3 seconds
   }
   callAdd() {
+    this.selectedFileUrl=null;
+    this.addedModelDetails=[];
     this.isAddComponnet = true;
     this.isProductAddComponent = true;
     this.isEditComponnet = false;
     this.productForm.reset();
     this.productDetailsForm.reset();
   }
+  calldelete(id){
+    this.commonSrvc.delete("products",id)
+      .then(() => {
+        this.showConfirmationMessage('Successfully Product Deleted');
+      this.confirmDelete=false;
+      })
+      .catch((error) => {
+        this.showConfirmationMessage('Failed to Delete Product');
+      });
+  }
 
   callEdit(data): void {
     this.id = data.id;
+    this.addedModelDetails=[];
+    data.modelDet.forEach(e => {
+      this.productDetailsForm.setValue({
+        modelName: e.modelName,
+        totalQty: e.totalQty,
+        availableQty: e.availableQty,
+        modelAmt: e.modelAmt,
+        fourdayAmtDisc: e.discAmt.fourdayAmtDisc,
+        seveendayAmtDisc: e.discAmt.seveendayAmtDisc,
+        seveenDaysMoreDisc: e.discAmt.seveenDaysMoreDisc
+      });
+      let modelData = this.setMedicineDetails();
+      this.addedModelDetails.push(modelData);
+      this.productDetailsForm.reset();
+    });
+
+
+    this.selectedFileUrl = data.imageurl;
+    this.productForm.setValue({
+      productName: data.productName,
+      description: data.description,
+      displayAmt: data.displayAmt,
+      productAmt: data.productAmt,
+      specs: data.specs,
+      availability: data.availability == true ? "In Stock" :"Out of Stock",
+      type: data.type,
+      brand: data.brand,
+      imageurl: data.imageurl,
+      createdDate: data.createdDate
+    });
+
     this.isEditComponnet = true;
     this.isAddComponnet = false;
-    this.productForm.controls["name"].setValue(data.name);
-    this.productForm.controls["category"].setValue(data.categoryId);
+    this.isProductAddComponent = true;
   }
+
 
   onEdit() {
     this.isSubmitted = true;
     this.isBtnSubmitted = true;
+    this.getProductUidandUpdate().subscribe(status => {
+      if (status == "updated") {
+        this.selectedFile = null;
+        this.selectedFileUrl = null;
+        this.isBtnSubmitted =false;
+        this.goback();
+        this.showConfirmationMessage('product Updated Successfully');
+      } else if (status == "failed") {
+        this.showConfirmationMessage('Product Update Failed');
+      }
+    });
+  }
+
+  getProductUidandUpdate() {
+
+    this.isSubmitted = true;
+    this.isBtnSubmitted=true;
     if (this.productForm.valid) {
-      let postData = {
-        CategoryId: this.productForm.get("category").value,
-        Name: this.productForm.get("name").value,
-        TenantId: this.tenantId,
-      };
-      // this.crmSrvc
-      //   .update(
-      //     `${this.apiUrl}/advertisementSubCategoryCRM/advertisementSubCategoryUpdate/${this.id}`,
-      //     postData
-      //   )
-      //   .pipe(takeUntil(this.unsubscribe$))
-      //   .subscribe(
-      //     (datam: any) => {
-      //       this.data = datam;
-      //     },
-      //     (error) => {
-      //       this.isSubmitted = false;
-      //       this.isBtnSubmitted = false;
-      //     },
-      //     () => {
-      //       this.isSubmitted = false;
-      //       this.isEditComponnet = false;
-      //       this.isBtnSubmitted = false;
-      //       this.Savemsg = false;
-      //       this.isUpdateConfirmationMessage = true;
-      //       setTimeout(() => {
-      //         this.isUpdateConfirmationMessage = false;
-      //       }, 4000);
-      //       this.productForm.reset();
-      //     }
-      //   );
+
+      if (this.selectedFile == undefined) {
+        const data = {
+          "modelDet": this.addedModelDetails,
+          "productName": this.productForm.value.productName,
+          "id": this.id,
+          "description": this.productForm.value.description,
+          "displayAmt": this.productForm.value.displayAmt,
+          "specs": this.productForm.value.specs,
+          "type": this.productForm.value.type,
+          "brand": this.productForm.value.brand,
+          "productAmt": this.productForm.value.productAmt,
+          "imageurl": this.selectedFileUrl,
+          "tenantId": this.logedInUser.tenantId,
+          "availability": this.productForm.value.availability == "In Stock" ? true : false,
+          "createdBy": this.logedInUser.username,
+          "createdDate": this.productForm.value.createdDate,
+          "updatedDate": new Date()
+        };
+        return from(this.commonSrvc.update("products", this.id, data)).pipe(
+          map(() => {
+            return "updated"; // Return saved if successful
+          }),
+          catchError(() => {
+            return of("failed"); // Return failed if save fails
+          })
+        );
+      } else {
+        return this.adminSrvc.uploadImageGetUrl(this.productForm.value.productName, this.selectedFile).pipe(
+          switchMap(imageUrl => {
+            if (!imageUrl) {
+              return of("failed"); // Return failed if image upload fails
+            }
+            const data = {
+              "modelDet": this.addedModelDetails,
+              "productName": this.productForm.value.productName,
+              "id": this.id,
+              "description": this.productForm.value.description,
+              "displayAmt": this.productForm.value.displayAmt,
+              "specs": this.productForm.value.specs,
+              "type": this.productForm.value.type,
+              "brand": this.productForm.value.brand,
+              "productAmt": this.productForm.value.productAmt,
+              "imageurl": imageUrl,
+              "tenantId": this.logedInUser.tenantId,
+              "availability": this.productForm.value.availability == "In Stock" ? true : false,
+              "createdBy": this.logedInUser.username,
+              "createdDate": this.productForm.value.createdDate,
+              "updatedDate": new Date()
+            };
+            // Use async/await for readability and error handling
+            return from(this.commonSrvc.update("products", this.id, data)).pipe(
+              map(() => {
+                return "updated"; // Return saved if successful
+              }),
+              catchError(() => {
+                return of("failed"); // Return failed if save fails
+              })
+            );
+          }),
+          catchError(error => {
+            this.showConfirmationMessage('Error uploading image');
+            return of("failed"); // Return failed if image upload fails
+          })
+        );
+      }
+
     } else {
       this.isBtnSubmitted = false;
-      return;
+      return of("failed"); // Return failed if form is invalid
     }
+
   }
 
   onClear() {
@@ -539,6 +566,7 @@ export class ProductManageComponent implements OnInit {
     this.isSubmitted = false;
     this.isBtnSubmitted = false;
     this.productForm.reset();
+    this.productDetailsForm.reset();
   }
 
   get fval(): { [key: string]: AbstractControl } {

@@ -7,7 +7,7 @@
       <span> Back </span>
     </div>
     <div class="header-component-right">
-      <a role="button" (click)="callAdd()" class="btn btn-blue"> Add Admin User </a>
+      <a role="button" (click)="callAdd()" class="btn btn-blue"> Add Product </a>
 
 
     </div>
@@ -32,38 +32,41 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th> Username </th>
-                  <th> Email </th>
-                  <th> password </th>
-                  <th> Last Login</th>
-                  <th> Mobile </th>
-                  <th> Status </th>
-                  <th> Profile </th>
+                  <th>Brand </th>
+                  <th> Type </th>
+                  <th> Product Name </th>
+                  <th> Display Amt</th>
+                  <th> Availability </th>
+                  <th> Product Image </th>
                   <th class="text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngIf="adminUserData?.length > 0 ">
+                <ng-container *ngIf="productsData?.length > 0 ">
                   <tr
-                    *ngFor="let x of adminUserData | filter:term | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
-                    <td>{{x.username}}</td>
-                    <td>{{x.email}}</td>
-                    <td>{{x.password}}</td>
-                    <td>{{x.last_login_timestamp | date}}</td>
-                    <td>{{x.mobile}}</td>
-                    <td>{{x.status == true ? "Activated" : "Deactivated"}}</td>
-                    <td><img style="max-width: 13% !important;" src="{{x.imageUrl}}" alt="image" /></td>
+                    *ngFor="let x of productsData | filter:term | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                    <td>{{x.brand}}</td>
+                    <td>{{x.type}}</td>
+                    <td>{{x.productName}}</td>
+                    <td>{{x.displayAmt}}</td>
+                    <td>{{x.availability == true ? "In Stock" : "Out Of Stock" }}</td>
+                    <td><img style="max-width: 13% !important;" src="{{x.imageurl}}" alt="image" /></td>
                     <td class="action-table text-center">
                       <ul>
                         <li>
                           <a role="button" (click)="callEdit(x)" data-toggle="tooltip" title="Edit"> <img
                               src="../.././../../assets/images/edit.png" alt="image" /> </a>
                         </li>
+                        <li>
+                          <a role="button" data-toggle="tooltip" title="Delete" (click)="id=x.id;confirmDelete=true;">
+                            <img src="../.././../../assets/images/delete.png" alt="image" />
+                          </a>
+                        </li>
                       </ul>
                     </td>
                   </tr>
                 </ng-container>
-                <ng-container *ngIf="adminUserData?.length == 0 ">
+                <ng-container *ngIf="productsData?.length == 0 ">
                   <tr class="text-center no-data" *ngIf="data.message=='No records found' ">
                     <td colspan="8">{{"No records found"}} </td>
                   </tr>
@@ -144,8 +147,7 @@
                     <input type="text" class="form-control" formControlName="description" required>
                     <span class="floating-label">Description<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Description"
-                      [showRequired]="(fval?.description?.dirty || isSubmitted) && fval?.description?.errors?.required"
-                      >
+                      [showRequired]="(fval?.description?.dirty || isSubmitted) && fval?.description?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
@@ -197,10 +199,7 @@
                     <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image"
                       class="img-fluid mb-2" />
                     <span class="floating-label">Select Image</span>
-                    <ngx-validation-message label="Image"
-                      [showRequired]="(fval?.imageurl?.dirty || isSubmitted) && fval?.imageurl?.errors?.required"
-                      [showPattern]="fval?.imageurl?.errors?.mobile">
-                    </ngx-validation-message>
+                    <span *ngIf="imageError" class="red">Please Select Valid Image</span>
                   </div>
                 </div>
               </div>
@@ -282,13 +281,13 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-2 d-flex align-items-start pt-3 pb-3" >
+                <div class="col-md-2 d-flex align-items-start pt-3 pb-3">
                   <input type="button" *ngIf="isProductAddComponent" (click)="addProduct()" value="Add"
-                     class="btn btn-violet" [disabled]="isProductBtnSubmitted" />
-                   <input type="button" *ngIf="!isProductAddComponent" (click)="updateProduct()" value="Update"
-                     class="btn btn-violet" [disabled]="isProductBtnSubmitted" />
-                   <input type="button" value="Reset" (click)="resetDetails()" class="btn btn-reset" />
-                 </div>
+                    class="btn btn-violet" [disabled]="isProductBtnSubmitted" />
+                  <input type="button" *ngIf="!isProductAddComponent" (click)="updateProduct()" value="Update"
+                    class="btn btn-violet" [disabled]="isProductBtnSubmitted" />
+                  <input type="button" value="Reset" (click)="resetDetails()" class="btn btn-reset" />
+                </div>
               </div>
               <div class="block-heading">
                 Added Models
@@ -320,24 +319,20 @@
                       <td class="text-right">{{x?.discAmt?.seveenDaysMoreDisc}}</td>
                       <td class="text-center action-table">
                         <ul class="inner_button">
-                          <li [ngStyle]="{'display': isEditComponnet ? 'block'  : 'none' }">
+                          <!-- <li [ngStyle]="{'display': isEditComponnet ? 'block'  : 'none' }">
                             <a nbButton nbPopoverTrigger="hover" [nbPopover]="templateRef" nbPopoverPlacement="right">
                               <img src="../.././../../assets/images/eye.png"
                                 [ngStyle]="{'opacity':isProductBtnSubmitted==true?'0.5':'1'}" alt="image" />
                             </a>
-                          </li>
-                          <li
-                            [ngStyle]="{'display': (isEditComponnet && holdStatus) || isAddComponnet  ? 'block'  : 'none' }"
-                            [ngClass]="{'view-mode':editallow }">
+                          </li> -->
+                          <li [ngStyle]="{'display': isEditComponnet || isAddComponnet  ? 'block'  : 'none' }">
                             <a data-toggle="tooltip" title="Edit"
                               (click)="isProductBtnSubmitted==true?null:callmodelEdit(x,id);">
                               <img src="../.././../../assets/images/edit.png"
                                 [ngStyle]="{'opacity':isProductBtnSubmitted==true?'0.5':'1'}" alt="image" />
                             </a>
                           </li>
-                          <li
-                            [ngStyle]="{'display': (isEditComponnet && holdStatus) || isAddComponnet ? 'block'  : 'none' }"
-                            [ngClass]="{'view-mode':editallow }">
+                          <li [ngStyle]="{'display': isEditComponnet || isAddComponnet ? 'block'  : 'none' }">
                             <a data-toggle="tooltip" title="Delete"
                               (click)="isProductBtnSubmitted==true?null:callmodeldelete(id)">
                               <img src="../.././../../assets/images/delete.png" alt="image"
@@ -373,4 +368,32 @@
 </div>
 <div class="succesfull-info-popup" [ngClass]="{ 'open': popupAalertFailed }">
   <i class="far fa-thumbs-down"></i> <span>{{popupMessageFailed}} </span>
+</div>
+
+<div [ngStyle]="{'display': confirmDelete ? 'block'  : 'none' }" class="component-contents">
+  <div class="lightbox-model open dateVisible ">
+    <div class="lightbox-contents" style="width: 1000px !important;">
+      <div class="lightbox-header clearfix">
+        <div class="lightbox-title lightbox-title-bill">
+          <span class="popu-billamo">Delete Confirmation</span>
+        </div>
+        <div class="lightbox-close">
+          <i class="fa fa-times" aria-hidden="true" (click)="confirmDelete=false"></i>
+        </div>
+      </div>
+      <div class="lightbix-inner-contents">
+        <div class="tab-block-conetnts">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-controls">
+                <p>If You Want to Delete click Confirm!</p>
+                <input type="button" (click)="calldelete(id)" value="Confirm" class="btn btn-primary" />
+                <input type="button" (click)="confirmDelete=false" value="Cancel" class="btn btn-clear" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
