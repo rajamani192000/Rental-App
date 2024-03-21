@@ -301,18 +301,18 @@ export class ProductManageComponent implements OnInit {
 
                 let data = {
                   "modelDet": this.addedModelDetails,
-                  "productName": "Canon 200D Mark-II",
+                  "productName": this.productForm.value.productName,
                   "id": uid,
-                  "description": "Rent Canon 200D Mark-II for your better experience, Renting a Camera has never been so easy. We provide all kind of Professional Cameras on rent. Our wide range of rental products include Brands like Canon, Sony, Carl Zeiss, Compact Prime, Sigma, Samyang. Book now to rent a camera and make your project better without spending a lot.",
-                  "displayAmt": 600,
-                  "specs": "24.1 megapixel APS-C CMOS Sensor, Dual pixel CMOS AF, DIGIC 8, 3 975 selectable focus positions (Live View), Wifi Photo Video Transfer, 3-inch Rotatable Display, Eye Detection AF (One Shot & Servo AF – Live View)",
-                  "type": "DSLR",
-                  "brand": "Canon",
-                  "imageurl": "https://example.com/camera_image.jpg",
-                  "tenantId": "01",
-                  "availability": true,
-                  "createdBy": "Createdby",
-                  "createdDate": "createddate"
+                  "description": this.productForm.value.description,
+                  "displayAmt": this.productForm.value.displayAmt,
+                  "specs": this.productForm.value.specs,
+                  "type": this.productForm.value.type,
+                  "brand": this.productForm.value.brand,
+                  "imageurl": imageUrl,
+                  "tenantId": this.logedInUser.tenantId,
+                  "availability": this.productForm.value.availability,
+                  "createdBy": this.logedInUser.username,
+                  "createdDate": new Date()
                 }
 
                 // Use async/await for readability and error handling
