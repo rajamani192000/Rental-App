@@ -81,11 +81,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
 
-      this.localStorageSubscription = this.commonSrvc.getLoginDetailFromLocalStorage()
+     this.commonSrvc.getLoginDetailFromLocalStorage()
       .subscribe(data => {
         this.user = data;
       });
-
   }
 
 
@@ -123,7 +122,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.localStorageSubscription.unsubscribe();
     this.destroy$.next();
     this.destroy$.complete();
   }

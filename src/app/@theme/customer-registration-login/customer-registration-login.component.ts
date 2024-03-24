@@ -236,6 +236,11 @@ export class CustomerRegistrationLoginComponent implements OnInit {
           } else {
             this.getCurrentUser();
             this.showConfirmationMessage("Logged In Successfully")
+            setTimeout(() => {
+              this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
+                this.router.navigate(['/pages/rental/camHome']);
+              });
+            }, 4000);
           }
         })
         .catch((error: any) => {
@@ -255,6 +260,11 @@ export class CustomerRegistrationLoginComponent implements OnInit {
       } else {
         this.showConfirmationMessage("Logged In Successfully")
         this.getCurrentUser();
+        setTimeout(() => {
+          this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/pages/rental/camHome']);
+          });
+        }, 4000);
       }
     }).catch((error) => {
       this.showConfirmationMessage("Log In Failed");
@@ -271,9 +281,6 @@ export class CustomerRegistrationLoginComponent implements OnInit {
             this.logedInUser = data;
             const jsonData = JSON.stringify(this.logedInUser);
             localStorage.setItem('currentUser', jsonData);
-            this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
-              this.router.navigate(['/pages/rental/camHome']);
-            });
           }
         });
     } else {
