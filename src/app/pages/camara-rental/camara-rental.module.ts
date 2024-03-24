@@ -16,8 +16,11 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angular2-qrcode';
+import { CommonProductComponent } from './common-product/common-product.component';
+import { EnquiryFormComponent } from './enquiry-form/enquiry-form.component';
+
 @NgModule({
-  declarations: [CamaraRentalComponent, CamHomeComponent, ProductListComponent, CamaraDetailsComponent, LensListComponent, CanonSevenhundredDetailsComponent, CannonLongLensComponent],
+  declarations: [EnquiryFormComponent,CommonProductComponent,CamaraRentalComponent, CamHomeComponent, ProductListComponent, CamaraDetailsComponent, LensListComponent, CanonSevenhundredDetailsComponent, CannonLongLensComponent],
   imports: [
     ThemeModule,
     RouterModule,
@@ -31,6 +34,7 @@ import { QRCodeModule } from 'angular2-qrcode';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NbDatepickerModule
-  ]
+  ],
+  exports:[]
 })
 export class CamaraRentalModule { }

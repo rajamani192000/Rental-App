@@ -17,8 +17,8 @@
       <div class="row">
         <div class="col-md-3">
           <div class="form-group relative search-icons search-icons-notRequired">
+            <label>Eg: Product</label>
             <input type="text" class="form-control" [(ngModel)]="term" [valueChanges]="term" notRequired>
-            <span class="floating-label">Eg: Advertisement Sub-Category Name</span>
             <i class="fa fa-search"></i>
           </div>
         </div>
@@ -144,8 +144,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Description<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="description" required>
-                    <span class="floating-label">Description<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Description"
                       [showRequired]="(fval?.description?.dirty || isSubmitted) && fval?.description?.errors?.required">
                     </ngx-validation-message>
@@ -153,8 +153,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Display Amt<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="displayAmt" required>
-                    <span class="floating-label">Display Amt<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Display Amt"
                       [showRequired]="(fval?.displayAmt?.dirty || isSubmitted) && fval?.displayAmt?.errors?.required">
                     </ngx-validation-message>
@@ -162,8 +162,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Product Amt<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="productAmt" required>
-                    <span class="floating-label">Product Amt<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Product Amt"
                       [showRequired]="(fval?.productAmt?.dirty || isSubmitted) && fval?.productAmt?.errors?.required">
                     </ngx-validation-message>
@@ -171,10 +171,19 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Specification<span class="required-asterisk">*</span></label>
                     <textarea type="text" class="form-control" formControlName="specs" required></textarea>
-                    <span class="floating-label">Specification<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Specification"
                       [showRequired]="(fval?.specs?.dirty || isSubmitted) && fval?.specs?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Inclusions<span class="required-asterisk">*</span></label>
+                    <textarea type="text" class="form-control" formControlName="inclusions" required></textarea>
+                    <ngx-validation-message label="Inclusions"
+                      [showRequired]="(fval?.inclusions?.dirty || isSubmitted) && fval?.inclusions?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
@@ -194,12 +203,42 @@
 
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Select Image</label>
                     <input type="text" class="form-control" type="file" (change)="onFileSelected($event)"
                       accept="image/*">
                     <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image"
                       class="img-fluid mb-2" />
-                    <span class="floating-label">Select Image</span>
                     <span *ngIf="imageError" class="red">Please Select Valid Image</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Four Day Disc Amt<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control" formControlName="fourdayAmtDisc" required>
+                    <ngx-validation-message label="Four Day Amt"
+                      [showRequired]="(fval?.fourdayAmtDisc?.dirty || isSubmitted) && fval?.fourdayAmtDisc?.errors?.required"
+                      [showPattern]="fval?.fourdayAmtDisc?.errors?.fourdayAmtDisc">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Seveen Day Disc Amt<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control" formControlName="seveendayAmtDisc" required>
+                    <ngx-validation-message label="Seveen Day Amt"
+                      [showRequired]="(fval?.seveendayAmtDisc?.dirty || isSubmitted) && fval?.seveendayAmtDisc?.errors?.required"
+                      [showPattern]="fval?.seveendayAmtDisc?.errors?.seveendayAmtDisc">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Seveen Day ++ Disc Amt<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control" formControlName="seveenDaysMoreDisc" required>
+                    <ngx-validation-message label="Seveen Day Amt"
+                      [showRequired]="(fval?.seveenDaysMoreDisc?.dirty || isSubmitted) && fval?.seveenDaysMoreDisc?.errors?.required"
+                      [showPattern]="fval?.seveenDaysMoreDisc?.errors?.seveenDaysMoreDisc">
+                    </ngx-validation-message>
                   </div>
                 </div>
               </div>
@@ -215,70 +254,63 @@
                       [placeholder]="placeholder">
                     </ngx-select>
                     <ngx-validation-message label="type"
-                      [showRequired]="(fval?.modelName?.dirty || isSubmitted) && fval?.modelName?.errors?.required">
+                      [showRequired]="(dval?.modelName?.dirty || isSubmitted) && dval?.modelName?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Total Qty<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="totalQty" required>
-                    <span class="floating-label">Total Qty<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Total Qty"
-                      [showRequired]="(fval?.totalQty?.dirty || isSubmitted) && fval?.totalQty?.errors?.required">
+                      [showRequired]="(dval?.totalQty?.dirty || isSubmitted) && dval?.totalQty?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Available Qty<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="availableQty" required>
-                    <span class="floating-label">Available Qty<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="availableQty"
-                      [showRequired]="(fval?.availableQty?.dirty || isSubmitted) && fval?.availableQty?.errors?.required"
-                      [showPattern]="fval?.availableQty?.errors?.availableQty">
+                      [showRequired]="(dval?.availableQty?.dirty || isSubmitted) && dval?.availableQty?.errors?.required"
+                      [showPattern]="dval?.availableQty?.errors?.availableQty">
                     </ngx-validation-message>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Model Amt<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="modelAmt" required>
-                    <span class="floating-label">model Amt<span class="required-asterisk">*</span></span>
-                    <ngx-validation-message label="One Day Amt"
-                      [showRequired]="(fval?.modelAmt?.dirty || isSubmitted) && fval?.modelAmt?.errors?.required"
-                      [showPattern]="fval?.modelAmt?.errors?.modelAmt">
+                    <ngx-validation-message label="Model Amt"
+                      [showRequired]="(dval?.modelAmt?.dirty || isSubmitted) && dval?.modelAmt?.errors?.required"
+                      [showPattern]="dval?.modelAmt?.errors?.modelAmt">
                     </ngx-validation-message>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
-                    <input type="text" class="form-control" formControlName="fourdayAmtDisc" required>
-                    <span class="floating-label">Four Day Disc Amt<span class="required-asterisk">*</span></span>
-                    <ngx-validation-message label="Four Day Amt"
-                      [showRequired]="(fval?.fourdayAmtDisc?.dirty || isSubmitted) && fval?.fourdayAmtDisc?.errors?.required"
-                      [showPattern]="fval?.fourdayAmtDisc?.errors?.fourdayAmtDisc">
+                    <label >Advance Amt<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control" formControlName="advanceAmt" required>
+                    <ngx-validation-message label="Advance Amt"
+                      [showRequired]="(dval?.advanceAmt?.dirty || isSubmitted) && dval?.advanceAmt?.errors?.required"
+                      [showPattern]="dval?.advanceAmt?.errors?.modelAmt">
                     </ngx-validation-message>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
-                    <input type="text" class="form-control" formControlName="seveendayAmtDisc" required>
-                    <span class="floating-label">Seveen Day Disc Amt<span class="required-asterisk">*</span></span>
-                    <ngx-validation-message label="Seveen Day Amt"
-                      [showRequired]="(fval?.seveendayAmtDisc?.dirty || isSubmitted) && fval?.seveendayAmtDisc?.errors?.required"
-                      [showPattern]="fval?.seveendayAmtDisc?.errors?.seveendayAmtDisc">
+                    <label>Pickup Location<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="pickupLocation" [multiple]="true" [items]="locationData"
+                      optionValueField="talukName" optionTextField="talukName"  [allowClear]="allowClear"
+                      [placeholder]="placeholder">
+                    </ngx-select>
+                    <ngx-validation-message label="type"
+                      [showRequired]="(dval?.pickupLocation?.dirty || isSubmitted) && dval?.pickupLocation?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group relative">
-                    <input type="text" class="form-control" formControlName="seveenDaysMoreDisc" required>
-                    <span class="floating-label">Seveen Day ++ Disc Amt<span class="required-asterisk">*</span></span>
-                    <ngx-validation-message label="Seveen Day Amt"
-                      [showRequired]="(fval?.seveenDaysMoreDisc?.dirty || isSubmitted) && fval?.seveenDaysMoreDisc?.errors?.required"
-                      [showPattern]="fval?.seveenDaysMoreDisc?.errors?.seveenDaysMoreDisc">
-                    </ngx-validation-message>
-                  </div>
-                </div>
+
               </div>
               <div class="row">
                 <div class="col-md-2 d-flex align-items-start pt-3 pb-3">
@@ -301,9 +333,8 @@
                       <th class="text-left">Total Qty</th>
                       <th class="text-left">Available Qty</th>
                       <th class="text-right">model Amt</th>
-                      <th class="text-right">1 Day Amt</th>
-                      <th class="text-right">4 Day Amt</th>
-                      <th class="text-right">7 Day++ Amt</th>
+                      <th class="text-right">Advance Amt</th>
+                      <th class="text-right">Pickup</th>
                       <th class="text-center">Action</th>
                     </tr>
                   </thead>
@@ -314,9 +345,8 @@
                       <td class="text-left">{{x?.totalQty}}</td>
                       <td class="text-center">{{x?.availableQty}}</td>
                       <td class="text-right">{{x?.modelAmt}}</td>
-                      <td class="text-right">{{x?.discAmt?.fourdayAmtDisc}}</td>
-                      <td class="text-right">{{x?.discAmt?.seveendayAmtDisc}}</td>
-                      <td class="text-right">{{x?.discAmt?.seveenDaysMoreDisc}}</td>
+                      <td class="text-right">{{x?.advanceAmt}}</td>
+                      <td class="text-right">{{x?.pickupLocation.join(', ')}}</td>
                       <td class="text-center action-table">
                         <ul class="inner_button">
                           <!-- <li [ngStyle]="{'display': isEditComponnet ? 'block'  : 'none' }">

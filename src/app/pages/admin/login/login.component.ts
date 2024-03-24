@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
       email: [null, [Validators.required]],
       password: [null, Validators.required],
     });
-    this.getCurrentUser();
 
   }
 
@@ -91,17 +90,20 @@ export class LoginComponent implements OnInit {
 
   }
 
+
   getCurrentUser() {
-    try {
+    if (this.uid) {
       this.commonSrvc.getById('Admin', this.uid)
         .subscribe((data) => {
           if (data != null && data != undefined) {
             this.logedInUser = data;
-            this.commonSrvc.setLoginDetailtoLocalStorage(this.logedInUser);
+            const jsonData = JSON.stringify(this.logedInUser);
+            localStorage.setItem('currentUser', jsonData);
           }
         });
-    } catch (error) {
-      this.showConfirmationMessage("Error getting current user");
+    } else {
+      // Handle the case when this.uid is not defined
+      console.error("User ID is not defined");
     }
   }
 

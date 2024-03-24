@@ -3,12 +3,14 @@ import { AngularFirestore, DocumentReference, DocumentSnapshot } from '@angular/
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
+import { environment } from '../../../environments/environment';
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
   private userDataSubject: BehaviorSubject<any>;
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore,private http: HttpClient) {
     const storedData = localStorage.getItem('currentUser');
     const initialData = storedData ? JSON.parse(storedData) : null;
     this.userDataSubject = new BehaviorSubject<any>(initialData);
@@ -46,6 +48,9 @@ export class CommonService {
   createwithUid(collectionName: string, uid: string, data: any): Promise<void> {
     return this.firestore.collection(collectionName).doc(uid).set(data);
   }
+  sendEmail(emailData: { to: string, subject: string, text: string }): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/send-email`, emailData);
+  }
 
 
   // Delete a document
@@ -53,16 +58,19 @@ export class CommonService {
     return this.firestore.collection(collectionName).doc(documentId).delete();
   }
 
-  setLoginDetailtoLocalStorage(data: any) {
-    const jsonData = JSON.stringify(data);
-    localStorage.setItem('currentUser', jsonData);
-    this.userDataSubject.next(data);
+  createOrder(amount: number): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/create-order`, {amount});
   }
 
   getLoginDetailFromLocalStorage(): Observable<any> {
-    return this.userDataSubject.asObservable();
+    const localStorageArray = localStorage.getItem('currentUser');
+    if (localStorageArray) {
+      const data = JSON.parse(localStorageArray);
+      return of(data); // Wrapping the data in `of` to create an Observable
+    } else {
+      return of(null); // Return an Observable with null if no data found
+    }
   }
-
   isUIDAvailable(uid: string,collectionName:string): Observable<boolean> {
     return this.firestore.collection(collectionName).doc(uid).valueChanges()
       .pipe(

@@ -17,8 +17,8 @@
       <div class="row">
         <div class="col-md-3">
           <div class="form-group relative search-icons search-icons-notRequired">
+            <label>Eg: Admin Name</label>
             <input type="text" class="form-control" [(ngModel)]="term" [valueChanges]="term" notRequired>
-            <span class="floating-label">Eg: Advertisement Sub-Category Name</span>
             <i class="fa fa-search"></i>
           </div>
         </div>
@@ -52,8 +52,7 @@
                     <td>{{x.last_login_timestamp | date}}</td>
                     <td>{{x.mobile}}</td>
                     <td>{{x.status == true ? "Activated" : "Deactivated"}}</td>
-                    <td><img style="max-width: 13% !important;"
-                      src="{{x.imageUrl}}" alt="image" /></td>
+                    <td><img style="max-width: 13% !important;" src="{{x.imageUrl}}" alt="image" /></td>
                     <td class="action-table text-center">
                       <ul>
                         <li>
@@ -105,8 +104,8 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Username<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="username" required>
-                    <span class="floating-label">Username<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Username"
                       [showRequired]="(fval?.username?.dirty || isSubmitted) && fval?.username?.errors?.required">
                     </ngx-validation-message>
@@ -114,8 +113,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Email<span class="required-asterisk">*</span></label>
                     <input type="email" class="form-control" formControlName="email" required>
-                    <span class="floating-label">Email<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Email"
                       [showRequired]="(fval?.email?.dirty || isSubmitted) && fval?.email?.errors?.required"
                       [showPattern]="fval?.email?.errors?.email">
@@ -124,8 +123,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Password<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="password" required>
-                    <span class="floating-label">Password<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Password"
                       [showRequired]="(fval?.password?.dirty || isSubmitted) && fval?.password?.errors?.required">
                     </ngx-validation-message>
@@ -135,8 +134,8 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group relative">
+                    <label>Mobile No<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" formControlName="mobile" required>
-                    <span class="floating-label">Mobile No<span class="required-asterisk">*</span></span>
                     <ngx-validation-message label="Mobile"
                       [showRequired]="(fval?.mobile?.dirty || isSubmitted) && fval?.mobile?.errors?.required"
                       [showPattern]="fval?.mobile?.errors?.mobile">
@@ -145,21 +144,23 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
-                      <label> Select Status<span class="required-asterisk">*</span></label>
-                      <ngx-select class="form-control-select" formControlName="status" [items]="statusList" optionValueField="name" optionTextField="name" [multiple]="multiple" [allowClear]="allowClear" [placeholder]="placeholder">
-                      </ngx-select>
-                      <ngx-validation-message label="Status"
+                    <label> Select Status<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="status" [items]="statusList"
+                      optionValueField="name" optionTextField="name" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder">
+                    </ngx-select>
+                    <ngx-validation-message label="Status"
                       [showRequired]="(fval?.status?.dirty || isSubmitted) && fval?.name?.errors?.status">
-                      </ngx-validation-message>
+                    </ngx-validation-message>
                   </div>
-              </div>
+                </div>
                 <div class="col-md-4">
                   <div class="form-group relative">
-                    <input type="text" class="form-control" type="file"
-                    (change)="onFileSelected($event)"
-                    accept="image/*">
-                    <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image" class="img-fluid mb-2" />
-                    <span class="floating-label">Image URL</span>
+                    <label>Image URL</label>
+                    <input type="text" class="form-control" type="file" (change)="onFileSelected($event)"
+                      accept="image/*">
+                    <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image"
+                      class="img-fluid mb-2" />
                   </div>
                 </div>
               </div>

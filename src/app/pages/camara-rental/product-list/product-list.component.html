@@ -15,73 +15,29 @@
         <div class="row">
           <div class=" col-md-9 padd-mobile">
             <div class="row product-list clearfix">
-              <div class=" col-md-4 col-xs-12">
+              <div class=" col-md-4 col-xs-12" *ngFor="let x of productsData">
                 <div class="product-list-style">
-                  <div class="product-list-style-img">
-                    <a [routerLink]="['/pages/rental/200d-single']">
-                      <img src="/assets/uploads/product/Canon_200D.png" title=" canon 200D M-II DSLR"
-                        alt=" canon 200D M-IIDSLR" class="responsive-image"></a>
+                  <div class="product-list-style-img" >
+                    <a  (click)="callProduct(x)">
+                      <img src="{{x.imageurl}}" title="{{x.productName}}"
+                        alt="{{x.productName}}" class="responsive-image"></a>
                   </div>
                   <div class="overlay">
-                    <a href="/assets/uploads/product/Canon_200D.png" class="zoom"></a>
-                    <a [routerLink]="['/pages/rental/200d-single']" class="link"></a>
+                    <a href="{{x.imageurl}}" class="zoom"></a>
+                    <a (click)="callProduct(x)" class="link"></a>
                   </div>
 
                   <div class="product-list-style-details">
-                    <a [routerLink]="['/pages/rental/200d-single']" class="link">
-                      <h4>Canon 200D M-II DSLR</h4> 
+                    <a (click)="callProduct(x)" class="link">
+                      <h4>{{x.productName}}</h4>
                     </a>
                     <!-- ASDD -->
                     <div id="drop_price_545" class="wrapper-dropdown-3 priceDrop" tabindex="1">
                       <ul class="dropdown">
                         <li id="itm_1" class="active"><a id="itm_href_1"><i class="product-detail">
-                          <button type="button" class=" btn btn-form" [routerLink]="['/pages/rental/200d-single']">Book</button>
-                        </i><span class="price-left pt-3"> Rs. 600 /
+                          <button type="button" class=" btn btn-form" (click)="callProduct(x)">Book</button>
+                        </i><span class="price-left pt-3"> Rs. {{x.displayAmt}} /
                               day</span> </a></li>
-                        <li id="itm_2"><a href="#" id="itm_href_2"><i class="product-detail">2-4 Days</i><span
-                              class="price-left"> Rs. 550 /
-                              day</span> </a></li>
-                        <li id="itm_3"><a href="#" id="itm_href_3"><i class="product-detail">5-7 Days</i><span
-                              class="price-left"> Rs. 500 /
-                              day</span> </a></li>
-                      </ul>
-                    </div>
-                    <!-- ASDF -->
-                  </div>
-                </div>
-              </div>
-              <div class=" col-md-4 col-xs-12">
-                <div class="product-list-style">
-                  <div class="product-list-style-img">
-                    <a [routerLink]="['/pages/rental/700d-single']"><img src="/assets/uploads/product/700d.png"
-                        title="Cannon 700D DSLR" alt="cannon 700D DSLR" class="responsive-image"></a>
-                  </div>
-                  <div class="overlay">
-                    <a href="/assets/uploads/product/700d.png" class="zoom"></a>
-                    <a [routerLink]="['/pages/rental/700d-single']" class="link"></a>
-                  </div>
-
-                  <div class="product-list-style-details">
-                    <a [routerLink]="['/pages/rental/700d-single']" class="link">
-                      <h4>Cannon 700D DSLR</h4>
-                    </a>
-
-                    <!-- <span>Starts @ Rs. 0</span> -->
-                    <!--<p>   </p>
-                                          -->
-                    <!-- ASDD -->
-                    <div id="drop_price_541" class="wrapper-dropdown-3 priceDrop" tabindex="1">
-                      <!--<span>Select 1 value</span> -->
-                      <ul class="dropdown">
-                        <li id="itm_1" class="active"><a  id="itm_href_1"><i class="product-detail">
-                          <button type="button" class=" btn btn-form" [routerLink]="['/pages/rental/700d-single']">Book</button>
-                        </i><span class="price-left pt-3"> Rs. 600 / day</span> </a></li>
-                        <li id="itm_2"><a href="#" id="itm_href_2"><i class="product-detail">2-4 Days</i><span
-                              class="price-left"> Rs. 550 / day</span> </a></li>
-                        <li id="itm_3"><a href="#" id="itm_href_3"><i class="product-detail">5-7 Days</i><span
-                              class="price-left"> Rs. 500 / day</span> </a></li>
-                        <li id="itm_4"><a href="#" id="itm_href_4"><i class="product-detail">8 Days ++</i><span
-                              class="price-left"> Rs. 450 / day</span> </a></li>
                       </ul>
                     </div>
                     <!-- ASDF -->

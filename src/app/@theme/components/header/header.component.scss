@@ -13,6 +13,7 @@
     width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
   }
 
+
   nb-action {
     height: auto;
     display: flex;
@@ -24,24 +25,27 @@
   }
 
   ::ng-deep nb-search button {
-    padding: 0!important;
+    padding: 0 !important;
   }
 
   .header-container {
     display: flex;
+    gap:28px;
     align-items: center;
     width: auto;
 
-    .header-title{
+    .header-title {
       font-family: auto;
       font-weight: bold;
       font-size: 2rem;
     }
+
     .sidebar-toggle {
       @include nb-ltr(padding-right, 1.25rem);
       @include nb-rtl(padding-left, 1.25rem);
       text-decoration: none;
       color: nb-theme(text-hint-color);
+
       nb-icon {
         font-size: 1.75rem;
       }
@@ -51,7 +55,8 @@
       width: 65% !important;
       padding: 0 1.25rem;
     }
-    .logowidth{
+
+    .logowidth {
       width: 10%;
     }
   }
@@ -62,6 +67,7 @@
     .control-item {
       display: none;
     }
+
     .user-action {
       border: none;
       padding: 0;
@@ -73,35 +79,31 @@
       display: none;
     }
   }
+
   @media (max-width: 768px) {
     .header-container {
-    display: flex !important;
-    align-items: center !important;
-    width: 47% !important;
-    justify-content: flex-end !important;
-  }
-
-  .logo img{
-    width: 73% !important;
-    padding: 0px;
-    white-space: nowrap;
-    text-decoration: none;
-      width: 75% !important;
-      margin: 0px !important;
+      display: flex !important;
+      align-items: center !important;
+      width: 47% !important;
+      justify-content: flex-end !important;
     }
 
-
-    .logo {
-      width: 50% !important;
-      padding: 0px !important;
-    }
-
-    .header-container .header-title{
+    .header-container .header-title {
       font-family: auto !important;
       font-weight: bold !important;
       font-size: 1rem !important;
     }
 
-}
+   [_nghost-mgl-c150] .user-picture.initials[_ngcontent-mgl-c150] {
+      display: none !important;
+    }
+
+  }
+
+  .btn-primary,
+  .btn-primary:hover {
+    background: #0d97eb;
+    border-color: #0c99ec;
+  }
 
 }

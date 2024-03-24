@@ -12,6 +12,7 @@ export const environment = {
   firebase: {
     apiKey: "AIzaSyD_c57WJWnG5-jXAt3-oOrEs6c8qXNmpIc",
     authDomain: "dindigulcamara.firebaseapp.com",
+    databaseURL: "https://dindigulcamara-default-rtdb.firebaseio.com",
     projectId: "dindigulcamara",
     storageBucket: "dindigulcamara.appspot.com",
     messagingSenderId: "888291225398",
@@ -19,4 +20,5 @@ export const environment = {
     measurementId: "G-7CEFJKTRWJ"
   },
   production: false,
+  apiUrl:"https://rajamani-server.netlify.app/.netlify/functions/api"
 };

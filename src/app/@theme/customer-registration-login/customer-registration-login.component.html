@@ -1,0 +1,184 @@
+<!-- Modal content-->
+
+<div class="product-main-content ">
+  <nb-tabset #tabSetRef fullWidth id="tabSetRef" class="ph-tabs" name="tabSetRef">
+    <nb-tab tabTitle="Login Now" #loginTab class="tab-content">
+      <div class="container">
+        <div class="row">
+          <div class="offset-md-2 col-lg-12 col-md-6 offset-lg-4 offset-md-3">
+            <div class="panel border bg-white">
+              <div class="panel-heading">
+                <h3 class="pt-3 font-weight-bold">Customer Login</h3>
+              </div>
+              <div class="panel-body p-3">
+                <div [formGroup]="loginForm">
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Email :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fa fa-user px-2" aria-hidden="true"></span> <input
+                        type="text" formControlName="email" placeholder="Enter Your Email" required> </div>
+                    <ngx-validation-message label="Email"
+                      [showRequired]="(fval?.email?.dirty || isSubmitted) && fval?.email?.errors?.required"
+                      [showPattern]="fval?.email?.errors?.email">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Password :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fas fa-lock px-2"></span> <input type="password"
+                        placeholder="Enter your Password" formControlName="password"
+                        type="{{ showPassword ? 'text' : 'password' }}" required>
+                      <span class="btn bg-white text-muted" (click)="showPassword = !showPassword">
+                        <span class="fa fa-eye-slash" *ngIf="!showPassword"></span>
+                        <span class="fa fa-eye" *ngIf="showPassword"></span>
+                      </span>
+                    </div>
+                    <ngx-validation-message label="Password"
+                      [showRequired]="(fval?.password?.dirty || isSubmitted) && fval?.password?.errors?.required"
+                      [showPattern]="fval?.password?.errors?.name">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="form-inline"> <a href="#" id="forgot" class="font-weight-bold">Forgot password?</a> </div>
+                  <div class="btn btn-primary btn-block mt-3 p-1" role="button" (click)="loginCus()">Login</div>
+                  <!-- <div class="text-center pt-4 text-muted">Don't have an account? <a href="#">Sign up</a> </div> -->
+                </div>
+              </div>
+              <div class="mx-3 my-2 py-2 bordert">
+                <div class="text-center py-3"><a role="button" (click)="googleLogin()" class="px-2"> <img
+                      src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+                      alt=""> </a></div> <br>
+                <div class="btn btn-primary btn-block mt-3 p-1" (click)="tabSetRef.selectTab(signupTab)" role="button">
+                  SignUp</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!--   -->
+
+    </nb-tab>
+    <nb-tab tabTitle="Sign Up" #signupTab class="tab-content">
+      <div class="container">
+        <div class="row">
+          <div class="offset-md-2 col-lg-12 col-md-6 offset-lg-4 offset-md-3">
+            <div class="panel border bg-white">
+              <div class="panel-heading">
+                <h3 class="pt-3 font-weight-bold">Customer Registration</h3>
+              </div>
+              <div class="panel-body p-3">
+                <div [formGroup]="registerForm">
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Name :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fa fa-user px-2" aria-hidden="true"></span> <input
+                        type="text" formControlName="name" placeholder="Enter Your Name" required> </div>
+                    <ngx-validation-message label="Name"
+                      [showRequired]="(fval?.name?.dirty || isSubmitted) && fval?.name?.errors?.required"
+                      [showPattern]="fval?.name?.errors?.name">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Email :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fa fa-envelope px-2" aria-hidden="true"></span> <input
+                        type="text" formControlName="email" placeholder="Enter Your Email" required> </div>
+                    <ngx-validation-message label="Email"
+                      [showRequired]="(fval?.email?.dirty || isSubmitted) && fval?.email?.errors?.required"
+                      [showPattern]="fval?.email?.errors?.email">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Phone :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fa fa-phone px-2" aria-hidden="true"></span> <input
+                        type="text" formControlName="phone" placeholder="Enter Your Phone" required> </div>
+                    <ngx-validation-message label="Phone"
+                      [showRequired]="(fval?.phone?.dirty || isSubmitted) && fval?.phone?.errors?.required"
+                      [showPattern]="fval?.phone?.errors?.phone">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Choose ID Proof: (Get Verified Customer)</b></label>
+                    <div class="input-field"> <span class="fa  fa-user px-2" aria-hidden="true"></span> <input
+                        type="text" type="file" (change)="onFileSelected($event)" accept="image/*">
+                    </div>
+                    <img style="height: 100px" [src]="this.selectedFileUrl" alt="Selected Image"
+                      class="img-fluid mb-2" />
+                  </div>
+
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Password :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fas fa-lock px-2"></span> <input type="password"
+                        placeholder="Enter your Password" formControlName="password" required>
+                    </div>
+                    <ngx-validation-message label="Password"
+                      [showRequired]="(fval?.password?.dirty || isSubmitted) && fval?.password?.errors?.required"
+                      [showPattern]="fval?.password?.errors?.password">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="form-group py-1 pb-2">
+                    <label><b>Confirm Password :<span class="required-asterisk">*</span></b></label>
+                    <div class="input-field"> <span class="fas fa-lock px-2"></span> <input type="password"
+                        placeholder="Enter your Password" formControlName="confirmPassword" required>
+                    </div>
+                    <span class="error-message"
+                      *ngIf="(fval?.password?.value!=fval?.confirmPassword?.value) && (fval?.password?.value != null &&fval?.confirmPassword?.value != null)">Password
+                      & Confirm Password Not Matched </span>
+                    <ngx-validation-message label="Confirm Password"
+                      [showRequired]="(fval?.confirmPassword?.dirty || isSubmitted) && fval?.confirmPassword?.errors?.required"
+                      [showPattern]="fval?.confirmPassword?.errors?.confirmPassword">
+                    </ngx-validation-message>
+                  </div>
+                  <div class="btn btn-primary btn-block mt-3 p-1" role="button" (click)="signUpCus()">Sign Up</div>
+                  <!-- <div class="text-center pt-4 text-muted">Don't have an account? <a href="#">Sign up</a> </div> -->
+                </div>
+              </div>
+              <div class="mx-3 my-2 py-2 bordert">
+                <div class="btn btn-primary btn-block mt-3 p-1" (click)="tabSetRef.selectTab(loginTab)" role="button">
+                  Login</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- <div class="login-here-form">
+
+
+        <form name="registerUser" class="registerUser" method="post">
+          <div class="form-group">
+            <label><b>Name :</b></label>
+            <input type="text" class="form-control" name="u_name" id="u_name" value="" placeholder="Enter Name">
+          </div>
+          <div class="form-group">
+            <label><b>Email :</b></label>
+            <input type="text" class="form-control" name="u_email" id="u_email" value="" placeholder="Enter Email">
+          </div>
+          <div class="form-group">
+            <label><b>Phone :</b></label>
+            <input type="text" class="form-control" name="u_phone" id="u_phone" value="" placeholder="Enter Phone">
+          </div>
+          <div class="form-group">
+            <label><b>Password :</b></label>
+            <input type="password" class="form-control" name="u_password" id="u_password" value=""
+              placeholder="Enter Password">
+          </div>
+          <div class="form-group">
+            <label><b>Confirm Password :</b></label>
+            <input type="password" class="form-control" name="conf_password" id="conf_password" value=""
+              placeholder="Confirm Password">
+          </div>
+
+          <div class="pull-right">
+            <input type="submit" class="listar-btn listar-btnblue" value="Register Now">
+          </div>
+        </form>
+      </div> -->
+    </nb-tab>
+  </nb-tabset>
+
+</div>
+
+<div class="succesfull-info-popup" [ngClass]="{ 'open': popupAlert }">
+  <i class="far fa-thumbs-up"></i> <span>{{popupMessage}} </span>
+</div>

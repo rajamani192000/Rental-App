@@ -12,9 +12,6 @@
     .modal-content{
       width: 100% !important;
       }
-      iframe {
-        width: 335px !important;
-    }
     .navbar {
         margin-top: 0px;
     }
@@ -35,9 +32,6 @@
   .modal-content{
     width: 100% !important;
     }
-    iframe {
-      width: 335px !important;
-  }
     .languages {
         position: absolute;
         top: 0px;
@@ -398,9 +392,6 @@
     .modal-content{
     width: 100% !important;
     }
-    iframe {
-      width: 335px !important;
-  }
     header nav>ul>li a {
         padding: 10px 7px;
     }
@@ -1838,9 +1829,6 @@ a.responsive-login-btn.btn {
 .modal-content{
   width: 100% !important;
   }
-  iframe {
-    width: 335px !important;
-}
     .listar-logo img {
         width: 108px !important;
     }
@@ -1860,9 +1848,6 @@ a.responsive-login-btn.btn {
     .modal-content{
       width: 100% !important;
       }
-      iframe {
-        width: 335px !important;
-    }
     .menuBtn {
         display: block;
     }
@@ -2544,9 +2529,6 @@ a.responsive-login-btn.btn {
     .modal-content{
       width: 100% !important;
       }
-      iframe {
-        width: 335px !important;
-    }
     .header-top form input[type='text'] {
         width: 83%;
         padding: 0px 10px 0px 10px;

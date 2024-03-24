@@ -214,3 +214,388 @@ brandlist=[
         ]
     }
     ]
+
+ var lenstlist=[
+      {
+        "brand": "Canon",
+        "model": "Canon EF 50mm f/1.8 STM Lens",
+        "type": "Prime",
+        "aperture": "f/1.8",
+        "focus_type": "Auto & Manual",
+        "price": "INR 8,999"
+      },
+      {
+        "brand": "Canon",
+        "model": "Canon EF-S 24mm f/2.8 STM Lens",
+        "type": "Prime",
+        "aperture": "f/2.8",
+        "focus_type": "Auto & Manual",
+        "price": "INR 10,999"
+      },
+      {
+        "brand": "Canon",
+        "model": "Canon EF 85mm f/1.8 USM Lens",
+        "type": "Prime",
+        "aperture": "f/1.8",
+        "focus_type": "Auto & Manual",
+        "price": "INR 28,999"
+      },
+      {
+        "brand": "Canon",
+        "model": "Canon EF 70-200mm f/2.8L IS III USM Lens",
+        "type": "Zoom",
+        "aperture": "f/2.8",
+        "focus_type": "Auto & Manual",
+        "price": "INR 1,75,999"
+      },
+      {
+        "brand": "Canon",
+        "model": "Canon EF 100mm f/2.8L Macro IS USM Lens",
+        "type": "Macro",
+        "aperture": "f/2.8",
+        "focus_type": "Auto & Manual",
+        "price": "INR 67,999"
+      },
+      {
+        "brand": "Canon",
+        "model": "Canon EF-S 18-55mm f/3.5-5.6 IS STM Lens",
+        "type": "Zoom",
+        "aperture": "f/3.5-5.6",
+        "focus_type": "Auto & Manual",
+        "price": "INR 12,499"
+      },
+      {
+        "brand": "Canon",
+        "model": "Canon EF-S 55-250mm f/4-5.6 IS STM Lens",
+        "type": "Zoom",
+        "aperture": "f/4-5.6",
+        "focus_type": "Auto & Manual",
+        "price": "INR 20,999"
+      },
+     {
+        "brand": "Nikon",
+        "model": "Nikon AF-S Nikkor 50mm f/1.8G Lens",
+        "type": "Prime",
+        "aperture": "f/1.8",
+        "focus_type": "Auto",
+        "price": "INR 14,999"
+      },
+      {
+        "brand": "Nikon",
+        "model": "Nikon AF-S DX Nikkor 35mm f/1.8G Lens",
+        "type": "Prime",
+        "aperture": "f/1.8",
+        "focus_type": "Auto",
+        "price": "INR 18,990"
+      },
+      {
+        "brand": "Nikon",
+        "model": "Nikon AF-S Nikkor 85mm f/1.8G Lens",
+        "type": "Prime",
+        "aperture": "f/1.8",
+        "focus_type": "Auto",
+        "price": "INR 36,999"
+      },
+      {
+        "brand": "Nikon",
+        "model": "Nikon AF-S Nikkor 70-200mm f/2.8E FL ED VR Lens",
+        "type": "Zoom",
+        "aperture": "f/2.8",
+        "focus_type": "Auto",
+        "price": "INR 1,89,950"
+      },
+      {
+        "brand": "Nikon",
+        "model": "Nikon AF-S VR Micro-Nikkor 105mm f/2.8G IF-ED Lens",
+        "type": "Macro",
+        "aperture": "f/2.8",
+        "focus_type": "Auto",
+        "price": "INR 67,450"
+      },
+     {
+          "brand": "Sony",
+          "model": "Sony FE 50mm f/1.8 Lens",
+          "type": "Prime",
+          "aperture": "f/1.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 22,990"
+        },
+        {
+          "brand": "Sony",
+          "model": "Sony FE 24-70mm f/2.8 GM Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 1,54,990"
+        },
+        {
+          "brand": "Sony",
+          "model": "Sony FE 16-35mm f/2.8 GM Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 1,52,999"
+        },
+        {
+          "brand": "Sony",
+          "model": "Sony FE 70-200mm f/2.8 GM OSS Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 2,19,990"
+        },
+      {
+          "brand": "Panasonic",
+          "model": "Panasonic Lumix G 25mm f/1.7 ASPH Lens",
+          "type": "Prime",
+          "aperture": "f/1.7",
+          "focus_type": "Auto & Manual",
+          "price": "INR 20,999"
+        },
+        {
+          "brand": "Panasonic",
+          "model": "Panasonic Lumix G 12-35mm f/2.8 II ASPH Power OIS Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 75,990"
+        },
+        {
+          "brand": "Panasonic",
+          "model": "Panasonic Lumix G 35-100mm f/2.8 II Power OIS Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 98,990"
+        },{
+          "brand": "Olympus",
+          "model": "Olympus M.Zuiko Digital ED 12-40mm f/2.8 PRO Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 69,990"
+        },
+        {
+          "brand": "Olympus",
+          "model": "Olympus M.Zuiko Digital ED 40-150mm f/2.8 PRO Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 1,18,999"
+        },
+        {
+          "brand": "Olympus",
+          "model": "Olympus M.Zuiko Digital ED 7-14mm f/2.8 PRO Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 1,29,990"
+        },
+    {
+          "brand": "Lyca",
+          "model": "Lyca Olympus 12-50mm f/3.5-6.3 EZ Lens",
+          "type": "Zoom",
+          "aperture": "f/3.5-6.3",
+          "focus_type": "Auto & Manual",
+          "price": "INR 21,999"
+        },
+        {
+          "brand": "Lyca",
+          "model": "Lyca Olympus 40-150mm f/4.0-5.6 Lens",
+          "type": "Zoom",
+          "aperture": "f/4.0-5.6",
+          "focus_type": "Auto & Manual",
+          "price": "INR 13,499"
+        },
+        {
+          "brand": "Lyca",
+          "model": "Lyca Olympus 75-300mm f/4.8-6.7 II Lens",
+          "type": "Zoom",
+          "aperture": "f/4.8-6.7",
+          "focus_type": "Auto & Manual",
+          "price": "INR 29,999"
+        },
+        {
+          "brand": "GoPro",
+          "model": "GoPro HERO8 Black Lens Mod",
+          "type": "Wide Angle",
+          "aperture": "N/A",
+          "focus_type": "Auto",
+          "price": "INR 8,990"
+        },
+        {
+          "brand": "GoPro",
+          "model": "GoPro Max Lens Mod",
+          "type": "Wide Angle",
+          "aperture": "N/A",
+          "focus_type": "Auto",
+          "price": "INR 9,990"
+        },
+    {
+          "brand": "Fujifilm",
+          "model": "Fujifilm Fujinon XF 35mm f/2 R WR Lens",
+          "type": "Prime",
+          "aperture": "f/2",
+          "focus_type": "Auto & Manual",
+          "price": "INR 34,999"
+        },
+        {
+          "brand": "Fujifilm",
+          "model": "Fujifilm Fujinon XF 16-55mm f/2.8 R LM WR Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 99,999"
+        },
+        {
+          "brand": "Fujifilm",
+          "model": "Fujifilm Fujinon XF 50-140mm f/2.8 R LM OIS WR Lens",
+          "type": "Zoom",
+          "aperture": "f/2.8",
+          "focus_type": "Auto & Manual",
+          "price": "INR 1,17,999"
+        },
+    {
+          "brand": "360",
+          "model": "360 H.265 3.6mm Fixed Lens",
+          "type": "Fixed",
+          "aperture": "N/A",
+          "focus_type": "Auto",
+          "price": "INR 2,499"
+        },
+        {
+          "brand": "360",
+          "model": "360 H.265 2.8mm Fixed Lens",
+          "type": "Fixed",
+          "aperture": "N/A",
+          "focus_type": "Auto",
+          "price": "INR 1,899"
+        },
+     {
+          "brand": "Digitek",
+          "model": "Digitek DLS 18-55mm f/3.5-5.6 Lens",
+          "type": "Zoom",
+          "aperture": "f/3.5-5.6",
+          "focus_type": "Auto & Manual",
+          "price": "INR 6,999"
+        },
+        {
+          "brand": "Digitek",
+          "model": "Digitek DLS 18-105mm f/3.5-5.6 Lens",
+          "type": "Zoom",
+          "aperture": "f/3.5-5.6",
+          "focus_type": "Auto & Manual",
+          "price": "INR 8,999"
+        },
+    {
+          "brand": "DJI",
+          "model": "DJI Mavic Air 2 ND Filter Set (ND16/64/256)",
+          "type": "Filter Set",
+          "aperture": "N/A",
+          "focus_type": "N/A",
+          "price": "INR 5,999"
+        },
+        {
+          "brand": "DJI",
+          "model": "DJI Mavic 2 Pro Hasselblad Camera Lens",
+          "type": "Wide Angle",
+          "aperture": "N/A",
+          "focus_type": "Auto",
+          "price": "INR 79,999"
+        }
+
+    ]
+
+ let tamilNadu=[
+      "Chennai",
+      "Coimbatore North",
+      "Coimbatore South",
+      "Madurai East",
+      "Madurai West",
+      "Tiruchirappalli East",
+      "Tiruchirappalli West",
+      "Salem North",
+      "Salem South",
+      "Tirunelveli",
+      "Palayamkottai",
+      "Tiruppur North",
+      "Tiruppur South",
+      "Erode",
+      "Gobichettipalayam",
+      "Vellore",
+      "Katpadi",
+      "Thoothukudi",
+      "Tiruchendur",
+      "Athoor",
+      "Dindigul East",
+      "Dindigul West",
+      "Gujiliamparai",
+      "Kodaikanal",
+      "Natham",
+      "Nilakkottai",
+      "Oddanchatram",
+      "Palani",
+      "Vedasandur",
+      "Thanjavur",
+      "Kumbakonam",
+      "Kulithalai",
+      "Namakkal",
+      "Rasipuram",
+      "Kancheepuram",
+      "Chengalpattu",
+      "Tiruvannamalai",
+      "Arni",
+      "Papanasam",
+      "Cuddalore",
+      "Panruti",
+      "Karaikkudi",
+      "Devakottai",
+      "Nagercoil",
+      "Padmanabhapuram",
+      "Kanyakumari",
+      "Nagercoil",
+      "Neyveli",
+      "Vadalur",
+      "Udhagamandalam",
+      "Tiruvallur",
+      "Ponneri",
+      "Ramanathapuram",
+      "Mudukulathur",
+      "Pollachi",
+      "Udumalpet",
+      "Tiruchengode",
+      "Rasipuram",
+      "Ranipet",
+      "Arcot",
+      "Sivakasi",
+      "Sattur",
+      "Nagapattinam",
+      "Kilvelur",
+      "Tambaram",
+      "Vaniyambadi",
+      "Ambur",
+      "Virudhunagar",
+      "Sivakasi",
+      "Tindivanam",
+      "Vanur",
+      "Papanasam",
+      "Tirupathur",
+      "Ambur",
+      "Krishnagiri",
+      "Hosur",
+      "Sankarankovil",
+      "Srivilliputhur",
+      "Avadi",
+      "Ambattur",
+      "Pudukkottai",
+      "Aranthangi",
+      "Nellai",
+      "Perambalur",
+      "Kunnam",
+      "Tirupur North",
+      "Tirupur South",
+      "Tuticorin",
+      "Tiruchendur",
+      "Dharmapuri",
+      "Hosur"
+    ]

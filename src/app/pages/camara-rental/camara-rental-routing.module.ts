@@ -7,6 +7,7 @@ import { CamaraDetailsComponent } from './camara-details/camara-details.componen
 import { CamaraRentalComponent } from './camara-rental.component';
 import { LensListComponent } from './lens-list/lens-list.component';
 import { CanonSevenhundredDetailsComponent } from './canon-sevenhundred-details/canon-sevenhundred-details.component';
+import { CommonProductComponent } from './common-product/common-product.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
       path: 'camHome',
       component: CamHomeComponent,
+    },
+    {
+      path: 'common-product',
+      component: CommonProductComponent,
     },
     {
       path: '200d-single',

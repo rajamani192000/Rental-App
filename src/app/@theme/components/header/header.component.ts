@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
-  user: User;
+  user: any;
+  registrationShow: boolean = false;
   srcname = "/assets/images/crazylogo.png";
   whatsapp = "/assets/images/raja.jpg";
   call = "/assets/images/call.jpg";
@@ -42,6 +43,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Corporate',
     },
   ];
+
+
   private localStorageSubscription: Subscription;
   currentTheme = 'default';
 
@@ -84,6 +87,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
   }
+
+
+  showRegistraion(){
+    this.registrationShow=true;
+  }
   routeLogin(){
     this.router.navigate(['/pages/admin/login']);
   }
@@ -108,13 +116,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
       const jsonData = JSON.stringify(data);
       localStorage.setItem('currentUser', jsonData);
-
-      setTimeout(() => {
-        this.faild = false;
-          this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/pages/admin/login']);
-          });
-      }, 2000);
+      this.user = data;
     }).catch((error) => {
       // An error happened.
     });
@@ -141,4 +143,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
+
 }

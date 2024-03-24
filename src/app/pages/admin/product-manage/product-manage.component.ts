@@ -29,6 +29,7 @@ export class ProductManageComponent implements OnInit {
   p: number = 1;
   id: string;
   availabilityList: any = ["In Stock", "Out of Stock"];
+  locationData: Array<any> = [];
   typeList: Array<any> = [];
   brandList: Array<any> = [];
   modelList: Array<any> = [];
@@ -86,6 +87,10 @@ export class ProductManageComponent implements OnInit {
       availability: [null, [Validators.required]],
       type: [null, [Validators.required]],
       brand: [null, [Validators.required]],
+      inclusions:[null, [Validators.required]],
+      fourdayAmtDisc: [null, [Validators.required]],
+      seveendayAmtDisc: [null, [Validators.required]],
+      seveenDaysMoreDisc: [null, [Validators.required]],
       imageurl: [null],
       createdDate: [null],
     });
@@ -95,9 +100,8 @@ export class ProductManageComponent implements OnInit {
       totalQty: [null, [Validators.required]],
       availableQty: [null, [Validators.required]],
       modelAmt: [null, [Validators.required]],
-      fourdayAmtDisc: [null, [Validators.required]],
-      seveendayAmtDisc: [null, [Validators.required]],
-      seveenDaysMoreDisc: [null, [Validators.required]]
+      pickupLocation: [null, [Validators.required]],
+      advanceAmt: [null, [Validators.required]]
     });
 
   }
@@ -125,11 +129,9 @@ export class ProductManageComponent implements OnInit {
       "totalQty": this.productDetailsForm.value.totalQty,
       "modelName": this.productDetailsForm.value.modelName,
       "modelAmt": this.productDetailsForm.value.modelAmt,
-      "discAmt": {
-        "fourdayAmtDisc": this.productDetailsForm.value.fourdayAmtDisc,
-        "seveendayAmtDisc": this.productDetailsForm.value.seveendayAmtDisc,
-        "seveenDaysMoreDisc": this.productDetailsForm.value.seveenDaysMoreDisc,
-      }
+      "pickupLocation":this.productDetailsForm.value.pickupLocation,
+      "advanceAmt":this.productDetailsForm.value.advanceAmt
+
     }
     return productDetails;
   }
@@ -172,9 +174,8 @@ export class ProductManageComponent implements OnInit {
       totalQty: data.totalQty,
       availableQty: data.availableQty,
       modelAmt: data.modelAmt,
-      fourdayAmtDisc: data.discAmt.fourdayAmtDisc,
-      seveendayAmtDisc: data.discAmt.seveendayAmtDisc,
-      seveenDaysMoreDisc: data.discAmt.seveenDaysMoreDisc
+      pickupLocation: data.pickupLocation,
+      advanceAmt:data.advanceAmt
     });
   }
   updateProduct() {
@@ -194,7 +195,7 @@ export class ProductManageComponent implements OnInit {
     }
   }
   callmodeldelete(i) {
-
+    this.addedModelDetails.splice(i, 1);
   }
   failedShowConfirmationMessage(message) {
     this.popupMessageFailed = message;
@@ -219,6 +220,10 @@ export class ProductManageComponent implements OnInit {
       this.typeList = data;
       this.typeListCopy = data;
     });
+    this.commonSrvc.list("tamilnaduTaluks").subscribe(data => {
+      this.locationData = data;
+    });
+    
   }
   // getTypeandModelList() {
   //   let typeSet = new Set();
@@ -302,6 +307,7 @@ export class ProductManageComponent implements OnInit {
                   "modelDet": this.addedModelDetails,
                   "productName": this.productForm.value.productName,
                   "id": uid,
+                  "inclusions":this.productForm.value.inclusions,
                   "description": this.productForm.value.description,
                   "displayAmt": this.productForm.value.displayAmt,
                   "specs": this.productForm.value.specs,
@@ -312,7 +318,10 @@ export class ProductManageComponent implements OnInit {
                   "tenantId": this.logedInUser.tenantId,
                   "availability": this.productForm.value.availability == "In Stock" ? true : false,
                   "createdBy": this.logedInUser.username,
-                  "createdDate": new Date()
+                  "createdDate": new Date(),
+                  "fourdayAmtDisc": this.productForm.value.fourdayAmtDisc,
+                  "seveendayAmtDisc": this.productForm.value.seveendayAmtDisc,
+                  "seveenDaysMoreDisc": this.productForm.value.seveenDaysMoreDisc
                 };
                 // Use async/await for readability and error handling
                 return from(this.commonSrvc.createwithUid("products", uid, data)).pipe(
@@ -427,9 +436,8 @@ export class ProductManageComponent implements OnInit {
         totalQty: e.totalQty,
         availableQty: e.availableQty,
         modelAmt: e.modelAmt,
-        fourdayAmtDisc: e.discAmt.fourdayAmtDisc,
-        seveendayAmtDisc: e.discAmt.seveendayAmtDisc,
-        seveenDaysMoreDisc: e.discAmt.seveenDaysMoreDisc
+        pickupLocation: e.pickupLocation,
+        advanceAmt:e.advanceAmt
       });
       let modelData = this.setMedicineDetails();
       this.addedModelDetails.push(modelData);
@@ -439,6 +447,9 @@ export class ProductManageComponent implements OnInit {
 
     this.selectedFileUrl = data.imageurl;
     this.productForm.setValue({
+      fourdayAmtDisc: data.fourdayAmtDisc,
+      seveendayAmtDisc: data.seveendayAmtDisc,
+      seveenDaysMoreDisc: data.seveenDaysMoreDisc,
       productName: data.productName,
       description: data.description,
       displayAmt: data.displayAmt,
@@ -448,6 +459,7 @@ export class ProductManageComponent implements OnInit {
       type: data.type,
       brand: data.brand,
       imageurl: data.imageurl,
+      inclusions:data.inclusions,
       createdDate: data.createdDate
     });
 
@@ -484,6 +496,7 @@ export class ProductManageComponent implements OnInit {
           "modelDet": this.addedModelDetails,
           "productName": this.productForm.value.productName,
           "id": this.id,
+          "inclusions":this.productForm.value.inclusions,
           "description": this.productForm.value.description,
           "displayAmt": this.productForm.value.displayAmt,
           "specs": this.productForm.value.specs,
@@ -495,7 +508,10 @@ export class ProductManageComponent implements OnInit {
           "availability": this.productForm.value.availability == "In Stock" ? true : false,
           "createdBy": this.logedInUser.username,
           "createdDate": this.productForm.value.createdDate,
-          "updatedDate": new Date()
+          "updatedDate": new Date(),
+          "fourdayAmtDisc": this.productForm.value.fourdayAmtDisc,
+          "seveendayAmtDisc": this.productForm.value.seveendayAmtDisc,
+          "seveenDaysMoreDisc": this.productForm.value.seveenDaysMoreDisc
         };
         return from(this.commonSrvc.update("products", this.id, data)).pipe(
           map(() => {
@@ -515,6 +531,7 @@ export class ProductManageComponent implements OnInit {
               "modelDet": this.addedModelDetails,
               "productName": this.productForm.value.productName,
               "id": this.id,
+              "inclusions":this.productForm.value.inclusions,
               "description": this.productForm.value.description,
               "displayAmt": this.productForm.value.displayAmt,
               "specs": this.productForm.value.specs,
@@ -526,7 +543,10 @@ export class ProductManageComponent implements OnInit {
               "availability": this.productForm.value.availability == "In Stock" ? true : false,
               "createdBy": this.logedInUser.username,
               "createdDate": this.productForm.value.createdDate,
-              "updatedDate": new Date()
+              "updatedDate": new Date(),
+              "fourdayAmtDisc": this.productForm.value.fourdayAmtDisc,
+              "seveendayAmtDisc": this.productForm.value.seveendayAmtDisc,
+              "seveenDaysMoreDisc": this.productForm.value.seveenDaysMoreDisc
             };
             // Use async/await for readability and error handling
             return from(this.commonSrvc.update("products", this.id, data)).pipe(
@@ -571,6 +591,9 @@ export class ProductManageComponent implements OnInit {
 
   get fval(): { [key: string]: AbstractControl } {
     return this.productForm.controls;
+  }
+  get dval(): { [key: string]: AbstractControl } {
+    return this.productDetailsForm.controls;
   }
 
 }

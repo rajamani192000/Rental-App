@@ -24,7 +24,7 @@
     <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
     </nb-action>
-    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+    <nb-action class="user-action header-user" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user?.displayName"
@@ -37,13 +37,42 @@
     </span></a>
   </nb-actions>
 
-  <div class="btn btn-primary btn-block mt-3 p-1" role="button" *ngIf="user?.role !== null" (click)="logout()">
+  <div class="btn btn-primary btn-block p-1" role="button" *ngIf="user?.role != 'Admin' && user?.role !=   null" (click)="logout()">
    Logout
   </div>
-  <div class="btn btn-primary btn-block mt-3 p-1" role="button" *ngIf="user?.role === null" (click)="routeLogin()">
+  <div class="btn btn-primary btn-block p-1" role="button" *ngIf="user?.role != 'Admin' && user?.role == null" (click)="showRegistraion();">
     Login
    </div>
 </div>
 <div class="succesfull-info-popup" [ngClass]="{ 'open': faild }">
   <i class="far fa-thumbs-down"></i> <span> Logout Successfully</span>
+</div>
+
+<div [ngStyle]="{'display': registrationShow ? 'block'  : 'none' }" class="component-contents">
+  <div class="lightbox-model open dateVisible ">
+    <div class="lightbox-contents" style="width: 351px !important;">
+      <div class="lightbox-header clearfix">
+        <div class="lightbox-title lightbox-title-bill">
+          <span class="popu-billamo">Login & SignUp</span>
+        </div>
+        <div class="lightbox-close" (click)="registrationShow=false">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="lightbix-inner-contents">
+        <div class="tab-block-conetnts">
+          <!--  -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-controls">
+                <ngx-customer-registration-login></ngx-customer-registration-login>
+                <input type="button" (click)="registrationShow=false" value="Cancel" class="btn btn-clear" />
+              </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

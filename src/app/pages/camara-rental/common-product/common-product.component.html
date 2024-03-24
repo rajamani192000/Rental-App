@@ -1,0 +1,492 @@
+<div class="component-content-pro">
+  <div class="component-content-color">
+    <section class="container-100">
+
+      <div class="container-70">
+
+        <div class="row">
+
+          <div class="col-md-12">
+
+            <div class="product-img">
+
+              <div class="row">
+                <div class="col-md-10">
+                  <!-- <img src="images/lens.png"> -->
+                  <img src="{{finalProductData.imageurl}}" />
+
+                </div>
+                <div class="col-md-2">
+
+                  <ul class="side-img-div">
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-main-content display-none-responsive">
+          <nb-tabset #tabSetRef fullWidth id="tabSetRef" class="ph-tabs" name="tabSetRef">
+            <nb-tab tabTitle="Product Description" class="tab-content">
+              <div class="main-div-content">
+                <p>{{finalProductData.description}}
+                </p>
+                <span class="text-center pt-1 pb-1">Note: 1Day Rental - 12Hours & 2Days Rental - 24Hours </span>
+                <hr>
+                <p><strong>Technical Specifications-</strong></p>
+
+                <ul >
+                  <div *ngFor="let x of finalProductData.specs">
+                  <li>{{x}}</li>
+                  </div>
+                </ul>
+
+                <hr>
+                <p><strong>Inclusions-</strong></p>
+                <div *ngFor="let x of finalProductData.inclusions">
+                  <p>{{x}}</p>
+                </div>
+              </div>
+            </nb-tab>
+            <nb-tab tabTitle="Terms & Conditions" class="tab-content">
+              <div class="main-div-content">
+
+                <p><strong>Documents Required & ID Verification - </strong></p>
+
+                <p><strong>A copy of Passport / 2 ID&#39;s for Residential & Personal Verification.</strong></p>
+
+                <p><strong>Valid Documents - </strong></p>
+
+                <ul>
+                  <li>Voter Card</li>
+                  <li>Driving License </li>
+                  <li>Passport (No Aadhar card required)</li>
+                  <li>Local Residence Proof</li>
+                </ul>
+
+                <hr>
+                <p><strong>Security Deposit -</strong></p>
+
+                <p>We have <strong>No Cash Security Policy, </strong>instead, we will take a cheque and a valid Govt ID.
+                </p>
+
+                <p>We will take a <strong>Post Dated Cheque</strong> of the Replacement Value of the Product and a Valid
+                  ID. </p>
+
+                <p>Security deposit does not include rent. It takes care of damages, loss or mishandling (if any). Post
+                  Dated Cheque will be handed over to you as soon as you return the product (without Damage).</p>
+
+                <p>Don&#39;t want to provide your cheque every time you rent equipment, <a
+                    target="_blank"><strong>Become a KYC Verified
+                      Member</strong></a> and skip the <strong>Hassle of Verification</strong> for every time with
+                  some<strong> Extra Benefits & Perks. </strong></p>
+
+                <hr>
+                <p><strong>Bookings - </strong></p>
+
+                <p>For Confirmed Booking and Holding rented equipment, Booking amount mentioned must be paid, the rest
+                  amount will be paid in advance at the time of site-pickup or delivery.</p>
+
+                <p><strong>Cancellation </strong>-</p>
+
+                <p><strong>2 Days Prio</strong>r - 0% of Total-Rent</p>
+
+                <p><strong>0-2 Day Prior</strong> - 30% of Total-Rent</p>
+
+                <p><strong>Refunds - </strong></p>
+
+                <p>Any refunds related issues will be solved within 7-10 Working Days after confirmation of Refund.</p>
+              </div>
+            </nb-tab>
+          </nb-tabset>
+
+        </div>
+        <div class="extra-details display-none-responsive">
+          <h3 class="studio-main-head">TAGS <span></span></h3>
+          <p>{{finalProductData.productName}} | {{finalProductData.type}}</p>
+        </div>
+        <section>
+        </section>
+      </div>
+      <div class="container-30 sticky">
+        <div class="side-form">
+          <form name="addCartForm" id="addCartForm" method="post" action="https://www.rentoclick.com/Store/addToCart ">
+            <input type="hidden" name="product_name" value="Canon 200D M-II DSLR">
+            <input type="hidden" id="product_id" name="product_id" value="545">
+            <input type="hidden" name="product_book_price" id="product_book_price" value="0">
+            <input type="hidden" name="product_rent_total" id="product_rent_total" value="0">
+            <input type="hidden" name="rent_book_day" id="rent_book_day" value="1">
+            <div class="product-detail product-form">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>{{finalProductData.productName}}</h4>
+                </div>
+              </div>
+              <ul class="list-form">
+                <li>
+                  1-2 Day (Rs.{{oneDayDiscAmt}}) </li>
+                <li>
+                  3-4 Days (Rs.{{fourdayAmtDisc}}) </li>
+                <li>
+                  5-7 Days (Rs.{{seveendayAmtDisc}}) </li>
+                <li>
+                  8 Days ++ (Rs.{{seveenDaysMoreDisc}}) </li>
+              </ul>
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <div class="rent-box">
+                    <div class="rented">
+                      <label>Total Rent</label><br>
+                      <span class="cut-price">{{this.ratePerDay}}</span>
+                      <p class="par-rest-details font-weight-bold" id="show_book_day">Price is for {{this.duration}} day
+                      </p>
+                    </div>
+
+                    <div class="rented">
+                      <label>Book Now</label><br>
+                      <span id="show_book_price">{{this.advanceAmt}}</span>
+                      <p class="par-rest-details">& Pay Rest Later</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              </div>
+            </div>
+            <form [formGroup]="bookForm">
+              <div class="product-type clearfix">
+                <div class="row row-ph">
+                  <div class="col-md-12 col-xs-12 pt-2">
+                    <div class="form-group relative">
+                      <label>Product<i style="color:red;">*</i></label>
+                      <!--<a class="incr-btn" data-action="decrease" href="#">–</a>-->
+                      <ngx-select class="form-control-select" formControlName="product" required
+                        (selectionChanges)="rentPriceUpdateProduct($event)" [items]="modelData"
+                        optionValueField="modelName" optionTextField="modelName" [multiple]="true" [allowClear]="true" placeholder="Select">
+                      </ngx-select>
+                      <span *ngIf="fval?.product?.errors?.required && isSubmitted" class="required-span">Product
+                        Required</span>
+                      <!--<a class="incr-btn" data-action="increase" href="#">&plus;</a>-->
+                    </div>
+                  </div>
+                  <!-- <div class="text-left col-xs-6 col-md-6">
+                    <label>Select Total Days<i style="color:red">*</i></label>
+                    <ngx-select class="form-control-select" formControlName="totalDays"
+                      (selectionChanges)="changeTotalDays($event)" required [items]="dayslist" optionValueField="value"
+                      optionTextField="text" [allowClear]="true" placeholder="Select">
+                    </ngx-select>
+                    <span *ngIf="fval?.totalDays?.errors?.required && isSubmitted" class="required-span">Total Days
+                      Required</span>
+                  </div> -->
+
+                  <div class="col-md-12 col-xs-12 detae pt-1">
+                    <div class="form-group relative">
+                      <label>Select Your Date <i style="color:red">*</i></label>
+                      <input [nbDatepicker]="rangepicker" (change)="rentPriceUpdateDate($event)"
+                        placeholder="Select From and ToDate" formControlName="date" class="form-control">
+                      <nb-rangepicker #rangepicker></nb-rangepicker>
+                      <span *ngIf="fval?.date?.errors?.required && isSubmitted" class="required-span">Date
+                        Required</span>
+                      <span *ngIf="dateError" class="required-span">Please Select From and Todate</span>
+                      <span *ngIf="!dateError && !fval?.date?.errors?.required && !isSubmitted" class="text-primary">You
+                        Selected Total - {{duration || "0"}} Days</span><br>
+                    </div>
+                  </div>
+                  <div class="text-left col-xs-12 col-md-12">
+                    <label>Choose Place For Pickup<i style="color:red">*</i></label>
+                    <ngx-select class="form-control-select" formControlName="location" required [items]="locationList"
+                      optionValueField="value" optionTextField="value" [allowClear]="true" placeholder="Select">
+                    </ngx-select>
+                    <span *ngIf="fval?.location?.errors?.required && isSubmitted" class="required-span">Place
+                      Required</span>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix text-left col-md-12 last-content">
+                <label>Security Amount (Refundable) <i style="color:red">*</i></label>
+              </div>
+            </form>
+            <button type="button" class="btn btn-form" (click)="createOrder()">Book</button><br>
+
+
+            <div class="offer-function">
+
+
+
+
+              <span class="float-left">Special Offers</span>
+              <a type="button" class="float-right" data-toggle="modal" data-target="#offer-coupon">More Offers</a>
+              <br>
+              <br>
+              <div class="flex offer_coupon">
+                <img src="https://www.rentoclick.com/images/special-offer.svg" class="img-cntr">
+                <div>
+                  <div>
+                    Use Code
+
+                    <p class="p-code" id="myInput"></p>
+                  </div>
+                  <div class="coupon-desc">
+                  </div>
+                </div>
+                <a class="btn-form pull-right btn" onclick="myFunction('#myInput')">Copy</a>
+              </div>
+
+
+
+
+            </div>
+            <!--OFFER-COUPON-->
+          </form>
+        </div>
+
+        <div class="product-main-content display-block-responsive">
+
+          <nb-tabset #tabSetRef fullWidth id="tabSetRef" class="ph-tabs" name="tabSetRef">
+            <nb-tab tabTitle="Product Description" class="tab-content">
+              <div class="main-div-content">
+                <p>Rent Canon 200D Mark-II for your better experience, Renting a Camera has never been so easy. We
+                  provide
+                  all kind of Professional Cameras on rent. Our wide range of rental products include Brands like Canon,
+                  Sony, Carl Zeiss, Compact
+                  Prime, Sigma, Samyang. Book now to rent a camera and make your project better without spending a lot.
+                </p>
+                <span class="text-center pt-1 pb-1">Note: 1Day Rental - 12Hours & 2Days Rental - 24Hours </span>
+                <hr>
+                <p><strong>Technical Specifications-</strong></p>
+
+                <ul>
+                  <li>24.1megapixel APS-C CMOS Sensor</li>
+                  <li>Dual pixel CMOS AF</li>
+                  <li>DIGIC 8</li>
+                  <li>3 975 selectable focus positions (Live View)</li>
+                  <li>Wifi Photo Video Transfer</li>
+                  <li>3inch Rotatetable Display</li>
+                  <li>Eye Detection AF (One Shot & Servo AF – Live View)</li>
+                </ul>
+
+                <hr>
+                <p><strong>Inclusions-</strong></p>
+
+                <p>1 Nos. Canon 200D Mark-II Camera</p>
+
+                <p>1 Nos. Canon batteries</p>
+
+                <p>1 Nos.  External Charger</p>
+
+                <p>1 Nos. 18-55MM</p>
+
+                <p>1 Nos. Carry case</p>
+
+                <p>1 Nos. 32 GB Memory Card</p>
+
+                <hr>
+                <p>We provides all kind of <a>Photography and Videography
+                    Equipment</a> on rent across Delhi NCR. Support Equipment like <a>DJI Ronin Gimbal,</a>
+                  <a> Zhiyun Crane-2</a>,
+                  <a>Mini JIB Crane</a>,
+                  <a>Slider</a>,<a> Tripod </a>is
+                  also available on rent. We have a full range of professional camera&#39;s like
+                  <a>DSLR,</a>  <a>4K,6K & Beyond Camera</a> Rental, <a>Red Dragon 6K Camera</a><a>Camera & Lens
+                    Kit</a>.
+                </p>
+              </div>
+            </nb-tab>
+            <nb-tab tabTitle="Terms & Conditions" class="tab-content">
+              <div class="main-div-content">
+
+                <p><strong>Documents Required & ID Verification - </strong></p>
+
+                <p><strong>A copy of Passport / 2 ID&#39;s for Residential & Personal Verification.</strong></p>
+
+                <p><strong>Valid Documents - </strong></p>
+
+                <ul>
+                  <li>Voter Card</li>
+                  <li>Driving License </li>
+                  <li>Passport (No Aadhar card required)</li>
+                  <li>Local Residence Proof</li>
+                </ul>
+
+                <hr>
+                <p><strong>Security Deposit -</strong></p>
+
+                <p>We have <strong>No Cash Security Policy, </strong>instead, we will take a cheque and a valid Govt ID.
+                </p>
+
+                <p>We will take a <strong>Post Dated Cheque</strong> of the Replacement Value of the Product and a Valid
+                  ID. </p>
+
+                <p>Security deposit does not include rent. It takes care of damages, loss or mishandling (if any). Post
+                  Dated Cheque will be handed over to you as soon as you return the product (without Damage).</p>
+
+                <p>Don&#39;t want to provide your cheque every time you rent equipment, <a
+                    target="_blank"><strong>Become a KYC Verified
+                      Member</strong></a> and skip the <strong>Hassle of Verification</strong> for every time with
+                  some<strong> Extra Benefits & Perks. </strong></p>
+
+                <hr>
+                <p><strong>Bookings - </strong></p>
+
+                <p>For Confirmed Booking and Holding rented equipment, Booking amount mentioned must be paid, the rest
+                  amount will be paid in advance at the time of site-pickup or delivery.</p>
+
+                <p><strong>Cancellation </strong>-</p>
+
+                <p><strong>2 Days Prio</strong>r - 0% of Total-Rent</p>
+
+                <p><strong>0-2 Day Prior</strong> - 30% of Total-Rent</p>
+
+                <p><strong>Refunds - </strong></p>
+
+                <p>Any refunds related issues will be solved within 7-10 Working Days after confirmation of Refund.</p>
+              </div>
+            </nb-tab>
+          </nb-tabset>
+        </div>
+        <div class="extra-details pt-2 display-block-responsive">
+          <h3 class="studio-main-head">TAGS <span></span></h3>
+          <p>Canon 200 D camera | Canon camera rental | Dslr rental | Canon 200D Dslr on rent | Vlogging Dslr rental |
+            Vlogging Camera on Rent |</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div [ngStyle]="{'display': registrationShow ? 'block'  : 'none' }" class="component-contents">
+  <div class="lightbox-model open dateVisible ">
+    <div class="lightbox-contents" style="width: 351px !important;">
+      <div class="lightbox-header clearfix">
+        <div class="lightbox-title lightbox-title-bill">
+          <span class="popu-billamo">Login & SignUp</span>
+        </div>
+        <div class="lightbox-close" (click)="registrationShow=false">
+          <i class="fa fa-times" aria-hidden="true" ></i>
+        </div>
+      </div>
+      <div class="lightbix-inner-contents">
+        <div class="tab-block-conetnts">
+          <!--  -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-controls">
+                <ngx-customer-registration-login></ngx-customer-registration-login>
+                <input type="button" (click)="registrationShow=false" value="Cancel" class="btn btn-clear" />
+              </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Camara Booking Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="row pb-1">
+          <div class="col-md-12 col-xs-12">
+            <div class="rent-box">
+              <div class="rented">
+                <label>Total Rent</label><br>
+                <span class="cut-price">Rs.{{this.ratePerDay}}</span>
+                <p class="par-rest-details font-weight-bold" id="show_book_day">Price is for {{this.duration}} day</p>
+              </div>
+
+              <div class="rented">
+                <label>Pay & Book Now</label><br>
+                <span id="show_book_price">Rs.{{advanceAmt}}</span>
+                <p class="par-rest-details">& Pay Rest Later</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="finalBookForm">
+          <div class="product-type clearfix">
+            <div class="row row-ph">
+              <div class="text-center col-xs-12 col-md-12">
+                <br>
+                <a (click)="gpay()">
+                  <qr-code [value]="gpayUrl" [size]="150" [level]="'H'"></qr-code>
+                </a>
+                <br>Click And Pay With
+              </div>
+              <div class="text-center col-xs-12 col-md-12">
+                <button type="button" class="btn btn-form" (click)="gpay()"><i
+                    class="fa-brands fa-google-pay"></i></button>
+              </div>
+
+              <div class="text-left col-xs-6 col-md-6">
+                <label>After Successfully sent the Amount You got Transection Id</label>
+                <img src="/assets/images/transaction.png" alt="">
+              </div>
+              <div class="text-left col-xs-6 col-md-6">
+                <label>Paid Amount<i style="color:red">*</i></label>
+                <input type="text" class="form-control" required formControlName="paidAmount">
+                <span *ngIf="fval?.location?.errors?.required && isSubmitted" class="required-span">Place
+                  Required</span>
+              </div>
+              <div class="text-left col-xs-6 col-md-6">
+                <label>Transaction ID<i style="color:red">*</i></label>
+                <input type="text" class="form-control" formControlName="transactionId" required>
+                <span *ngIf="fval?.location?.errors?.required && isSubmitted" class="required-span">Place
+                  Required</span>
+              </div><br>
+
+
+            </div>
+          </div>
+          <button type="button" class="btn btn-form" (click)="openModal()">Book</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment success successfully booked product -->
+<div [ngStyle]="{'display': paymentSuccess ? 'block'  : 'none' }" class="component-contents">
+  <div class="lightbox-model open dateVisible ">
+    <div class="lightbox-contents" style="width: 351px !important;">
+      <div class="lightbox-header clearfix">
+        <div class="lightbox-title lightbox-title-bill">
+          <span class="popu-billamo">Booked Successfully</span>
+        </div>
+        <div class="lightbox-close">
+          <i class="fa fa-times" aria-hidden="true" (click)="paymentSuccess=false"></i>
+        </div>
+      </div>
+      <div class="lightbix-inner-contents">
+        <div class="tab-block-conetnts">
+          <!--  -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-controls">
+                You booked Camera Successfully
+                <p>Your Order Id - {{paymentResponse?.razorpay_order_id}}</p>
+                <p>Your Payment Id - {{paymentResponse?.razorpay_payment_id}}</p>
+                <input type="button" (click)="paymentSuccess=false" value="Cancel" class="btn btn-clear" />
+              </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

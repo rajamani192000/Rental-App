@@ -77,6 +77,7 @@ export class AdminListComponent implements OnInit {
   ngOnInit(): void {
     this.isAddComponnet = false;
     this.isEditComponnet = false;
+    this.addbrand();
     this.getAdminUser();
     // Retrieve the data from localStorage
     const storedData = localStorage.getItem('currentUser');
@@ -87,14 +88,14 @@ export class AdminListComponent implements OnInit {
   addbrand() {
 
 
-    // lenstlist.forEach((element,i) => {
+    // tamilNadu.forEach((element) => {
     //   const uid = this.commonSrvc.generateUniqueID();
-    //   this.commonSrvc.createwithUid("lensList",uid,element)
+    //   this.commonSrvc.createwithUid("tamilnaduTaluks",uid,{"talukName":element})
     //   .then(() => {
-    //     this.showConfirmationMessage('brand Added successfully');
+    //     this.showConfirmationMessage('tamilnaduTaluks Added successfully');
     //   })
     //   .catch((error) => {
-    //     this.showConfirmationMessage('brand Added Failed');
+    //     this.showConfirmationMessage('tamilnaduTaluks Added Failed');
     //   });
     // });
 

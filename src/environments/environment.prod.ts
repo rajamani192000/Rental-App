@@ -14,4 +14,5 @@ export const environment = {
     measurementId: 'G-7CEFJKTRWJ',
   },
   production: true,
+  apiUrl:"https://rajamani-server.netlify.app/.netlify/functions/api"
 };
