@@ -19,7 +19,7 @@ jobs:
           node-version: '16.10.0'
 
       - name: Install Angular CLI
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@14.2.1
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
