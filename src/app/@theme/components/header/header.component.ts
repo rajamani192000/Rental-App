@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { User, UserData } from '../../../@core/data/users';
@@ -10,9 +10,11 @@ import { Router } from '@angular/router';
 import { userInfo } from 'os';
 import { UserService } from '../../../@core/mock/users.service';
 import { CommonService } from '../../../pages/service/common-service.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ngx-header',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
@@ -24,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   registrationShow: boolean = false;
   srcname = "/assets/images/crazylogo.png";
   whatsapp = "/assets/images/raja.jpg";
+  avatarIcon="/assets/images/avatar.jpg";
   call = "/assets/images/call.jpg";
   themes = [
     {
@@ -47,8 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private localStorageSubscription: Subscription;
   currentTheme = 'default';
+  userMenu:any;
 
-  userMenu = [{ title: 'Whatsapp' }, { title: 'Call' }];
   faild: boolean = false;
 
   constructor(private sidebarService: NbSidebarService,
@@ -58,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private afAuth: AngularFireAuth,
-    private router: Router, private cdr: ChangeDetectorRef,
+  // private spinner:NgxSpinnerService,
     private commonSrvc:CommonService) {
   }
 
@@ -84,6 +87,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
      this.commonSrvc.getLoginDetailFromLocalStorage()
       .subscribe(data => {
         this.user = data;
+        if(this.user.imageUrl == null || this.user.imageUrl == "undefined"){
+          this.user.imageUrl="https://firebasestorage.googleapis.com/v0/b/dindigulcamara.appspot.com/o/adminUser_images%2Favatar.jpg?alt=media&token=0a438f89-d498-46a0-8168-9fae6863baf5"
+        }
+        this.userMenu = [{ title: `Profile ${this.user.username == null ? "" : "("+this.user.username+")"}` },{ title: 'Orders'}, { title: 'Whatsapp Booking', link: "https://wa.me/+917904998687?text=Hi, I need your help renting a product from https://dindigulcamara.web.app/ . Please provide your details - Equipment type, Start Date, End Date"}];
       });
   }
 
@@ -91,13 +98,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showRegistraion(){
     this.registrationShow=true;
   }
-  routeLogin(){
-    this.router.navigate(['/pages/admin/login']);
-  }
 
   logout() {
+    // this.spinner.show();
     this.afAuth.signOut().then(() => {
-      this.faild = true;
+
       this.user=null;
       var data={
         uid: null,
@@ -116,7 +121,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const jsonData = JSON.stringify(data);
       localStorage.setItem('currentUser', jsonData);
       this.user = data;
+       this.faild = true;
+      setTimeout(() => {
+         this.faild = false;
+         window.location.reload();
+      }, 3000);
+      // this.spinner.hide();
     }).catch((error) => {
+      // this.spinner.hide();
       // An error happened.
     });
   }

@@ -9,6 +9,12 @@ font-weight: bold;
 .component-content-color{
   background-color: #f5f7fa !important;
 }
+.price-box{
+  box-shadow: 20px 20px 80px rgb(218, 218, 218);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
 .lightbix-inner-contents{
   padding: 0px !important;
 }
@@ -58,7 +64,56 @@ ngx-select span.ng-star-inserted {
   overflow: hidden;
   height: 4em;
 }
+.rented {
+  margin-bottom: 10px;
+}
 
+th{
+  width: 0px !important;
+}
+
+
+table {
+  background: white;
+  box-shadow: 20px 20px 80px rgb(218, 218, 218);
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd !important;
+}
+.un-color{
+  color: #3271d1 !important;
+}
+.selected-camera {
+  background: white;
+  box-shadow: 20px 20px 80px rgb(218, 218, 218);
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.selected-camera h3 {
+  margin-top: 0;
+  font-size: 15px;
+}
+@media (max-width: 576px) {
+  .col-xs-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+.display-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+table td:nth-child(1) {
+  width: 100px;
+}
 #content2 {
   overflow: hidden;
   height: 4em;

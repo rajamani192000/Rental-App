@@ -17,6 +17,7 @@ import {
   NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
+  NbTimepickerModule,
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
@@ -45,6 +46,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    NbTimepickerModule.forRoot(),
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),

@@ -13,16 +13,22 @@ nb-sidebar.menu-sidebar.left.fixed.compacted {
 .menu-sidebar .scrollable {
   padding-top: 0px !important;
 }
+
 nb-user.shape-round .user-picture {
   border: 2px solid #2a68c5 !important;
 }
+
 .phone-whatsapp {
   bottom: 11% !important;
 }
-
+.modal-footer {
+  padding: 5px !important;
+}
+.modal-header {
+border-bottom: 2px solid #dee2e6 !important;
+}
 /* For devices with a maximum width of 767px (e.g., mobile phones) */
 @media only screen and (max-width: 767px) {
-
   /* CSS styles for mobile devices */
   nb-sidebar.menu-sidebar.left.fixed.expanded {
     top: 1px !important;
@@ -36,13 +42,26 @@ nb-user.shape-round .user-picture {
     right: -5.3125px !important;
   }
 
+  .succesfull-info-popup {
+    bottom: 60px !important;
+  }
+
+  /* nb-user.size-medium.shape-round.context-menu-host.ng-star-inserted {
+    display: none !important;
+  } */
+  .header-user nb-user.size-medium.shape-round.context-menu-host.ng-star-inserted {
+    display: none !important;
+  }
+
   .header-user nb-user .user-picture.initials.ng-star-inserted {
     display: none !important;
   }
-  nb-actions.size-small nb-action{
+
+  nb-actions.size-small nb-action {
     padding: 0px !important;
   }
 }
+
 nb-layout.with-scroll .scrollable-container {
   overflow-x: hidden !important;
 }
@@ -65,6 +84,11 @@ nb-layout.with-scroll .scrollable-container {
   nb-sidebar.menu-sidebar.left.fixed.expanded {
     top: 1px !important;
   }
+}
+
+.lightbix-inner-contents {
+  padding: 25px 15px;
+  max-height: calc(95vh - 110px) !important;
 }
 
 body {
@@ -490,11 +514,11 @@ td.status.not-risk span {
   color: #212529;
 }
 
-table th {
+/* table th {
   background: #f0f7ff;
   border: none !important;
   color: #007bff;
-}
+} */
 
 .table th,
 .table td {
@@ -799,6 +823,13 @@ label.container span {
   transition: 0.4s;
   cursor: pointer;
 } */
+.main-container.main-container-fixed {
+  width: 200px !important;
+}
+
+nb-sidebar.menu-sidebar.left.expanded {
+  width: 200px !important;
+}
 
 .header-component-left {
   display: inline-block;
@@ -3062,8 +3093,8 @@ th.sms-type-pad {
 }
 
 .ngx-select__selected-plural {
-  background: #4CAF50 !important;
-  border-color: #4CAF50 !important;
+  background: #3271d1 !important;
+  border-color: #3271d1 !important;
   padding: 1px 11px !important;
   border-radius: 20px;
 
@@ -10204,6 +10235,9 @@ td li a.no-function {
 .logo-container {
   text-align: center;
 }
+.main-container-fixed{
+    position:Relative !important;
+}
 
 .cdk-overlay-container .my-select-panel-class {
   margin-top: 28px;
@@ -10213,7 +10247,10 @@ td li a.no-function {
 .header-doc-details .mat-form-field-infix {
   width: auto;
 }
-
+.head-color{
+  background: #f0f7ff;
+  color: #007bff;
+}
 .search-pro-img img {
   width: 44px;
   height: 44px;
@@ -11245,6 +11282,20 @@ td.status.active label {
 
 .reset-cls a:hover {
   color: #8e3680;
+}
+.row {
+  margin: 0px !important;
+}
+.display-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ .scrollable-login{
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(77vh - 110px) !important;
 }
 
 /*scroll bar

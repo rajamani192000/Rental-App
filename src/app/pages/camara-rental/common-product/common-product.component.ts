@@ -1,13 +1,13 @@
 import { CommonService } from './../../service/common-service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { NbDateService } from '@nebular/theme';
 import { doc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-declare var Razorpay: any;
-declare var RazorpayAffordabilitySuite: any;
+import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
 @Component({
   selector: 'ngx-common-product',
   templateUrl: './common-product.component.html',
@@ -45,7 +45,15 @@ export class CommonProductComponent implements OnInit {
   paymentSuccess: boolean = false;
   bookNowBtnError: boolean = false;
   isBtnSubmitted: any;
-  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, public location: Location, protected dateService: NbDateService<Date>, private commonSrvc: CommonService) {
+  popupMessage: string;
+  popupAlert: boolean;
+  paymentDetails: any;
+  createdOrder: any;
+  loggedUser: any = null;
+  selectedProduct: string;
+  bookingData: any;
+  pickupDateTime: any=null;
+  constructor(private activatedRoute: ActivatedRoute,private datePipe: DatePipe, private fb: FormBuilder, private spinner: NgxSpinnerService, public location: Location, protected dateService: NbDateService<Date>, private commonSrvc: CommonService) {
     this.min = this.dateService.addMonth(this.dateService.today(), -1);
 
   }
@@ -64,6 +72,7 @@ export class CommonProductComponent implements OnInit {
       product: [null, [Validators.required]],
       location: [null, [Validators.required]],
       date: [null, [Validators.required]],
+      notes: [null],
     });
 
     this.finalBookForm = this.fb.group({
@@ -73,6 +82,10 @@ export class CommonProductComponent implements OnInit {
     this.bookForm.get('date').valueChanges.subscribe(changes => {
       this.rentPriceUpdateDate(changes);
     });
+    this.commonSrvc.getLoginDetailFromLocalStorage()
+      .subscribe(data => {
+        this.loggedUser = data == undefined ? null : data;
+      });
   }
 
   rentPriceUpdateProduct(event) {
@@ -85,7 +98,8 @@ export class CommonProductComponent implements OnInit {
       this.oneDayDiscAmt = 0;
       this.seveendayAmtDisc = 0;
       this.ratePerDay = 0;
-      event.forEach(x => {
+      this.selectedProduct = "";
+      event.forEach((x, i) => {
         this.totalModelAmount += Number(x.data.modelAmt);
         this.fourdayAmtDisc = this.totalModelAmount - (Number(this.finalProductData.fourdayAmtDisc) - Number(this.finalProductData.productAmt));
         this.oneDayDiscAmt = this.totalModelAmount + Number(this.finalProductData.productAmt);
@@ -95,6 +109,8 @@ export class CommonProductComponent implements OnInit {
         this.locationList = [...new Set(x.data.pickupLocation)];
         this.advanceAmt += Number(x.data.advanceAmt);
         this.ratePerDay = this.oneDayDiscAmt;
+        const comma = i >= 1 ? ",\n" : "";
+        this.selectedProduct = this.selectedProduct.concat(comma, x.value);
         this.duration = 1;
         this.gpayUrl = `upi://pay?pa=rajamanihari19-3@oksbi&pn=Rajamani&tn=cannon200d&am=${this.advanceAmt}`
       });
@@ -106,6 +122,19 @@ export class CommonProductComponent implements OnInit {
 
     }
 
+  }
+  timeChange(event) {
+    var currentDate = event.value;
+    // Extracting time from the Date object
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    // Creating a new Date object with a specific date and the extracted time
+    var specificDate = this.fromDate; // Specify your desired date here
+    specificDate.setHours(hours);
+    specificDate.setMinutes(minutes);
+    specificDate.setSeconds(seconds);
+    this.pickupDateTime=specificDate;
   }
 
   rentPriceUpdateDate(event) {
@@ -166,16 +195,18 @@ export class CommonProductComponent implements OnInit {
     return this.bookForm.controls;
   }
 
-  createOrder() {
+  createOrders() {
     // Call createOrder method with the amount
-    this.isBtnSubmitted=true;
-    this.isSubmitted=true;
-    if (this.advanceAmt>0 && this.bookForm.valid) {
-      this.isSubmitted=false;
-      this.bookNowBtnError=false;
+    this.isBtnSubmitted = true;
+    this.isSubmitted = true;
+    this.spinner.show();
+    if (this.advanceAmt > 0 && this.bookForm.valid && this.loggedUser?.email != null && this.loggedUser != null && this.pickupDateTime != null) {
+      this.isSubmitted = false;
+      this.bookNowBtnError = false;
       this.commonSrvc.getById('credentials', 'razorpay').subscribe(params => {
-        this.commonSrvc.createOrder(Number(this.advanceAmt) * 100).subscribe(
+        this.commonSrvc.createOrder(100).subscribe(
           response => {
+            this.createdOrder = response;
             var options = {
               "key": params.keyId, // Enter the Key ID generated from the Dashboard
               "amount": response.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -185,44 +216,288 @@ export class CommonProductComponent implements OnInit {
               "image": "https://example.com/your_logo",
               "send_sms_hash": true,
               "order_id": response.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-              "handler": (response) => {
-                this.paymentSuccessHandler(response);
+              "handler": this.paymentSuccessHandler.bind(this),
+              "modal": {
+                escape: false,
+                "ondismiss": this.dismissHandler.bind(this)
               },
               "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-                "name": "rajamani", //your customer's name
-                "email": "rajamni@gmail.com",
-                "contact": "7904998687" //Provide the customer's phone number for better conversion rates 
+                "name": this.loggedUser.username, //your customer's name
+                "email": this.loggedUser.email,
+                "contact": this.loggedUser.mobile //Provide the customer's phone number for better conversion rates
               },
               "notes": {
                 "address": "Razorpay Corporate Office"
               },
               "theme": {
-                "color": "#3399cc"
+                "color": "#225dd2"
               }
             };
-
-            var rzp1 = new Razorpay(options);
+            var rzp1 = new this.commonSrvc.nativeWindow.Razorpay(options);
+            this.spinner.hide();
             rzp1.open();
-
-
           },
           error => {
+            this.spinner.hide();
             console.error('Error creating order:', error);
 
           }
         );
       });
-    }else{
-      this.isBtnSubmitted=false;
-      this.bookNowBtnError=true;  
+    } else {
+      if (this.loggedUser?.email == null || this.loggedUser == null) {
+        this.showConfirmationMessage("Please Login First Then Book")
+      }
+      this.spinner.hide();
+      this.isBtnSubmitted = false;
+      this.bookNowBtnError = true;
     }
   }
-  paymentSuccessHandler(response: any) {
-    this.isBtnSubmitted=false;
-    this.paymentResponse = response;
-    this.paymentSuccess = true;
+  async paymentSuccessHandler(response: any) {
+
+    this.commonSrvc.getPaymentDetail(response.razorpay_payment_id)
+      .subscribe(
+        (payment) => {
+          this.paymentDetails = payment.payment;
+          this.isBtnSubmitted = false;
+          this.paymentResponse = response.payment;
+
+          //   "payment": {
+          //     "id": "pay_NqfKxjIqegpZEG",
+          //     "entity": "payment",
+          //     "amount": 102,
+          //     "currency": "INR",
+          //     "status": "captured",
+          //     "order_id": "order_NqfJwLrm15uKE4",
+          //     "invoice_id": null,
+          //     "international": false,
+          //     "method": "upi",
+          //     "amount_refunded": 0,
+          //     "refund_status": null,
+          //     "captured": true,
+          //     "description": "Test Transaction",
+          //     "card_id": null,
+          //     "bank": null,
+          //     "wallet": null,
+          //     "vpa": "rajamanihari19-4@okicici",
+          //     "email": "rajamni@gmail.com",
+          //     "contact": "+917904998687",
+          //     "notes": {
+          //         "address": "Razorpay Corporate Office"
+          //     },
+          //     "fee": 2,
+          //     "tax": 0,
+          //     "error_code": null,
+          //     "error_description": null,
+          //     "error_source": null,
+          //     "error_step": null,
+          //     "error_reason": null,
+          //     "acquirer_data": {
+          //         "rrn": "408557356694",
+          //         "upi_transaction_id": "ICIc03945a869e4492da55269217a11026a"
+          //     },
+          //     "created_at": 1711386653,
+          //     "provider": null,
+          //     "upi": {
+          //         "payer_account_type": "bank_account",
+          //         "vpa": "rajamanihari19-4@okicici"
+          //     },
+          //     "reward": null
+          // }
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+
+    this.commonSrvc.getOrderDetail(response.razorpay_order_id)
+      .subscribe(
+        (orderDetails) => {
+          this.paymentDetails = orderDetails.order;
+          this.isBtnSubmitted = false;
+          this.paymentResponse = orderDetails.order;
+          this.paymentSuccess = true;
+          this.bookingData = {
+            "booking_id": orderDetails.order.id,
+            "booking_date": new Date(),
+            "customer_name": this.loggedUser.username,
+            "customer_email": this.loggedUser.email,
+            "customer_phone": this.loggedUser.mobile,
+            "pickup_dateTime": this.pickupDateTime,
+            "booking_start_date": this.fromDate,
+            "booking_end_date": this.toDate,
+            "pickup_time": this.toDate,
+            "total_amount": this.ratePerDay,
+            "paid_amount": this.paymentDetails.amount,
+            "payment_status": orderDetails.order.status,
+            "payment_method": this.paymentDetails.method,
+            "payment_details": this.paymentDetails,
+            "order_details": orderDetails.order,
+            "notes": this.bookForm.value.notes,
+            "tenant": "01",
+            "created_by": this.loggedUser.username,
+            "created_date": new Date(),
+            "product_model": this.selectedProduct,
+            "availability_status": true,
+            "product_status": "Not yet picked"
+          }
+
+          this.commonSrvc.createwithUid("orderDetails", orderDetails.order.id, this.bookingData).then((result) => {
+            this.popupAlert = true;
+            setTimeout(() => {
+              this.popupAlert = true;
+              window.location.reload();
+            }, 4000);
+          }).catch((err) => {
+            this.popupAlert = true;
+            setTimeout(() => {
+              this.popupAlert = true;
+              window.location.reload();
+            }, 4000);
+          });
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    //     razorpay_order_id: "order_NqfJwLrm15uKE4"
+    // razorpay_payment_id: "pay_NqfKxjIqegpZEG"
+    // razorpay_signature: "0a75818ac1f2402376181f0d2691aaa22285c0e7fb3291452fcbe63e5d3bda0b"
+    this.sendEmail();
+    this.spinner.hide();
+
+  }
+  dismissHandler() {
+
+    this.commonSrvc.getOrderDetail(this.createdOrder.id)
+      .subscribe(
+        (orderDetails) => {
+          this.paymentDetails = orderDetails.order;
+          this.isBtnSubmitted = false;
+          this.paymentResponse = orderDetails.order;
+          this.paymentSuccess = true;
+          let order = {
+            customerName: this.loggedUser.username,
+            customerMail: this.loggedUser.email,
+            customerMobile: this.loggedUser.mobile,
+            orderDetial: orderDetails.order
+          }
+          this.commonSrvc.createwithUid("orderDetails", orderDetails.order.id, order).then((result) => {
+            this.popupAlert = true;
+            setTimeout(() => {
+              this.popupAlert = true;
+              window.location.reload();
+            }, 4000);
+          }).catch((err) => {
+            console.log(err);
+
+            this.popupAlert = true;
+            setTimeout(() => {
+              this.popupAlert = true;
+              window.location.reload();
+            }, 4000);
+          });
+          //   "order": {
+          //     "id": "order_NqfJwLrm15uKE4",
+          //     "entity": "order",
+          //     "amount": 100,
+          //     "amount_paid": 102,
+          //     "amount_due": -2,
+          //     "currency": "INR",
+          //     "receipt": "order_rcptid_11",
+          //     "offer_id": null,
+          //     "status": "paid",
+          //     "attempts": 1,
+          //     "notes": [],
+          //     "created_at": 1711386594
+          // }
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    this.popupMessage = 'Payement Canceled';
+
+
+
   }
 
+  sendEmail() {
+    const emailData = {
+      to: this.bookingData.customer_email,
+      subject: 'Successfully Booked - 📸Dindigul Camara Rental🎥',
+      text: `
+
+               Welcome to 📸Dindigul Camara Rental🎥
+
+           📸We Provide Rentals For Camera & Accessories
+
+      Follow Insta - https://www.instagram.com/dindigul_camera_rental
+ 
+                    📲 Contact - 7904998687 
+
+      Hi ${this.bookingData.customer_name}!,
+
+      <p><u>RENTAL BOOKED RECEIPT</u></p>
+      Name                : ${this.bookingData.customer_name}
+      Mobile              : ${this.bookingData.customer_mobile}
+      booked Date         : ${moment(this.bookingData.booking_date).format('YYYY-MM-DD HH:mm:ss')}
+      Pickup Date & Time  : ${moment(this.bookingData.pickup_dateTime).format('YYYY-MM-DD HH:mm:ss')}
+      Rental Start Date   : ${moment(this.bookingData.booking_start_date).format('YYYY-MM-DD')}
+      Rental End Date     : ${moment(this.bookingData.booking_end_date).format('YYYY-MM-DD')}
+      Total Rental Amount : Rs.${this.bookingData.total_amount}
+      Paid Amount         : Rs.${this.bookingData.paid_amount}
+      Pending Due Amount  : Rs.${Number(this.bookingData.total_amount) - Number(this.bookingData.paid_amount)}
+      Payment Status      : ${this.bookingData.customer_mobile}
+      Payment Mode        : ${this.bookingData.customer_mobile}
+     
+      ---------------------------------------------
+
+      Click Login and View Our Page and More details & Offers ( Online Booking ):
+      https://dindigulcamara.web.app/
+
+      ---------------------------------------------
+
+      ♥️Thanks For Renting With us🙏🏻`
+    };
+
+    this.commonSrvc.sendEmail(emailData).subscribe(
+      response => {
+        console.log(response);
+        this.showConfirmationMessage("We Sent Booked Receipt to Your Mail Check Now");
+        // Handle success response
+      },
+      error => {
+        console.log(error);
+        this.showConfirmationMessage("Your Given Mail is Invalid Please Give Orginal Mail");
+        // Handle error response
+      }
+    );
+  }
+
+  showBookPopup() {
+    this.isBtnSubmitted = true;
+    this.isSubmitted = true;
+    if (this.advanceAmt > 0 && this.bookForm.valid && this.loggedUser?.email != null && this.loggedUser != null) {
+      this.display = 'block'
+    } else {
+      if (this.loggedUser?.email == null || this.loggedUser == null) {
+        this.showConfirmationMessage("Please Login First Then Book")
+      }
+      this.spinner.hide();
+      this.isBtnSubmitted = false;
+      this.bookNowBtnError = true;
+    }
+  }
+
+
+  showConfirmationMessage(message: string): void {
+    this.popupMessage = message;
+    this.popupAlert = true;
+    setTimeout(() => {
+      this.popupAlert = false;
+    }, 3000); // Clear message after 3 seconds
+  }
 
   async openModal() {
     this.registrationShow = true;

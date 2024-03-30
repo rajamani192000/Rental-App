@@ -1,3 +1,4 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div class="component-content-pro">
   <div class="component-content-color">
     <section class="container-100">
@@ -35,9 +36,9 @@
                 <hr>
                 <p><strong>Technical Specifications-</strong></p>
 
-                <ul >
+                <ul>
                   <div *ngFor="let x of finalProductData.specs">
-                  <li>{{x}}</li>
+                    <li>{{x}}</li>
                   </div>
                 </ul>
 
@@ -137,7 +138,7 @@
                   <div class="rent-box">
                     <div class="rented">
                       <label>Total Rent</label><br>
-                      <span class="cut-price">{{this.ratePerDay}}</span>
+                      <span class="show_book_price">{{this.ratePerDay}}</span>
                       <p class="par-rest-details font-weight-bold" id="show_book_day">Price is for {{this.duration}} day
                       </p>
                     </div>
@@ -163,7 +164,8 @@
                       <!--<a class="incr-btn" data-action="decrease" href="#">–</a>-->
                       <ngx-select class="form-control-select" formControlName="product" required
                         (selectionChanges)="rentPriceUpdateProduct($event)" [items]="modelData"
-                        optionValueField="modelName" optionTextField="modelName" [multiple]="true" [allowClear]="true" placeholder="Select">
+                        optionValueField="modelName" optionTextField="modelName" [multiple]="true" [allowClear]="true"
+                        placeholder="Select">
                       </ngx-select>
                       <span *ngIf="fval?.product?.errors?.required && isSubmitted" class="required-span">Product
                         Required</span>
@@ -184,7 +186,7 @@
                     <div class="form-group relative">
                       <label>Select Your Date <i style="color:red">*</i></label>
                       <input [nbDatepicker]="rangepicker" (change)="rentPriceUpdateDate($event)"
-                        placeholder="Select From and ToDate" formControlName="date" class="form-control">
+                        placeholder="Select From and ToDate" formControlName="date" class="form-control" readonly>
                       <nb-rangepicker #rangepicker></nb-rangepicker>
                       <span *ngIf="fval?.date?.errors?.required && isSubmitted" class="required-span">Date
                         Required</span>
@@ -207,7 +209,9 @@
                 <label>Security Amount (Refundable) <i style="color:red">*</i></label>
               </div>
             </form>
-            <button type="button" class="btn btn-form" (click)="createOrder()">Book</button><br>
+            <button type="button" class="btn btn-form" (click)="showBookPopup()">Book</button><br>
+            <span *ngIf="loggedUser?.email ==null || loggedUser == null" class="required-span text-center">Please Login
+              In</span>
 
 
             <div class="offer-function">
@@ -363,7 +367,7 @@
           <span class="popu-billamo">Login & SignUp</span>
         </div>
         <div class="lightbox-close" (click)="registrationShow=false">
-          <i class="fa fa-times" aria-hidden="true" ></i>
+          <i class="fa fa-times" aria-hidden="true"></i>
         </div>
       </div>
       <div class="lightbix-inner-contents">
@@ -390,69 +394,115 @@
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Camara Booking Form</h4>
+      <div class="modal-header head-color">
+        <h4 class="modal-title un-colorc">Camara Booking Confirmation</h4>
         <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
             aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="row pb-1">
-          <div class="col-md-12 col-xs-12">
-            <div class="rent-box">
-              <div class="rented">
-                <label>Total Rent</label><br>
-                <span class="cut-price">Rs.{{this.ratePerDay}}</span>
-                <p class="par-rest-details font-weight-bold" id="show_book_day">Price is for {{this.duration}} day</p>
-              </div>
+        <div class="">
+          <div class="row pb-1">
+            <div class="col-md-12 col-xs-12">
 
-              <div class="rented">
-                <label>Pay & Book Now</label><br>
-                <span id="show_book_price">Rs.{{advanceAmt}}</span>
-                <p class="par-rest-details">& Pay Rest Later</p>
-              </div>
+              <table border="1">
+                <tr class="head-color">
+                  <th class="text-center">TOTAL RENT</th>
+                  <th class="text-center">PAY & BOOK NOW</th>
+                </tr>
+                <tr>
+                  <td class="text-center font-weight-bold"><span class="cut-price">Rs.{{this.ratePerDay}}</span>
+                    <p class="par-rest-details " id="show_book_day">Price is for {{this.duration}} day
+                    </p>
+                  </td>
+                  <td class="text-center font-weight-bold"> <span id="cut-price">Rs.{{advanceAmt}}</span>
+                    <p class="par-rest-details">& Pay Rest Later</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- <div class="price-box">
+                <div class="rented">
+                  <label class="un-color"></label><br>
+                 
+                </div>
+
+                <div class="rented">
+                  <label class="un-color"></label><br>
+             
+                </div>
+              </div> -->
+            </div>
+            <div class="col-md-12 col-xs-12">
+              <table class="font-weight-bold">
+                <tr class="head-color">
+                  <th colspan="2" class="text-center un-colorc">SELECTED PRODUCT</th>
+                </tr>
+                <tr>
+                  <th colspan="2" class="text-center font-weight-bold">{{selectedProduct}}</th>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-12 col-xs-12">
+              <table class="font-weight-bold">
+                <tr class="head-color">
+                  <th colspan="2" class="text-center un-colorc">Booking Details</th>
+                </tr>
+                <tr>
+                  <td>Customer Name</td>
+                  <td>:&nbsp; {{loggedUser.username}}</td>
+                </tr>
+                <tr>
+                  <td>Customer Mobile</td>
+                  <td>:&nbsp; {{loggedUser.mobile}}</td>
+                </tr>
+                <tr>
+                  <td>Rental Start Date</td>
+                  <td>:&nbsp; {{fromDate | date}}</td>
+                </tr>
+                <tr>
+                  <td>Rental End Date</td>
+                  <td>:&nbsp; {{toDate | date}}</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
-        <form [formGroup]="finalBookForm">
+        <div [formGroup]="bookForm">
           <div class="product-type clearfix">
             <div class="row row-ph">
-              <div class="text-center col-xs-12 col-md-12">
-                <br>
-                <a (click)="gpay()">
-                  <qr-code [value]="gpayUrl" [size]="150" [level]="'H'"></qr-code>
-                </a>
-                <br>Click And Pay With
+              <div class="text-left col-xs-12 col-md-12">
+                <label>Pickup Time :<i style="color:red">*</i></label>
+                <input class="form-control" [owlDateTimeTrigger]="dt1" (dateTimeInput)="timeChange($event)" formControlName="pickupTime" [owlDateTime]="dt1">
+                <owl-date-time [pickerType]="'timer'" [hour12Timer]="true" #dt1></owl-date-time>
               </div>
-              <div class="text-center col-xs-12 col-md-12">
-                <button type="button" class="btn btn-form" (click)="gpay()"><i
-                    class="fa-brands fa-google-pay"></i></button>
-              </div>
-
-              <div class="text-left col-xs-6 col-md-6">
-                <label>After Successfully sent the Amount You got Transection Id</label>
-                <img src="/assets/images/transaction.png" alt="">
-              </div>
-              <div class="text-left col-xs-6 col-md-6">
-                <label>Paid Amount<i style="color:red">*</i></label>
-                <input type="text" class="form-control" required formControlName="paidAmount">
-                <span *ngIf="fval?.location?.errors?.required && isSubmitted" class="required-span">Place
+              <div class="col-md-12 col-xs-12" *ngIf="pickupDateTime != null">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th class="text-center">Pickup Date & Time</th>
+                  <tr>
+                  <tr>
+                    <td class="text-center"> {{pickupDateTime | date:'medium' }}</td>
+                  <tr>
+                </table>
+              <div class="text-left col-xs-12 col-md-12">
+                <label>Special Instructions :</label>
+                <textarea type="text" class="form-control" formControlName="notes"></textarea>
+                <span *ngIf="fval?.notes?.errors?.required && isSubmitted" class="required-span">Notes
                   Required</span>
               </div>
-              <div class="text-left col-xs-6 col-md-6">
-                <label>Transaction ID<i style="color:red">*</i></label>
-                <input type="text" class="form-control" formControlName="transactionId" required>
-                <span *ngIf="fval?.location?.errors?.required && isSubmitted" class="required-span">Place
-                  Required</span>
-              </div><br>
-
-
             </div>
           </div>
-          <button type="button" class="btn btn-form" (click)="openModal()">Book</button>
-        </form>
+
+        </div>
+
+        <div class="row pb-1 d-flex justify-content-center">
+          <div class="col-md-12 col-xs-12 d-flex justify-content-center">
+            <button type="button" class="btn btn-form" (click)="createOrders()">Book</button>
+          </div>
+        </div>
 
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer head-color">
         <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
       </div>
     </div>
@@ -489,4 +539,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="succesfull-info-popup" [ngClass]="{ 'open': popupAlert }">
+  <i class="far fa-thumbs-up"></i> <span>{{popupMessage}} </span>
 </div>

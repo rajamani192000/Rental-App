@@ -1,3 +1,4 @@
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { CamaraRentalComponent } from './camara-rental.component';
 import { NgModule } from '@angular/core';
@@ -11,7 +12,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { LensListComponent } from './lens-list/lens-list.component';
 import { CanonSevenhundredDetailsComponent } from './canon-sevenhundred-details/canon-sevenhundred-details.component';
 import { CannonLongLensComponent } from './cannon-long-lens/cannon-long-lens.component';
-import { NbDatepickerModule,NbTabsetModule } from '@nebular/theme';
+import { NbDatepickerModule, NbTabsetModule, NbTimepickerModule, NbCardModule } from '@nebular/theme';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,11 +21,13 @@ import { CommonProductComponent } from './common-product/common-product.componen
 import { EnquiryFormComponent } from './enquiry-form/enquiry-form.component';
 
 @NgModule({
-  declarations: [EnquiryFormComponent,CommonProductComponent,CamaraRentalComponent, CamHomeComponent, ProductListComponent, CamaraDetailsComponent, LensListComponent, CanonSevenhundredDetailsComponent, CannonLongLensComponent],
+  declarations: [EnquiryFormComponent, CommonProductComponent, CamaraRentalComponent, CamHomeComponent, ProductListComponent, CamaraDetailsComponent, LensListComponent, CanonSevenhundredDetailsComponent, CannonLongLensComponent],
   imports: [
     ThemeModule,
     RouterModule,
     CommonModule,
+    NgxSpinnerModule,
+    NbCardModule,
     CamaraRentalRoutingModule,
     NbTabsetModule,
     NgxSelectModule,
@@ -33,8 +36,9 @@ import { EnquiryFormComponent } from './enquiry-form/enquiry-form.component';
     ReactiveFormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    NbDatepickerModule
+    NbDatepickerModule,
+    NbTimepickerModule
   ],
-  exports:[]
+  exports: []
 })
 export class CamaraRentalModule { }

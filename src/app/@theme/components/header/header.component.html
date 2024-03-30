@@ -1,10 +1,11 @@
+
 <div class="header-container">
   <div class="logo-container">
     <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
     <a class="logo" href="#" (click)="navigateHome()"><span>
-      <img [src]="srcname">
+    <img [src]="srcname">
     </span></a>
 
 
@@ -27,25 +28,23 @@
     <nb-action class="user-action header-user" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
-               [name]="user?.displayName"
+               [name]="user?.username"
+               [title]="user?.role"
                [picture]="user?.imageUrl"
                href="">
       </nb-user>
     </nb-action>
-    <a class="logo" href="https://wa.me/+917904998687?text=Hi, I need your help renting a product from https://dindigulcamara.web.app/ . Please provide your details - Equipment type, Start Date, End Date" ><span>
-      <img class="logowidth" [src]="whatsapp">
-    </span></a>
   </nb-actions>
 
-  <div class="btn btn-primary btn-block p-1" role="button" *ngIf="user?.role != 'Admin' && user?.role !=   null" (click)="logout()">
+  <div class="btn btn-primary btn-block p-1" role="button" *ngIf=" user?.role !=   null" (click)="logout()">
    Logout
   </div>
-  <div class="btn btn-primary btn-block p-1" role="button" *ngIf="user?.role != 'Admin' && user?.role == null" (click)="showRegistraion();">
+  <div class="btn btn-primary btn-block p-1" role="button" id="loginButton" *ngIf=" user?.role == null" (click)="showRegistraion();">
     Login
    </div>
 </div>
 <div class="succesfull-info-popup" [ngClass]="{ 'open': faild }">
-  <i class="far fa-thumbs-down"></i> <span> Logout Successfully</span>
+  <i class="far fa-thumbs-up"></i> <span> Logout Successfully</span>
 </div>
 
 <div [ngStyle]="{'display': registrationShow ? 'block'  : 'none' }" class="component-contents">
@@ -59,13 +58,12 @@
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
       </div>
-      <div class="lightbix-inner-contents">
+      <div class="">
         <div class="tab-block-conetnts">
-          <!--  -->
+          <ngx-customer-registration-login></ngx-customer-registration-login>
           <div class="row">
             <div class="col-md-12">
-              <div class="button-controls">
-                <ngx-customer-registration-login></ngx-customer-registration-login>
+              <div class="button-controls pb-1">
                 <input type="button" (click)="registrationShow=false" value="Cancel" class="btn btn-clear" />
               </div>
             </div>

@@ -19,6 +19,7 @@ import { ComponentsModule } from '../../@components/components.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from '../../@theme/pipes/filter.pipe';
 import { ProductManageComponent } from './product-manage/product-manage.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 FilterPipe
 @NgModule({
@@ -37,6 +38,7 @@ FilterPipe
     ThemeModule,
     Ng2SmartTableModule,
     AdminRoutingModule,
+    NgxSpinnerModule,
     ThemeModule,
     RouterModule,
     NbTabsetModule,

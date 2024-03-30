@@ -854,9 +854,6 @@ a.responsive-login-btn.btn {
         padding-bottom: 0px;
         margin-bottom: 0px;
     }
-    .side-form .form-control {
-        height: 40px !important;
-    }
     .sticky {
         position: relative !important;
         top: 0;
@@ -917,9 +914,9 @@ a.responsive-login-btn.btn {
     .padd-mobile {
         padding: 15px 16px 5px 17px !important;
     }
-    .col-md-6 {
+    /* .col-md-6 {
         padding-right: 15px !important;
-    }
+    } */
     #rent_from_date,
     #rent_to_date {
         width: 100% !important;

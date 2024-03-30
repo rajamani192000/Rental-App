@@ -40,11 +40,10 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
-import { CamaraRentalModule } from '../pages/camara-rental/camara-rental.module';
 import { CustomerRegistrationLoginComponent } from './customer-registration-login/customer-registration-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../@components/components.module';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 const NB_MODULES = [
   ReactiveFormsModule,
   NbLayoutModule,
@@ -60,7 +59,7 @@ const NB_MODULES = [
   NbIconModule,
   NbEvaIconsModule,
   NbTabsetModule,
-  ComponentsModule,
+  ComponentsModule
 ];
 const COMPONENTS = [
   CustomerRegistrationLoginComponent,

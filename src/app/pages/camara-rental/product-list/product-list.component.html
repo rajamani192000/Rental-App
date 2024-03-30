@@ -8,7 +8,7 @@
           <div class="col-md-12 ">
             <div class="back-icon d-inline">
               <a (click)="location.back()"> <i class="fa fa-chevron-left" aria-hidden="true"></i>Back</a>
-          </div>
+            </div>
             <h3 class="studio-main-head ">DSLR Camara</h3>
           </div>
         </div>
@@ -17,10 +17,10 @@
             <div class="row product-list clearfix">
               <div class=" col-md-4 col-xs-12" *ngFor="let x of productsData">
                 <div class="product-list-style">
-                  <div class="product-list-style-img" >
-                    <a  (click)="callProduct(x)">
-                      <img src="{{x.imageurl}}" title="{{x.productName}}"
-                        alt="{{x.productName}}" class="responsive-image"></a>
+                  <div class="product-list-style-img">
+                    <a (click)="callProduct(x)">
+                      <img src="{{x.imageurl}}" title="{{x.productName}}" alt="{{x.productName}}"
+                        class="responsive-image"></a>
                   </div>
                   <div class="overlay">
                     <a href="{{x.imageurl}}" class="zoom"></a>
@@ -35,10 +35,16 @@
                     <div id="drop_price_545" class="wrapper-dropdown-3 priceDrop" tabindex="1">
                       <ul class="dropdown">
                         <li id="itm_1" class="active"><a id="itm_href_1"><i class="product-detail">
-                          <button type="button" class=" btn btn-form" (click)="callProduct(x)">Book</button>
-                        </i><span class="price-left pt-3"> Rs. {{x.displayAmt}} /
+                              <button type="button" class=" btn btn-form" (click)="callProduct(x)">Book</button>
+
+                            </i><span class="price-left pt-3"> Rs. {{x.displayAmt}} /
                               day</span> </a></li>
+                        <li id="itm_1" class="active ml-1 pl-5"> <span *ngIf="logInError"
+                            class="required-span text-center ml-3">Please Login In First</span>
+                        </li>
+
                       </ul>
+
                     </div>
                     <!-- ASDF -->
                   </div>
@@ -217,4 +223,8 @@
     </div>
     <!-- How it Work -->
   </div>
+</div>
+
+<div class="succesfull-info-popup" [ngClass]="{ 'open': popupAlert }">
+  <span>{{popupMessage}} </span>
 </div>

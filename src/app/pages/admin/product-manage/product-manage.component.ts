@@ -16,6 +16,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Router } from "@angular/router";
 import { AdminService } from "../../service/admin.service";
 import { CommonService } from "../../service/common-service.service";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -76,7 +77,8 @@ export class ProductManageComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private router: Router,
     private adminSrvc: AdminService,
-    private commonSrvc: CommonService
+    private commonSrvc: CommonService,
+    private spinner:NgxSpinnerService
   ) {
     this.productForm = this.fb.group({
       productName: [null, [Validators.required]],
@@ -144,13 +146,14 @@ export class ProductManageComponent implements OnInit {
     //     { "name": "seveenDaysMoreDisc", "price": this.productDetailsForm.value.seveenDaysMoreDisc },
     //   ]
     // }
-
+    this.spinner.show()
     this.commonSrvc.list("products") .subscribe((productsData: any[]) => {
       this.productsData = productsData;
+      this.spinner.hide()
     });
-
   }
   addProduct() {
+    this.spinner.show()
     this.isdetailsSubmitted = true;
     this.isProductBtnSubmitted = true;
     if (this.productDetailsForm.valid) {
@@ -159,14 +162,17 @@ export class ProductManageComponent implements OnInit {
       this.productDetailsForm.reset();
       this.showConfirmationMessage("Successfully Added The model")
       this.isProductBtnSubmitted = false;
+      this.spinner.hide()
     }
     else {
+      this.spinner.hide()
       this.isProductBtnSubmitted = false;
       this.failedShowConfirmationMessage("Failed to Add The model")
     }
   }
 
   callmodelEdit(data, index) {
+    this.spinner.show();
     this.isProductAddComponent = false;
     this.indexPosition = index;
     this.productDetailsForm.setValue({
@@ -177,8 +183,10 @@ export class ProductManageComponent implements OnInit {
       pickupLocation: data.pickupLocation,
       advanceAmt:data.advanceAmt
     });
+    this.spinner.hide();
   }
   updateProduct() {
+    this.spinner.show();
     this.isdetailsSubmitted = true;
     this.isProductBtnSubmitted = true;
     if (this.productDetailsForm.valid) {
@@ -187,15 +195,19 @@ export class ProductManageComponent implements OnInit {
       this.showConfirmationMessage("Successfully Updated The model")
       this.isProductAddComponent = true;
       this.isProductBtnSubmitted = false;
+      this.spinner.show();
     }
     else {
+      this.spinner.hide();
       this.isProductAddComponent = true;
       this.isProductBtnSubmitted = false;
       this.failedShowConfirmationMessage("Failed to Update The model")
     }
   }
   callmodeldelete(i) {
+    this.spinner.show();
     this.addedModelDetails.splice(i, 1);
+    this.spinner.hide();
   }
   failedShowConfirmationMessage(message) {
     this.popupMessageFailed = message;
@@ -205,6 +217,7 @@ export class ProductManageComponent implements OnInit {
     }, 3000); // Clear message after 3 seconds
   }
   getBrandDetails() {
+    this.spinner.show();
     this.commonSrvc.list("brandList").subscribe(data => {
       this.brandList = data;
     });
@@ -223,7 +236,7 @@ export class ProductManageComponent implements OnInit {
     this.commonSrvc.list("tamilnaduTaluks").subscribe(data => {
       this.locationData = data;
     });
-    
+    this.spinner.hide();
   }
   // getTypeandModelList() {
   //   let typeSet = new Set();
@@ -275,14 +288,17 @@ export class ProductManageComponent implements OnInit {
   }
 
   onSave() {
+    this.spinner.show();
     this.getProductUidandSave("save").subscribe(status => {
       if (status == "saved") {
         this.selectedFile = null;
         this.selectedFileUrl = null;
         this.isBtnSubmitted =false;
         this.goback();
+        this.spinner.hide();
         this.showConfirmationMessage('product Saved Successfully');
       } else if (status == "failed") {
+        this.spinner.hide();
         this.showConfirmationMessage('Product Saved Failed');
       }
     });
@@ -357,6 +373,7 @@ export class ProductManageComponent implements OnInit {
     this.isSubmitted = true;
     this.isBtnSubmitted = true;
     if (this.productForm.valid) {
+      this.spinner.show();
       const formData = this.productForm.value;
 
       this.adminSrvc.signUpWithGoogle()
@@ -382,14 +399,17 @@ export class ProductManageComponent implements OnInit {
               this.selectedFileUrl = null;
               this.goback();
               this.showConfirmationMessage('User Added successfully');
+              this.spinner.hide();
             })
             .catch((error) => {
+              this.spinner.hide();
               this.showConfirmationMessage('User Added Failed');
             });
           this.productForm.reset();
           // You can perform further actions here, such as redirecting the user to a different page
         })
         .catch((error) => {
+          this.spinner.hide();
           // Handle errors
           console.log('Error signing up with email and password:', error);
         });
@@ -408,6 +428,7 @@ export class ProductManageComponent implements OnInit {
     }, 3000); // Clear message after 3 seconds
   }
   callAdd() {
+    this.spinner.show();
     this.selectedFileUrl=null;
     this.addedModelDetails=[];
     this.isAddComponnet = true;
@@ -415,19 +436,24 @@ export class ProductManageComponent implements OnInit {
     this.isEditComponnet = false;
     this.productForm.reset();
     this.productDetailsForm.reset();
+    this.spinner.hide();
   }
   calldelete(id){
+    this.spinner.show();
     this.commonSrvc.delete("products",id)
       .then(() => {
         this.showConfirmationMessage('Successfully Product Deleted');
+        this.spinner.show();
       this.confirmDelete=false;
       })
       .catch((error) => {
+        this.spinner.hide();
         this.showConfirmationMessage('Failed to Delete Product');
       });
   }
 
   callEdit(data): void {
+    this.spinner.show();
     this.id = data.id;
     this.addedModelDetails=[];
     data.modelDet.forEach(e => {
@@ -466,10 +492,12 @@ export class ProductManageComponent implements OnInit {
     this.isEditComponnet = true;
     this.isAddComponnet = false;
     this.isProductAddComponent = true;
+    this.spinner.hide();
   }
 
 
   onEdit() {
+    this.spinner.show();
     this.isSubmitted = true;
     this.isBtnSubmitted = true;
     this.getProductUidandUpdate().subscribe(status => {
@@ -478,15 +506,16 @@ export class ProductManageComponent implements OnInit {
         this.selectedFileUrl = null;
         this.isBtnSubmitted =false;
         this.goback();
+        this.spinner.hide();
         this.showConfirmationMessage('product Updated Successfully');
       } else if (status == "failed") {
+        this.spinner.hide();
         this.showConfirmationMessage('Product Update Failed');
       }
     });
   }
 
   getProductUidandUpdate() {
-
     this.isSubmitted = true;
     this.isBtnSubmitted=true;
     if (this.productForm.valid) {

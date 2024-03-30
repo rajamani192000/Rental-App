@@ -10,6 +10,7 @@ import { UserData } from '../../../@core/data/users';
 import { CommonService } from '../../service/common-service.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ngx-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private afAuth: AngularFireAuth,
+    private spinner:NgxSpinnerService,
     public firestore: AngularFirestore,
     private userService: UserData, private cdr: ChangeDetectorRef, private adminSrvc: AdminService, private commonSrvc: CommonService) {
 
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.spinner.show();
     this.adminSrvc.signInWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
       .then((result) => {
         this.uid = result.user.uid;
@@ -55,20 +58,19 @@ export class LoginComponent implements OnInit {
         } else {
           this.showConfirmationMessage("Logged In Successfully")
           setTimeout(() => {
-            this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
-              this.router.navigate(['/pages/admin/dashboard']);
-            });
-
+            this.spinner.hide();
+            window.location.reload();
           }, 3001);
         }
       })
       .catch((error: any) => {
         this.showConfirmationMessage("You Are Not authorized")
+        this.spinner.hide();
       });
   }
 
   googleLogin() {
-
+    this.spinner.show();
     this.adminSrvc.signInWithGoogle().then((UserCredential) => {
       this.uid = UserCredential.user.uid;
       var isNewUser = UserCredential.additionalUserInfo.isNewUser;
@@ -79,12 +81,12 @@ export class LoginComponent implements OnInit {
         this.showConfirmationMessage("Logged In Successfully")
         this.getCurrentUser();
         setTimeout(() => {
-          this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/pages/admin/dashboard']);
-          });
+          window.location.reload();
+            this.spinner.hide();
         }, 3001);
       }
     }).catch((error) => {
+      this.spinner.hide();
       this.showConfirmationMessage("Log In Failed");
     });
 
@@ -93,15 +95,18 @@ export class LoginComponent implements OnInit {
 
   getCurrentUser() {
     if (this.uid) {
+      this.spinner.show();
       this.commonSrvc.getById('Admin', this.uid)
         .subscribe((data) => {
           if (data != null && data != undefined) {
             this.logedInUser = data;
             const jsonData = JSON.stringify(this.logedInUser);
             localStorage.setItem('currentUser', jsonData);
+            this.spinner.hide();
           }
         });
     } else {
+      this.spinner.hide();
       // Handle the case when this.uid is not defined
       console.error("User ID is not defined");
     }

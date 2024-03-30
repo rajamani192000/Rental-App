@@ -153,14 +153,9 @@
         <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
           <nb-user [nbContextMenu]="userMenu"
                    [onlyPicture]="userPictureOnly"
-                   [name]="user?.displayName"
-                   [picture]="user?.imageUrl"
-                   href="">
+                   [picture]="user?.imageUrl">
           </nb-user>
         </nb-action>
-        <a class="logo" href="https://wa.me/+917904998687?text=Hi, I need your help renting a product from https://dindigulcamara.web.app/ . Please provide your details - Equipment type, Start Date, End Date" ><span>
-          <img class="logowidth" [src]="whatsapp">
-        </span></a>
       </nb-actions>
       <!-- <a (click)="goHome()"><img src="/assets/images/crazylogo.png" alt=""></a> -->
     </li>

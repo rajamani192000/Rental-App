@@ -12,6 +12,7 @@ import { NbTabComponent, NbTabsetComponent } from '@nebular/theme';
 import { AdminService } from '../../pages/service/admin.service';
 import { UserData } from '../../@core/data/users';
 import { CommonService } from '../../pages/service/common-service.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'ngx-customer-registration-login',
@@ -43,6 +44,7 @@ export class CustomerRegistrationLoginComponent implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth,
     public firestore: AngularFirestore,
+    // private spinner:NgxSpinnerService,
     private userService: UserData, private cdr: ChangeDetectorRef, private adminSrvc: AdminService, private commonSrvc: CommonService) {
 
   }
@@ -80,6 +82,7 @@ export class CustomerRegistrationLoginComponent implements OnInit {
     this.isSubmitted = true;
     this.isBtnSubmitted = true;
     if (this.registerForm.valid && this.selectedFile != undefined) {
+      // this.spinner.show();
       this.adminSrvc.uploadImageGetUrl(this.registerForm.value.name, this.selectedFile).subscribe(
         imageUrl => {
           if (!imageUrl) {
@@ -111,11 +114,12 @@ export class CustomerRegistrationLoginComponent implements OnInit {
                   setTimeout(() => {
                     this.loginForm.controls["email"].setValue(this.data.email);
                     this.loginForm.controls["password"].setValue(this.data.password);
-                    this.loginCus()
+                    this.loginCus();
                   }, 3001);
                 })
                 .catch((error) => {
                   this.showConfirmationMessage('Customer Signup Failed');
+                  // this.spinner.hide();
                 });
               this.registerForm.reset();
               // You can perform further actions here, such as redirecting the user to a different page
@@ -125,6 +129,7 @@ export class CustomerRegistrationLoginComponent implements OnInit {
             });
         },
         error => {
+          // this.spinner.hide();
           console.error('Error uploading image:', error);
         }
       );
@@ -154,15 +159,17 @@ export class CustomerRegistrationLoginComponent implements OnInit {
               setTimeout(() => {
                 this.loginForm.controls["email"].setValue(this.data.email);
                 this.loginForm.controls["password"].setValue(this.data.password);
-                this.loginCus()
+                this.loginCus();
               }, 3001);
             })
             .catch((error) => {
+              // this.spinner.hide();
               this.showConfirmationMessage('Customer Signup Failed');
             });
           this.registerForm.reset();
         })
         .catch((error) => {
+          // this.spinner.hide();
           // Handle errors
         });
     }
@@ -190,7 +197,7 @@ export class CustomerRegistrationLoginComponent implements OnInit {
 
       Follow Insta - https://www.instagram.com/dindigul_camera_rental
 
-      📲 Contact - 7904998687 & 9566763537
+      📲 Contact - 7904998687
 
       ---------------------------------------------
 
@@ -226,6 +233,7 @@ export class CustomerRegistrationLoginComponent implements OnInit {
 
   loginCus() {
     if (this.loginForm.valid) {
+      // this.spinner.show();
       this.adminSrvc.signInWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
         .then((result) => {
           this.uid = result.user.uid;
@@ -235,22 +243,22 @@ export class CustomerRegistrationLoginComponent implements OnInit {
             result.user.delete();
           } else {
             this.getCurrentUser();
-            this.showConfirmationMessage("Logged In Successfully")
+
             setTimeout(() => {
-              this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
-                this.router.navigate(['/pages/rental/camHome']);
-              });
+              window.location.reload();
+              // this.spinner.hide();
             }, 4000);
           }
         })
         .catch((error: any) => {
+          // this.spinner.hide();
           this.showConfirmationMessage("You Are Not authorized")
         });
     }
   }
 
   googleLogin() {
-
+    // this.spinner.show();
     this.adminSrvc.signUpWithGoogle().then((UserCredential) => {
       this.uid = UserCredential.user.uid;
       var isNewUser = UserCredential.additionalUserInfo.isNewUser;
@@ -261,12 +269,12 @@ export class CustomerRegistrationLoginComponent implements OnInit {
         this.showConfirmationMessage("Logged In Successfully")
         this.getCurrentUser();
         setTimeout(() => {
-          this.router.navigateByUrl('/theme', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/pages/rental/camHome']);
-          });
+          window.location.reload();
+          // this.spinner.hide();
         }, 4000);
       }
     }).catch((error) => {
+      // this.spinner.hide();
       this.showConfirmationMessage("Log In Failed");
     });
 
@@ -275,14 +283,31 @@ export class CustomerRegistrationLoginComponent implements OnInit {
 
   getCurrentUser() {
     if (this.uid) {
+      //  this.spinner.show();
       this.commonSrvc.getById('customer', this.uid)
-        .subscribe((data) => {
+        .subscribe
+        ((data: any) => {
           if (data != null && data != undefined) {
             this.logedInUser = data;
             const jsonData = JSON.stringify(this.logedInUser);
             localStorage.setItem('currentUser', jsonData);
+            this.showConfirmationMessage("Customer Logged In Successfully")
+            // this.spinner.hide();
           }
-        });
+        },
+          error => {
+            this.commonSrvc.getById('Admin', this.uid)
+              .subscribe((data) => {
+                if (data != null && data != undefined) {
+                  this.logedInUser = data;
+                  const jsonData = JSON.stringify(this.logedInUser);
+                  localStorage.setItem('currentUser', jsonData);
+                  this.showConfirmationMessage("Admin Logged In Successfully");
+
+                }
+              });
+          });
+
     } else {
       // Handle the case when this.uid is not defined
       console.error("User ID is not defined");

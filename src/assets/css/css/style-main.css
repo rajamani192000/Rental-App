@@ -7855,9 +7855,9 @@ ul.list-form {
 .form-control-select a span{
   color: #3366ff !important;
 }
-.modal-header .close {
-  padding: 1rem 1rem 1rem 1rem;
-  margin: -1rem -1rem 0rem 34rem;
+
+.modal-footer {
+  justify-content: center !important;
 }
 .required-span{
   color:red;
@@ -9214,13 +9214,7 @@ All this is done for any sub-level being entered.
     background-color: #fff;
 }
 
-button.close {
-    padding-bottom: 18px !important;
-    padding-left: 16px !important;
-    /* font-size: 24px !important; */
-    position: absolute;
-    z-index: 99999999;
-}
+
 
 div#offer-coupon .flex.offer_coupon:first-child {
     margin-top: 20px !important
