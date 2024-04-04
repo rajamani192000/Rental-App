@@ -69,6 +69,9 @@ export class ProductManageComponent implements OnInit {
   indexPosition: any;
   imageError: boolean=false;
   confirmDelete: boolean=false;
+  selectedProductName: any;
+  selectedModelName: any;
+  pickUpDetails: any;
   constructor(
     private fb: FormBuilder,
     public location: Location,
@@ -81,6 +84,7 @@ export class ProductManageComponent implements OnInit {
     private spinner:NgxSpinnerService
   ) {
     this.productForm = this.fb.group({
+      productId: [null, [Validators.required]],
       productName: [null, [Validators.required]],
       description: [null, [Validators.required]],
       displayAmt: [null, [Validators.required]],
@@ -93,16 +97,19 @@ export class ProductManageComponent implements OnInit {
       fourdayAmtDisc: [null, [Validators.required]],
       seveendayAmtDisc: [null, [Validators.required]],
       seveenDaysMoreDisc: [null, [Validators.required]],
+      totalQty: [null, [Validators.required]],
+      availableQty: [null, [Validators.required]],
       imageurl: [null],
       createdDate: [null],
+      pickupLocation: [null, [Validators.required]],
     });
 
     this.productDetailsForm = this.fb.group({
+      modelId: [null, [Validators.required]],
       modelName: [null, [Validators.required]],
       totalQty: [null, [Validators.required]],
       availableQty: [null, [Validators.required]],
       modelAmt: [null, [Validators.required]],
-      pickupLocation: [null, [Validators.required]],
       advanceAmt: [null, [Validators.required]]
     });
 
@@ -125,15 +132,20 @@ export class ProductManageComponent implements OnInit {
   resetDetails() {
 
   }
+  onProductChange(event){
+    this.productForm.controls['productName'].setValue(event[0].data.model);
+  }
+  onModelChange(event){
+    this.productDetailsForm.controls['modelName'].setValue(event[0].data.model);
+  }
   setMedicineDetails() {
     let productDetails = {
+      "modelId": this.productDetailsForm.value.modelId,
       "availableQty": this.productDetailsForm.value.availableQty,
       "totalQty": this.productDetailsForm.value.totalQty,
       "modelName": this.productDetailsForm.value.modelName,
       "modelAmt": this.productDetailsForm.value.modelAmt,
-      "pickupLocation":this.productDetailsForm.value.pickupLocation,
       "advanceAmt":this.productDetailsForm.value.advanceAmt
-
     }
     return productDetails;
   }
@@ -176,11 +188,11 @@ export class ProductManageComponent implements OnInit {
     this.isProductAddComponent = false;
     this.indexPosition = index;
     this.productDetailsForm.setValue({
+      modelId:data.modelId,
       modelName: data.modelName,
       totalQty: data.totalQty,
       availableQty: data.availableQty,
       modelAmt: data.modelAmt,
-      pickupLocation: data.pickupLocation,
       advanceAmt:data.advanceAmt
     });
     this.spinner.hide();
@@ -195,7 +207,7 @@ export class ProductManageComponent implements OnInit {
       this.showConfirmationMessage("Successfully Updated The model")
       this.isProductAddComponent = true;
       this.isProductBtnSubmitted = false;
-      this.spinner.show();
+      this.spinner.hide();
     }
     else {
       this.spinner.hide();
@@ -237,6 +249,15 @@ export class ProductManageComponent implements OnInit {
       this.locationData = data;
     });
     this.spinner.hide();
+
+
+  }
+
+  locationChange(event){
+    this.pickUpDetails=[];
+    event.forEach(element => {
+      this.pickUpDetails.push(element.data);
+    });
   }
   // getTypeandModelList() {
   //   let typeSet = new Set();
@@ -323,6 +344,9 @@ export class ProductManageComponent implements OnInit {
                   "modelDet": this.addedModelDetails,
                   "productName": this.productForm.value.productName,
                   "id": uid,
+                  "availableQty": this.productForm.value.availableQty,
+                  "totalQty": this.productForm.value.totalQty,
+                  "productId": this.productForm.value.productId,
                   "inclusions":this.productForm.value.inclusions,
                   "description": this.productForm.value.description,
                   "displayAmt": this.productForm.value.displayAmt,
@@ -330,6 +354,8 @@ export class ProductManageComponent implements OnInit {
                   "type": this.productForm.value.type,
                   "brand": this.productForm.value.brand,
                   "productAmt": this.productForm.value.productAmt,
+                  "pickupLocation": this.productForm.value.pickupLocation,
+                  "pickUpDetails": this.pickUpDetails,
                   "imageurl": imageUrl,
                   "tenantId": this.logedInUser.tenantId,
                   "availability": this.productForm.value.availability == "In Stock" ? true : false,
@@ -458,11 +484,11 @@ export class ProductManageComponent implements OnInit {
     this.addedModelDetails=[];
     data.modelDet.forEach(e => {
       this.productDetailsForm.setValue({
+        modelId: e.modelId,
         modelName: e.modelName,
         totalQty: e.totalQty,
         availableQty: e.availableQty,
         modelAmt: e.modelAmt,
-        pickupLocation: e.pickupLocation,
         advanceAmt:e.advanceAmt
       });
       let modelData = this.setMedicineDetails();
@@ -480,15 +506,19 @@ export class ProductManageComponent implements OnInit {
       description: data.description,
       displayAmt: data.displayAmt,
       productAmt: data.productAmt,
+      availableQty: data.availableQty,
+      totalQty: data.totalQty,
       specs: data.specs,
       availability: data.availability == true ? "In Stock" :"Out of Stock",
       type: data.type,
+      productId:data.productId,
       brand: data.brand,
       imageurl: data.imageurl,
+      pickupLocation: data?.pickupLocation,
       inclusions:data.inclusions,
       createdDate: data.createdDate
     });
-
+    this.pickUpDetails=data?.pickUpDetails
     this.isEditComponnet = true;
     this.isAddComponnet = false;
     this.isProductAddComponent = true;
@@ -525,6 +555,9 @@ export class ProductManageComponent implements OnInit {
           "modelDet": this.addedModelDetails,
           "productName": this.productForm.value.productName,
           "id": this.id,
+          "availableQty": this.productForm.value.availableQty,
+          "totalQty": this.productForm.value.totalQty,
+          "productId": this.productForm.value.productId,
           "inclusions":this.productForm.value.inclusions,
           "description": this.productForm.value.description,
           "displayAmt": this.productForm.value.displayAmt,
@@ -532,6 +565,8 @@ export class ProductManageComponent implements OnInit {
           "type": this.productForm.value.type,
           "brand": this.productForm.value.brand,
           "productAmt": this.productForm.value.productAmt,
+          "pickupLocation": this.productForm.value.pickupLocation,
+          "pickUpDetails": this.pickUpDetails,
           "imageurl": this.selectedFileUrl,
           "tenantId": this.logedInUser.tenantId,
           "availability": this.productForm.value.availability == "In Stock" ? true : false,
@@ -560,6 +595,9 @@ export class ProductManageComponent implements OnInit {
               "modelDet": this.addedModelDetails,
               "productName": this.productForm.value.productName,
               "id": this.id,
+              "availableQty": this.productForm.value.availableQty,
+              "totalQty": this.productForm.value.totalQty,
+              "productId": this.productForm.value.productId,
               "inclusions":this.productForm.value.inclusions,
               "description": this.productForm.value.description,
               "displayAmt": this.productForm.value.displayAmt,
@@ -567,6 +605,8 @@ export class ProductManageComponent implements OnInit {
               "type": this.productForm.value.type,
               "brand": this.productForm.value.brand,
               "productAmt": this.productForm.value.productAmt,
+              "pickupLocation": this.productForm.value.pickupLocation,
+              "pickUpDetails": this.pickUpDetails,
               "imageurl": imageUrl,
               "tenantId": this.logedInUser.tenantId,
               "availability": this.productForm.value.availability == "In Stock" ? true : false,

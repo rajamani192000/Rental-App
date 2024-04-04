@@ -5,8 +5,8 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { Subject } from "rxjs";
-import { finalize, takeUntil } from "rxjs/operators";
+import { Subject, of } from "rxjs";
+import { finalize, map, switchMap, takeUntil } from "rxjs/operators";
 import { Location } from "@angular/common";
 import { environment } from "../../../../environments/environment";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
@@ -87,16 +87,30 @@ export class AdminListComponent implements OnInit {
 
   addbrand() {
 
-
     // tamilNadu.forEach((element) => {
     //   const uid = this.commonSrvc.generateUniqueID();
-    //   this.commonSrvc.createwithUid("tamilnaduTaluks",uid,{"talukName":element})
+    //   this.commonSrvc.createwithUid("tamilnaduTaluks",uid,{"talukName":element,id:uid,contactNo:7904998687})
     //   .then(() => {
     //     this.showConfirmationMessage('tamilnaduTaluks Added successfully');
     //   })
     //   .catch((error) => {
     //     this.showConfirmationMessage('tamilnaduTaluks Added Failed');
     //   });
+    // });
+    // this.firestore.collection('typeList').snapshotChanges().pipe(
+    //   switchMap(actions => {
+    //     const updates = actions.map(a => {
+    //       const data = a.payload.doc.data() as any;
+    //       const id = a.payload.doc.id;
+    //       const final = { id, ...data };
+    //       return this.commonSrvc.update("typeList", id, final); // Assuming this returns a Promise
+    //     });
+    //     return updates.length ? Promise.all(updates) : of(null); // Ensuring at least one update is present
+    //   })
+    // ).subscribe(() => {
+    //   // Handle success
+    // }, (error) => {
+    //   // Handle error
     // });
 
 }

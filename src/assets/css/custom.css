@@ -10249,7 +10249,7 @@ td li a.no-function {
 }
 .head-color{
   background: #f0f7ff;
-  color: #007bff;
+  color: #0074f1;
 }
 .search-pro-img img {
   width: 44px;
@@ -11296,6 +11296,10 @@ td.status.active label {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: calc(77vh - 110px) !important;
+}
+
+.danger-dark {
+  color: red;
 }
 
 /*scroll bar

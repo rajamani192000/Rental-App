@@ -53,6 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userMenu:any;
 
   faild: boolean = false;
+  myorderPopup: boolean;
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -90,10 +91,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if(this.user.imageUrl == null || this.user.imageUrl == "undefined"){
           this.user.imageUrl="https://firebasestorage.googleapis.com/v0/b/dindigulcamara.appspot.com/o/adminUser_images%2Favatar.jpg?alt=media&token=0a438f89-d498-46a0-8168-9fae6863baf5"
         }
-        this.userMenu = [{ title: `Profile ${this.user.username == null ? "" : "("+this.user.username+")"}` },{ title: 'Orders'}, { title: 'Whatsapp Booking', link: "https://wa.me/+917904998687?text=Hi, I need your help renting a product from https://dindigulcamara.web.app/ . Please provide your details - Equipment type, Start Date, End Date"}];
+        this.userMenu = [{ title: `Profile ${this.user.username == null ? "" : "("+this.user.username+")"}`,link: "profile" },{ title: 'My Orders',link:"Orders"}, { title: 'Whatsapp Booking', link: "https://wa.me/+917904998687?text=Hi, I need your help renting a product from https://dindigulcamara.web.app/ . Please provide your details - Equipment type, Start Date, End Date"}];
+      });
+
+      this.menuService.onItemClick().subscribe((data) => {
+        console.log(data);
+        if (data.item.link === "Orders") {
+          this.myorderPopup=true;
+        }
       });
   }
 
+  
+  myOrderClose(){
+    this.myorderPopup=false;
+  }
 
   showRegistraion(){
     this.registrationShow=true;

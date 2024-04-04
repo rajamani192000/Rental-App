@@ -1,0 +1,257 @@
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: calc(85vh - 100px) !important;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.order-item {
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.order-det {
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.order-det img {
+  width: 100px;
+  margin-left: 20px;
+}
+
+.order-item img {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.order-details {
+  flex-grow: 1;
+}
+
+.order-details h2 {
+  font-size: 18px;
+  margin: 0 0 5px;
+}
+
+.order-details p {
+  margin: 0;
+  color: #666;
+}
+
+.order-sts {
+  color: #ea7704 !important;
+}
+
+.order-status {
+  font-weight: bold;
+}
+
+.order-status span.ng-star-inserted {
+  font-size: 16px !important;
+}
+
+.order-actions {
+  text-align: right;
+}
+
+.order-actions button {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.order-actions button:hover {
+  background-color: #0056b3;
+}
+
+// progress
+#progressbar {
+  margin-bottom: 10px;
+  overflow: hidden;
+  color: lightgrey
+}
+
+
+
+#progressbar .active {
+  color: #26a541;
+}
+
+#progressbar li {
+  list-style-type: none;
+  font-size: 14px;
+  width: 100%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+  text-align: center;
+}
+
+#progressbar #step1:before {
+  font-family: "Material Icons";
+  content: "";
+}
+
+
+#progressbar #step2:before {
+  font-family: "Material Icons";
+  content: "";
+}
+
+#progressbar #step3:before {
+  font-family: "Material Icons";
+  content: "";
+}
+
+#progressbar #step4:before {
+  font-family: "Material Icons";
+  content: "";
+}
+
+#progressbar li:before {
+  width: 40px;
+  height: 40px;
+  line-height: 39px;
+  display: block;
+  font-size: 16px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0px 330px 8px 113px;
+  /* padding: 2px; */
+  border: 2px solid #fff;
+  z-index: 1;
+  position: relative;
+}
+
+#progressbar .tracking-date {
+  float: left;
+  text-align: right;
+  position: relative;
+  width: 27%;
+  padding: 18px 18px 20px;
+  bottom: 55px;
+  /*border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 0;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .05)*/
+}
+
+#progressbar li {
+  height: 100px !important;
+}
+
+#progressbar li:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30%;
+  width: 3px;
+  margin-left: -1.5px;
+  background-color: #eee;
+}
+
+#progressbar li:before,
+#progressbar li:after {
+  background:lightgray;
+  content: "" !important;
+
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+  background: #26a541;
+  content: "✓" !important;
+
+}
+
+#progressbar li.red:before,
+#progressbar li.red:after {
+  background: #FF0000 !important;
+  content: "\00d7" !important;
+}
+
+#progressbar .tracking-panel {
+  float: left;
+  text-align: left;
+  position: relative;
+  width: 64%;
+  padding: 19px 11px 20px 0px;
+  margin-left: 39px;
+  bottom: 55px;
+  /*border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 0;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .05)*/
+}
+.active .tracking-panel .tracking-body .tracking-title  {
+  color:#26a541 !important;
+}
+.red .tracking-panel .tracking-body .tracking-title  {
+  color:#FF0000 !important;
+}
+
+@media (max-width: 960px) {
+  #progressbar .tracking-date {
+    width: 28% !important;
+    padding: 26px 2px 0px 0px !important;
+}
+#progressbar li:before {
+  margin: -1px 0px 0px 28% !important;
+}
+#progressbar li:after {
+  left: 35% !important;
+}
+#progressbar .tracking-panel {
+  width: 58% !important;
+  padding: 28px 3px 20px 6px !important;
+  margin-left: 39px !important;
+  bottom: 55px !important;
+}
+
+  // #progressbar li:before {
+  //   left: 35%;
+  // }
+
+  // #progressbar li:after {
+  //   left: 35%;
+  // }
+
+  // #progressbar .tracking-panel {
+  //   width: 60%;
+  // }
+}
+
+
+
+
+#form {
+  text-align: center;
+  position: relative;
+  margin-top: 10px
+}
+
+#form fieldset {
+  background: white;
+  border: 0 none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+

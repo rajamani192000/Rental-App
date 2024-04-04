@@ -134,12 +134,12 @@
                 <div class="col-md-4">
                   <div class="form-group relative">
                     <label>Product Name<span class="required-asterisk">*</span></label>
-                    <ngx-select class="form-control-select" formControlName="productName" [items]="modelList"
-                      optionValueField="model" optionTextField="model" [multiple]="multiple" [allowClear]="allowClear"
-                      [placeholder]="placeholder" (selectionChanges)="onModelChange($event)">
+                    <ngx-select class="form-control-select" formControlName="productId" [items]="modelList"
+                      optionValueField="id" optionTextField="model" [multiple]="multiple" [allowClear]="allowClear"
+                      [placeholder]="placeholder" (selectionChanges)="onProductChange($event)">
                     </ngx-select>
                     <ngx-validation-message label="productName"
-                      [showRequired]="(fval?.productName?.dirty || isSubmitted) && fval?.productName?.errors?.required">
+                      [showRequired]="(fval?.productId?.dirty || isSubmitted) && fval?.productId?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
@@ -185,6 +185,25 @@
                     <textarea type="text" class="form-control" formControlName="inclusions" required></textarea>
                     <ngx-validation-message label="Inclusions"
                       [showRequired]="(fval?.inclusions?.dirty || isSubmitted) && fval?.inclusions?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Total Qty<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control" formControlName="totalQty" required>
+                    <ngx-validation-message label="Total Qty"
+                      [showRequired]="(dval?.totalQty?.dirty || isSubmitted) && dval?.totalQty?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Available Qty<span class="required-asterisk">*</span></label>
+                    <input type="text" class="form-control" formControlName="availableQty" required>
+                    <ngx-validation-message label="availableQty"
+                      [showRequired]="(dval?.availableQty?.dirty || isSubmitted) && dval?.availableQty?.errors?.required"
+                      [showPattern]="dval?.availableQty?.errors?.availableQty">
                     </ngx-validation-message>
                   </div>
                 </div>
@@ -242,6 +261,18 @@
                     </ngx-validation-message>
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group relative">
+                    <label>Pickup Location<span class="required-asterisk">*</span></label>
+                    <ngx-select class="form-control-select" formControlName="pickupLocation" [multiple]="true" [items]="locationData"
+                      optionValueField="id" optionTextField="talukName"  [allowClear]="allowClear"
+                      [placeholder]="placeholder" (selectionChanges)="locationChange($event)">
+                    </ngx-select>
+                    <ngx-validation-message label="type"
+                      [showRequired]="(dval?.pickupLocation?.dirty || isSubmitted) && dval?.pickupLocation?.errors?.required">
+                    </ngx-validation-message>
+                  </div>
+                </div>
               </div>
               <div class="block-heading pt-3">
                 Add Model Details
@@ -250,12 +281,12 @@
                 <div class="col-md-4">
                   <div class="form-group relative">
                     <label>Model Name<span class="required-asterisk">*</span></label>
-                    <ngx-select class="form-control-select" formControlName="modelName" [items]="modelData"
-                      optionValueField="model" optionTextField="model" [multiple]="multiple" [allowClear]="allowClear"
+                    <ngx-select class="form-control-select" formControlName="modelId" (selectionChanges)="onModelChange($event)" [items]="modelData"
+                      optionValueField="id" optionTextField="model" [multiple]="multiple" [allowClear]="allowClear"
                       [placeholder]="placeholder">
                     </ngx-select>
                     <ngx-validation-message label="type"
-                      [showRequired]="(dval?.modelName?.dirty || isSubmitted) && dval?.modelName?.errors?.required">
+                      [showRequired]="(dval?.modelId?.dirty || isSubmitted) && dval?.modelId?.errors?.required">
                     </ngx-validation-message>
                   </div>
                 </div>
@@ -299,18 +330,7 @@
                     </ngx-validation-message>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group relative">
-                    <label>Pickup Location<span class="required-asterisk">*</span></label>
-                    <ngx-select class="form-control-select" formControlName="pickupLocation" [multiple]="true" [items]="locationData"
-                      optionValueField="talukName" optionTextField="talukName"  [allowClear]="allowClear"
-                      [placeholder]="placeholder">
-                    </ngx-select>
-                    <ngx-validation-message label="type"
-                      [showRequired]="(dval?.pickupLocation?.dirty || isSubmitted) && dval?.pickupLocation?.errors?.required">
-                    </ngx-validation-message>
-                  </div>
-                </div>
+            
 
               </div>
               <div class="row">
@@ -335,7 +355,6 @@
                       <th class="text-left">Available Qty</th>
                       <th class="text-right">model Amt</th>
                       <th class="text-right">Advance Amt</th>
-                      <th class="text-right">Pickup</th>
                       <th class="text-center">Action</th>
                     </tr>
                   </thead>
@@ -347,7 +366,6 @@
                       <td class="text-center">{{x?.availableQty}}</td>
                       <td class="text-right">{{x?.modelAmt}}</td>
                       <td class="text-right">{{x?.advanceAmt}}</td>
-                      <td class="text-right">{{x?.pickupLocation.join(', ')}}</td>
                       <td class="text-center action-table">
                         <ul class="inner_button">
                           <!-- <li [ngStyle]="{'display': isEditComponnet ? 'block'  : 'none' }">

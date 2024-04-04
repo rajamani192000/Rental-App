@@ -1,0 +1,514 @@
+<div class="container scrollable-login  ">
+  <div *ngIf="isAddComponnet && !isEditComponnet" class="">
+    <div class="order-item" *ngFor="let x of ordersData" role="button" (click)="viewOrder(x)">
+      <img src="{{x.product_img}}" alt="Product Image">
+      <div class="order-details">
+        <div class="order-sts pt-1">
+          <span>{{x.product_status}}</span>
+        </div>
+        <p class="pt-1" *ngIf="x?.payment_status=='paid'">Pickup Date & Time: {{(x?.pickup_dateTime).toDate() | date:'medium'}}</p>
+        <div class="order-status pt-1">
+          <span *ngIf="x?.product_name.length <= 16">{{(x?.product_name).substr(0,16)}}</span>
+          <span *ngIf="x?.product_name.length >= 16">{{(x?.product_name).substr(0,16)}}...</span>
+        </div>
+      </div>
+      <div class="order-actions">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isAddComponnet && isEditComponnet">
+    <div class="container">
+      <div class="row d-flex justify-content-between align-items-center border-bottom pt-3 pb-3">
+        <div class="col-md-3">
+          <div role="button" (click)="goBack()">
+            <i class="fa-solid fa-chevron-left pl-2 d-inline"></i>
+            <h3 class="d-inline ml-1 mt-2">Back</h3>
+          </div>
+        </div>
+        <div class="col-md-9 d-flex justify-content-end">
+          <p class="text-muted mb-0">Order Id: {{viewOrderDet?.order_details?.id}}</p>
+        </div>
+      </div>
+      <div class="border-bottom">
+        <div class="order-det">
+          <div>
+            <span class="order-status align-items-center">{{viewOrderDet?.product_name}}</span><br>
+            <span><br>{{viewOrderDet?.product_model[0]?.modelName}}</span>
+            <span><br>{{viewOrderDet?.product_model[1]?.modelName}}</span>
+          </div>
+          <img src="{{viewOrderDet?.product_img}}" alt="Product Image">
+        </div>
+        <table class="font-weight-bold  table-bordered">
+          <tr class="head-color">
+            <th colspan="3" class="text-center un-colorc">Total Amount</th>
+            <th colspan="3" class="text-center un-colorc">Paid Amount</th>
+            <th colspan="3" class="text-center un-colorc">Due Amount</th>
+          </tr>
+          <tr>
+            <th colspan="3" class="text-center font-weight-bold">{{viewOrderDet?.total_amount| currency: 'INR'}} </th>
+            <th colspan="3" class="text-center font-weight-bold">{{paidAmount | currency: 'INR'}}</th>
+            <th colspan="3" class="text-center font-weight-bold">{{(viewOrderDet?.total_amount-paidAmount) | currency:
+              'INR'}}</th>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-12 border-bottom" *ngIf="viewOrderDet?.product_status=='Order Not Placed'">
+        <div class="px-2 py-1 border-top">
+          <div class="text-center pl-3" *ngIf="viewOrderDet?.order_details.status!='paid'">
+            <button type="button" class="btn btn-outline-primary " (click)="paymentRetry()">Retry Payment</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 border-bottom"
+        *ngIf="viewOrderDet?.product_status!='Order Not Placed' && viewOrderDet?.product_status!='Cancelled'">
+        <div class="px-2 py-1 border-top">
+          <div class="text-center pl-3" *ngIf="viewOrderDet?.order_details.status=='paid'">
+            <button type="button" class="btn btn-outline-primary " (click)="dueAmtPopup=true">Pay Due Amount</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 border-bottom">
+        <div class="px-2 py-1 border-top">
+          <form id="form">
+            <ul id="progressbar">
+              <li *ngIf="viewOrderDet?.product_status=='Order Not Placed'"
+                [ngClass]="{'active red':viewOrderDet?.product_status== 'Order Not Placed'  }" id="step1">
+                <div class="tracking-date">
+                  <div class="tracking-body">
+                    <h5 class="tracking-title m-b-0">{{(viewOrderDet?.booking_date).toDate() | date:'medium'}}</h5>
+                  </div>
+                </div>
+
+                <div class="tracking-panel">
+                  <div class="tracking-body">
+                    <h4 class="tracking-title m-b-0"><strong>Order Not
+                        Placed</strong></h4>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="viewOrderDet?.product_status!='Order Not Placed'"
+                [ngClass]="{'active':viewOrderDet?.product_status== 'Booked' || viewOrderDet?.product_status== 'Picked Up' || viewOrderDet?.product_status=='In Use' || viewOrderDet?.product_status=='Returned' || viewOrderDet?.product_status=='Late Return' || viewOrderDet?.product_status == 'Cancelled'  }"
+                id="step1">
+                <div class="tracking-date">
+                  <div class="tracking-body">
+                    <h5 class="tracking-title m-b-0">{{(viewOrderDet?.booking_date).toDate()| date:'medium'}}</h5>
+                  </div>
+                </div>
+                <div class="tracking-panel">
+                  <div class="tracking-body">
+                    <a class="tracking-title m-b-0"><strong>Booked</strong></a>
+                  </div>
+                </div>
+
+              </li>
+              <li *ngIf="viewOrderDet?.product_status=='Cancelled' && viewOrderDet?.product_status!='Order Not Placed'"
+                [ngClass]="{'red': viewOrderDet?.product_status == 'Cancelled'  }" id="step2">
+                <div class="tracking-date">
+                  <div class="tracking-body">
+                    <h5 class="tracking-title m-b-0">{{(viewOrderDet?.booking_date).toDate()| date:'medium'}}</h5>
+                  </div>
+                </div>
+                <div class="tracking-panel">
+                  <div class="tracking-body">
+                    <a class="tracking-title m-b-0"><strong>Cancelled</strong></a>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="viewOrderDet?.product_status!='Cancelled' && viewOrderDet?.product_status!='Order Not Placed'"
+                [ngClass]="{'active': viewOrderDet?.product_status== 'Picked Up' || viewOrderDet?.product_status=='In Use' || viewOrderDet?.product_status=='Returned' || viewOrderDet?.product_status=='Late Return'  }"
+                id="step2">
+                <div class="tracking-date">
+                  <div class="tracking-body">
+                    <h5 class="tracking-title m-b-0">{{(viewOrderDet?.booking_start_date).toDate()| date:'medium'}}</h5>
+                  </div>
+                </div>
+                <div class="tracking-panel">
+                  <div class="tracking-body">
+                    <div class="tracking-title m-b-0"><strong><a>Picked Up</a> <br> Place :{{viewOrderDet?.locationDet?.talukName}} <br> Contact :{{viewOrderDet?.locationDet?.contactNo}}  <br>Pickup Location: </strong><button type="button" class="btn btn-info p-0" (click)="searchInNewTab(viewOrderDet?.locationDet?.locationUrl)">Visit</button></div>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="viewOrderDet?.product_status!='Cancelled' && viewOrderDet?.product_status!='Order Not Placed'"
+                [ngClass]="{'active':  viewOrderDet?.product_status=='In Use'   || viewOrderDet?.product_status=='Returned' || viewOrderDet?.product_status=='Late Return'   }"
+                id="step3">
+                <div class="tracking-date">
+                  <div class="tracking-body">
+                    <h5 class="tracking-title m-b-0">{{(viewOrderDet?.booking_start_date).toDate()|
+                      date}}-{{(viewOrderDet?.booking_end_date).toDate()| date}}</h5>
+                  </div>
+                </div>
+                <div class="tracking-panel">
+                  <div class="tracking-body">
+                    <a class="tracking-title m-b-0"><strong>In Use</strong></a>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="viewOrderDet?.product_status!='Cancelled' && viewOrderDet?.product_status!='Order Not Placed'"
+                [ngClass]="{'active':  viewOrderDet?.product_status=='Returned' || viewOrderDet?.product_status=='Late Return'   }"
+                id="step4">
+                <div class="tracking-date">
+                  <div class="tracking-body">
+                    <h5 class="tracking-title m-b-0">{{(viewOrderDet?.booking_end_date).toDate()| date:'medium'}}</h5>
+                  </div>
+                </div>
+                <div class="tracking-panel">
+                  <div class="tracking-body">
+                    <a class="tracking-title m-b-0"><strong>Returned</strong></a>
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+          </form>
+
+
+          <div class="head-color text-center tbl-border p-2"
+            *ngIf=" viewOrderDet?.order_details.status!='paid' && viewOrderDet?.product_status =='Order Not Placed'">
+            Your Order Was Not Placed, Please retry your payment,If your account was debited without successful booking,
+            reach out to our representative for assistance. <br>
+            <button type="button" class="btn btn-outline-info mt-2" href="tel:7904998687">Call Representative</button>
+          </div>
+        </div>
+      </div>
+      <table class="font-weight-bold  table-bordered"
+        *ngIf="viewOrderDet?.payment_status=='paid' && viewOrderDet?.product_status != 'Cancelled'">
+        <tr>
+          <th colspan="3" class="text-center font-weight-bold">
+            <div class="text-center pl-3">
+              <button type="button" class="btn btn-outline-primary " (click)="callChangeRentalDate()">Change Rental Date
+              </button>
+            </div>
+          </th>
+          <th colspan="3" class="text-center font-weight-bold">
+            <div class="text-center pl-3">
+              <button type="button" class="btn btn-outline-primary " (click)="cancelOrderPopup=true">Cancel
+                Order</button>
+            </div>
+          </th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="!isAddComponnet && !isEditComponnet && orderEditComp" class="">
+    <div class="container">
+      <div class="row d-flex justify-content-between align-items-center border-bottom pt-3 pb-3">
+        <div class="col-md-3">
+          <div role="button" (click)="goBackEditComp()">
+            <i class="fa-solid fa-chevron-left pl-2 d-inline"></i>
+            <h3 class="d-inline ml-1 mt-2">Back</h3>
+          </div>
+        </div>
+        <div class="col-md-9 d-flex justify-content-end">
+          <p class="text-muted mb-0">Order Id: {{viewOrderDet?.order_details?.id}}</p>
+        </div>
+      </div>
+      <form [formGroup]="editForm">
+        <div class="product-type clearfix p-2">
+          <div class="row row-ph">
+            <div class="col-md-12 col-xs-12 detae pt-1">
+              <div class="form-group relative">
+                <label>Select Your Date <i style="color:red">*</i></label>
+                <input [nbDatepicker]="rangepicker" (change)="rentPriceUpdateDate($event)"
+                  placeholder="Select From and ToDate" formControlName="date" class="form-control" readonly>
+                <nb-rangepicker #rangepicker></nb-rangepicker>
+                <span *ngIf="fval?.date?.errors?.required && isSubmitted" class="required-span">Date
+                  Required</span>
+                <span *ngIf="dateError" class="required-span">Please Select From and Todate</span>
+                <span *ngIf="!dateError && !fval?.fval?.errors?.required && !isSubmitted" class="text-primary">You
+                  Selected Total - {{duration || "0"}} Days</span>
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 detae pt-1">
+              <label>Pickup Time :<i style="color:red">*</i></label>
+              <input class="form-control" [owlDateTimeTrigger]="dt1" formControlName="pickUpdate"
+                (dateTimeInput)="timeChange($event)" [owlDateTime]="dt1">
+              <owl-date-time [pickerType]="'timer'" [hour12Timer]="true" #dt1></owl-date-time>
+              <span *ngIf="dateError" class="required-span">Please Select Pickup Time</span>
+              <span *ngIf="fval?.pickUpdate?.errors?.required && isSubmitted" class="required-span">Pickup Time
+                Required</span>
+            </div>
+            <div class="col-xs-12 col-md-12" *ngIf="fval?.date?.value != null">
+              <label>Choose Place For Pickup<i style="color:red">*</i></label>
+              <ngx-select class="form-control-select" required [items]="locationList"
+                (selectionChanges)="changeLocation($event)" optionValueField="id" optionTextField="talukName"
+                [allowClear]="true" placeholder="Select">
+              </ngx-select>
+              <span *ngIf="fval?.location?.errors?.required && isSubmitted" class=" text-left required-span">Place
+                Required</span>
+            </div>
+            <div class="col-xs-12 col-md-12" *ngIf="fval?.date?.value != null">
+              <button type="button" class="btn btn-form" [disabled]="isProductBtnSubmitted"
+                (click)="showBookPopup()">Book</button><br>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': cancelOrderPopup ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header head-color">
+        <h4 class="modal-title un-colorc">Cancel Order Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cancelOrderPopup=false;"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body p-2">
+        <div class="text-center mb-2">If the Booking Cancellation is from your Side, Following penalties shall be
+          imposed on the booking amount:</div>
+        <table class="font-weight-bold  table-bordered pt-2">
+          <tr class="head-color">
+            <th colspan="2" class="text-center un-colorc">PERIOD</th>
+            <th colspan="2" class="text-center un-colorc">PENALTY</th>
+          </tr>
+          <tr>
+            <th colspan="2" class="text-center font-weight-bold">15 days Prior</th>
+            <th colspan="2" class="text-center font-weight-bold">25% of Paid Amount</th>
+          </tr>
+          <tr>
+            <th colspan="2" class="text-center font-weight-bold">10 days Prior</th>
+            <th colspan="2" class="text-center font-weight-bold">50% of Paid amount</th>
+          </tr>
+          <tr>
+            <th colspan="2" class="text-center font-weight-bold">05 days Prior</th>
+            <th colspan="2" class="text-center font-weight-bold">75% of Paid amount</th>
+          </tr>
+          <tr>
+            <th colspan="2" class="text-center font-weight-bold">02 days Prior</th>
+            <th colspan="2" class="text-center font-weight-bold">NO REFUND of Paid Amount</th>
+          </tr>
+        </table>
+        <div class="text-center pt-2">The remaining amount shall be refunded to you with 7 working days.</div>
+
+        <h3 class="text-center pt-2">Your order cancellation request has been noted. Click 'Cancel Order' to proceed, or
+          'Don't Cancel' to keep your order.</h3>
+
+      </div>
+      <div class="modal-footer head-color">
+        <table class="font-weight-bold  table-bordered" *ngIf="viewOrderDet?.payment_status=='paid'">
+          <tr>
+            <th class="text-center font-weight-bold">
+              <div class="text-center pl-3">
+                <button type="button" class="btn btn-outline-primary" (click)="cancelOrderPopup=false">Don't
+                  cancel</button>
+              </div>
+            </th>
+            <th class="text-center font-weight-bold">
+              <div class="text-center pl-3">
+                <button type="button" class="btn btn-outline-danger " (click)="cancalOrder()">Cancel
+                  Order</button>
+              </div>
+            </th>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': dueAmtPopup ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header head-color">
+        <h4 class="modal-title un-colorc">Pay Due Amount Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="dueAmtPopup=false;duePaymentData=null"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body p-2">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="border-bottom" *ngIf="duePaymentData == null">
+              <div class="order-det">
+                <div>
+                  <span class="order-status align-items-center">{{viewOrderDet?.product_name}}</span><br>
+                  <span><br>{{viewOrderDet?.product_model[0]?.modelName}}</span>
+                  <span><br>{{viewOrderDet?.product_model[1]?.modelName}}</span>
+                </div>
+                <img src="{{viewOrderDet?.product_img}}" alt="Product Image">
+              </div>
+              <table class="font-weight-bold  table-bordered">
+                <tr class="head-color">
+                  <th colspan="3" class="text-center un-colorc">Total Amount</th>
+                  <th colspan="3" class="text-center un-colorc">Paid Amount</th>
+                  <th col span="3" class="text-center un-colorc">Due Amount</th>
+                </tr>
+                <tr>
+                  <th colspan="3" class="text-center font-weight-bold">{{viewOrderDet?.total_amount| currency: 'INR'}}
+                  </th>
+                  <th colspan="3" class="text-center font-weight-bold">{{paidAmount | currency: 'INR'}}</th>
+                  <th colspan="3" class="text-center font-weight-bold">{{(viewOrderDet?.total_amount-paidAmount) |
+                    currency:
+                    'INR'}}</th>
+                </tr>
+              </table>
+            </div>
+            <div class="button-controls" *ngIf="duePaymentData != null">
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">Due Payment Status</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" *ngIf="duePaymentData?.payment_status =='paid'"
+                      class="text-center font-weight-bold">
+                      You Paid Due Amount Rs.{{this.duePaymentData.paid_amount/100}} Successfully</th>
+                    <th colspan="2" *ngIf="duePaymentData?.payment_status !='paid'"
+                      class="text-center font-weight-bold">
+                      Your payment was failed. Please try again. If debited without Paid Due Amount, Kindly check your
+                      order
+                      status in the next 10 to 20 minutes in My Order Section.</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold  table-bordered">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">SELECTED PRODUCT</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" class="text-center font-weight-bold">
+                      <span class="order-status align-items-center">{{duePaymentData?.product_name}}</span>
+                      <span>{{duePaymentData?.product_model[0]?.modelName}}</span>
+                      <span>{{duePaymentData?.product_model[1]?.modelName}}</span>
+                    </th>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 col-xs-12 pt-2">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">Payment Details</th>
+                  </tr>
+                  <tr>
+                    <td>Customer Name</td>
+                    <td>:&nbsp; {{duePaymentData?.customer_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Customer Mobile</td>
+                    <td>:&nbsp; {{duePaymentData?.customer_phone}}</td>
+                  </tr>
+                  <tr *ngIf="duePaymentData?.payment_status =='paid'">
+                    <td>Pickup DateTime</td>
+                    <td>:&nbsp; {{(duePaymentData?.pickup_dateTime).toDate() | date:'medium'}}</td>
+                  </tr>
+                  <tr *ngIf="duePaymentData?.payment_status =='paid'">
+                    <td>Rental Start Date</td>
+                    <td>:&nbsp; {{(duePaymentData?.booking_start_date).toDate() | date}}</td>
+                  </tr>
+                  <tr *ngIf="duePaymentData?.payment_status =='paid'">
+                    <td>Rental End Date</td>
+                    <td>:&nbsp; {{(duePaymentData?.booking_end_date).toDate() | date}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer head-color">
+        <table class="font-weight-bold  table-bordered">
+          <tr>
+            <th class="text-center font-weight-bold">
+              <div class="text-center pl-3">
+                <button type="button" class="btn btn-outline-danger"
+                  (click)="dueAmtPopup=false;duePaymentData=null">Cancel</button>
+              </div>
+            </th>
+            <th class="text-center font-weight-bold" *ngIf="duePaymentData == null">
+              <div class="text-center pl-3">
+                <button type="button" class="btn btn-outline-primary" (click)="payDueAmt()">Pay Due Amount</button>
+              </div>
+            </th>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': paymentSuccess ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header head-color">
+        <h4 class="modal-title un-colorc">Payment Status</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <!--  -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="button-controls">
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">Order Status</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" *ngIf="bookingData?.payment_status =='paid'" class="text-center font-weight-bold">
+                      You booked Camera Successfully - Go to Orders </th>
+                    <th colspan="2" *ngIf="bookingData?.payment_status !='paid'" class="text-center font-weight-bold">
+                      Your payment was failed. Please try again. If debited without booking, Kindly check your order
+                      status in the next 10 to 20 minutes in My Order Section.</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold  table-bordered">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">SELECTED PRODUCT</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" class="text-center font-weight-bold">{{bookingData?.product_model}}</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">Payment Details</th>
+                  </tr>
+                  <tr>
+                    <td>Order Id</td>
+                    <td>:&nbsp; {{bookingData?.order_details.id}}</td>
+                  </tr>
+                  <tr>
+                    <td>Customer Name</td>
+                    <td>:&nbsp; {{bookingData?.customer_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Customer Mobile</td>
+                    <td>:&nbsp; {{bookingData?.customer_phone}}</td>
+                  </tr>
+                  <tr *ngIf="bookingData?.payment_status =='paid'">
+                    <td>Pickup DateTime</td>
+                    <td>:&nbsp; {{(bookingData?.pickup_dateTime).toDate() | date:'medium'}}</td>
+                  </tr>
+                  <tr *ngIf="bookingData?.payment_status =='paid'">
+                    <td>Rental Start Date</td>
+                    <td>:&nbsp; {{(bookingData?.booking_start_date).toDate() | date}}</td>
+                  </tr>
+                  <tr *ngIf="bookingData?.payment_status =='paid'">
+                    <td>Rental End Date</td>
+                    <td>:&nbsp; {{(bookingData?.booking_end_date).toDate() | date}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+
+      </div>
+      <div class="modal-footer head-color">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -111,68 +111,61 @@
       </div>
       <div class="container-30 sticky">
         <div class="side-form">
-          <form name="addCartForm" id="addCartForm" method="post" action="https://www.rentoclick.com/Store/addToCart ">
-            <input type="hidden" name="product_name" value="Canon 200D M-II DSLR">
-            <input type="hidden" id="product_id" name="product_id" value="545">
-            <input type="hidden" name="product_book_price" id="product_book_price" value="0">
-            <input type="hidden" name="product_rent_total" id="product_rent_total" value="0">
-            <input type="hidden" name="rent_book_day" id="rent_book_day" value="1">
-            <div class="product-detail product-form">
-              <div class="row">
-                <div class="col-md-12">
-                  <h4>{{finalProductData.productName}}</h4>
-                </div>
-              </div>
-              <ul class="list-form">
-                <li>
-                  1-2 Day (Rs.{{oneDayDiscAmt}}) </li>
-                <li>
-                  3-4 Days (Rs.{{fourdayAmtDisc}}) </li>
-                <li>
-                  5-7 Days (Rs.{{seveendayAmtDisc}}) </li>
-                <li>
-                  8 Days ++ (Rs.{{seveenDaysMoreDisc}}) </li>
-              </ul>
-              <div class="row">
-                <div class="col-md-12 col-xs-12">
-                  <div class="rent-box">
-                    <div class="rented">
-                      <label>Total Rent</label><br>
-                      <span class="show_book_price">{{this.ratePerDay}}</span>
-                      <p class="par-rest-details font-weight-bold" id="show_book_day">Price is for {{this.duration}} day
-                      </p>
-                    </div>
-
-                    <div class="rented">
-                      <label>Book Now</label><br>
-                      <span id="show_book_price">{{this.advanceAmt}}</span>
-                      <p class="par-rest-details">& Pay Rest Later</p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div class="row">
+          <div class="product-detail product-form">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>{{finalProductData.productName}}</h4>
               </div>
             </div>
-            <form [formGroup]="bookForm">
-              <div class="product-type clearfix">
-                <div class="row row-ph">
-                  <div class="col-md-12 col-xs-12 pt-2">
-                    <div class="form-group relative">
-                      <label>Product<i style="color:red;">*</i></label>
-                      <!--<a class="incr-btn" data-action="decrease" href="#">–</a>-->
-                      <ngx-select class="form-control-select" formControlName="product" required
-                        (selectionChanges)="rentPriceUpdateProduct($event)" [items]="modelData"
-                        optionValueField="modelName" optionTextField="modelName" [multiple]="true" [allowClear]="true"
-                        placeholder="Select">
-                      </ngx-select>
-                      <span *ngIf="fval?.product?.errors?.required && isSubmitted" class="required-span">Product
-                        Required</span>
-                      <!--<a class="incr-btn" data-action="increase" href="#">&plus;</a>-->
-                    </div>
+            <ul class="list-form">
+              <li>
+                1-2 Days (Rs.{{oneDayDiscAmt}} Per Day) </li>
+              <li>
+                3-4 Days (Rs.{{fourdayAmtDisc}} Per Day) </li>
+              <li>
+                5-7 Days (Rs.{{seveendayAmtDisc}} Per Day) </li>
+              <li>
+                8 Days ++ (Rs.{{seveenDaysMoreDisc}} Per Day) </li>
+            </ul>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="rent-box">
+                  <div class="rented">
+                    <label>Total Rent</label><br>
+                    <span class="show_book_price">{{this.ratePerDay}}</span>
+                    <p class="par-rest-details font-weight-bold" id="show_book_day">Price is for {{this.duration}} day
+                    </p>
                   </div>
-                  <!-- <div class="text-left col-xs-6 col-md-6">
+
+                  <div class="rented">
+                    <label>Book Now</label><br>
+                    <span id="show_book_price">{{this.advanceAmt}}</span>
+                    <p class="par-rest-details">& Pay Rest Later</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+            </div>
+          </div>
+          <form [formGroup]="bookForm">
+            <div class="product-type clearfix">
+              <div class="row row-ph">
+                <div class="col-md-12 col-xs-12 pt-2">
+                  <div class="form-group relative">
+                    <label>Product<i style="color:red;">*</i></label>
+                    <!--<a class="incr-btn" data-action="decrease" href="#">–</a>-->
+                    <ngx-select class="form-control-select" formControlName="product" required
+                      (selectionChanges)="rentPriceUpdateProduct($event)" [items]="modelData" optionValueField="id"
+                      optionTextField="modelName" [multiple]="true" [allowClear]="true" placeholder="Select">
+                    </ngx-select>
+                    <span *ngIf="fval?.product?.errors?.required && isSubmitted" class="required-span">Product
+                      Required</span>
+                    <!--<a class="incr-btn" data-action="increase" href="#">&plus;</a>-->
+                  </div>
+                </div>
+                <!-- <div class="text-left col-xs-6 col-md-6">
                     <label>Select Total Days<i style="color:red">*</i></label>
                     <ngx-select class="form-control-select" formControlName="totalDays"
                       (selectionChanges)="changeTotalDays($event)" required [items]="dayslist" optionValueField="value"
@@ -182,67 +175,111 @@
                       Required</span>
                   </div> -->
 
-                  <div class="col-md-12 col-xs-12 detae pt-1">
-                    <div class="form-group relative">
-                      <label>Select Your Date <i style="color:red">*</i></label>
-                      <input [nbDatepicker]="rangepicker" (change)="rentPriceUpdateDate($event)"
-                        placeholder="Select From and ToDate" formControlName="date" class="form-control" readonly>
-                      <nb-rangepicker #rangepicker></nb-rangepicker>
-                      <span *ngIf="fval?.date?.errors?.required && isSubmitted" class="required-span">Date
-                        Required</span>
-                      <span *ngIf="dateError" class="required-span">Please Select From and Todate</span>
-                      <span *ngIf="!dateError && !fval?.date?.errors?.required && !isSubmitted" class="text-primary">You
-                        Selected Total - {{duration || "0"}} Days</span><br>
-                    </div>
-                  </div>
-                  <div class="text-left col-xs-12 col-md-12">
-                    <label>Choose Place For Pickup<i style="color:red">*</i></label>
-                    <ngx-select class="form-control-select" formControlName="location" required [items]="locationList"
-                      optionValueField="value" optionTextField="value" [allowClear]="true" placeholder="Select">
-                    </ngx-select>
-                    <span *ngIf="fval?.location?.errors?.required && isSubmitted" class="required-span">Place
+                <div class="col-md-7 col-xs-7 detae pt-1">
+                  <div class="form-group relative">
+                    <label>Select Your Date <i style="color:red">*</i></label>
+                    <input [nbDatepicker]="rangepicker" (change)="rentPriceUpdateDate($event)"
+                      placeholder="Select From and ToDate" formControlName="date" class="form-control" readonly>
+                    <nb-rangepicker #rangepicker></nb-rangepicker>
+                    <span *ngIf="fval?.date?.errors?.required && isSubmitted" class="required-span">Date
                       Required</span>
+                    <span *ngIf="dateError" class="required-span">Please Select From and Todate</span>
+                    <span *ngIf="!dateError && !fval?.fval?.errors?.required && !isSubmitted" class="text-primary">You
+                      Selected Total - {{duration || "0"}} Days</span>
                   </div>
                 </div>
-              </div>
-              <div class="clearfix text-left col-md-12 last-content">
-                <label>Security Amount (Refundable) <i style="color:red">*</i></label>
-              </div>
-            </form>
-            <button type="button" class="btn btn-form" (click)="showBookPopup()">Book</button><br>
-            <span *ngIf="loggedUser?.email ==null || loggedUser == null" class="required-span text-center">Please Login
-              In</span>
-
-
-            <div class="offer-function">
-
-
-
-
-              <span class="float-left">Special Offers</span>
-              <a type="button" class="float-right" data-toggle="modal" data-target="#offer-coupon">More Offers</a>
-              <br>
-              <br>
-              <div class="flex offer_coupon">
-                <img src="https://www.rentoclick.com/images/special-offer.svg" class="img-cntr">
-                <div>
-                  <div>
-                    Use Code
-
-                    <p class="p-code" id="myInput"></p>
-                  </div>
-                  <div class="coupon-desc">
-                  </div>
+                <div class="col-md-5 col-xs-5 detae pt-1">
+                  <label>Pickup Time :<i style="color:red">*</i></label>
+                  <input class="form-control" [owlDateTimeTrigger]="dt1" formControlName="pickUpdate" (dateTimeInput)="timeChange($event)"
+                    [owlDateTime]="dt1">
+                  <owl-date-time [pickerType]="'timer'" [hour12Timer]="true" #dt1></owl-date-time>
+                  <span *ngIf="dateError" class="required-span">Please Select Pickup Time</span>
+                  <span *ngIf="fval?.pickUpdate?.errors?.required && isSubmitted" class="required-span">Pickup Time
+                    Required</span>
                 </div>
-                <a class="btn-form pull-right btn" onclick="myFunction('#myInput')">Copy</a>
+
+                <!-- <div class="text-left col-xs-12 col-md-12 pt-2 pb-2" *ngIf="fval?.date?.value != null">
+                  <table border="1">
+                    <tr class="head-color">
+                      <th class="text-center">Selected Product</th>
+                      <th class="text-center">Rental Qty</th>
+                    </tr>
+                    <tr *ngFor="let x of selectedModel; let id=index">
+                      <td class="text-center font-weight-bold"><span class="cut-price">{{x.modelName}}</span></td>
+                      <td class="text-center font-weight-bold">
+
+                        <span class="char-remaining">
+                          <span [ngClass]="{'danger-dark': (x.availableQty <= 0)|| x.availableQtyerrormsg}">Available Qty :
+                            {{x.availableQty}}</span>
+                        </span>
+                        <span class="char-remaining danger-dark">
+                          <span *ngIf="x.issueQtyErrorMsg">Invalid pattern</span>
+                        </span>
+                      </td>
+                    </tr>
+                  </table>
+                </div> -->
+                <div class="col-xs-12 col-md-12" *ngIf="fval?.date?.value != null">
+                  <label>Select QTY<i style="color:red">*</i></label>
+                  <ngx-select class="form-control-select" formControlName="qty" (selectionChanges)="selecteQty($event)"
+                    required [items]="qtyData" optionValueField="value" optionTextField="value" [allowClear]="true"
+                    placeholder="Select">
+                  </ngx-select>
+                  <span *ngIf="fval?.qty?.errors?.required && isSubmitted" class="required-span">Qty
+                    Required</span>
+                  <span [ngClass]="{ 'required-span': availableQtyError ,'text-primary':!availableQtyError}">
+                    {{availableQtyErrorMsg}}</span>
+                </div>
+                <div class="col-xs-12 col-md-12" *ngIf="fval?.date?.value != null">
+                  <label>Choose Place For Pickup<i style="color:red">*</i></label>
+                  <ngx-select class="form-control-select" required [items]="locationList"
+                    (selectionChanges)="changeLocation($event)" optionValueField="id" optionTextField="talukName"
+                    [allowClear]="true" placeholder="Select">
+                  </ngx-select>
+                  <span *ngIf="fval?.location?.errors?.required && isSubmitted" class=" text-left required-span">Place
+                    Required</span>
+                </div>
+
               </div>
-
-
-
-
             </div>
-            <!--OFFER-COUPON-->
+            <div class="clearfix text-left col-md-12 last-content">
+              <label>Security Amount (Refundable) <i style="color:red">*</i></label>
+            </div>
           </form>
+          <button type="button" class="btn btn-form" [disabled]="isProductBtnSubmitted"
+            (click)="showBookPopup()">Book</button><br>
+          <span *ngIf="loggedUser?.email ==null || loggedUser == null" class="required-span text-center">Please Login
+            In</span>
+
+
+          <div class="offer-function">
+
+
+
+
+            <span class="float-left">Special Offers</span>
+            <a type="button" class="float-right" data-toggle="modal" data-target="#offer-coupon">More Offers</a>
+            <br>
+            <br>
+            <div class="flex offer_coupon">
+              <img src="https://www.rentoclick.com/images/special-offer.svg" class="img-cntr">
+              <div>
+                <div>
+                  Use Code
+
+                  <p class="p-code" id="myInput"></p>
+                </div>
+                <div class="coupon-desc">
+                </div>
+              </div>
+              <a class="btn-form pull-right btn" onclick="myFunction('#myInput')">Copy</a>
+            </div>
+
+
+
+
+          </div>
+          <!--OFFER-COUPON-->
         </div>
 
         <div class="product-main-content display-block-responsive">
@@ -423,12 +460,12 @@
               <!-- <div class="price-box">
                 <div class="rented">
                   <label class="un-color"></label><br>
-                 
+
                 </div>
 
                 <div class="rented">
                   <label class="un-color"></label><br>
-             
+
                 </div>
               </div> -->
             </div>
@@ -438,7 +475,9 @@
                   <th colspan="2" class="text-center un-colorc">SELECTED PRODUCT</th>
                 </tr>
                 <tr>
-                  <th colspan="2" class="text-center font-weight-bold">{{selectedProduct}}</th>
+                  <th colspan="2" class="text-center font-weight-bold">
+                    {{finalProductData?.productName}}<br>{{selectedModel[0]?.modelName}}<br>{{selectedModel[1]?.modelName}}
+                  </th>
                 </tr>
               </table>
             </div>
@@ -463,6 +502,10 @@
                   <td>Rental End Date</td>
                   <td>:&nbsp; {{toDate | date}}</td>
                 </tr>
+                <tr>
+                  <td>Pickup Date & Time</td>
+                  <td>:&nbsp; {{fromDate | date:'medium' }}</td>
+                </tr>
               </table>
             </div>
           </div>
@@ -470,20 +513,6 @@
         <div [formGroup]="bookForm">
           <div class="product-type clearfix">
             <div class="row row-ph">
-              <div class="text-left col-xs-12 col-md-12">
-                <label>Pickup Time :<i style="color:red">*</i></label>
-                <input class="form-control" [owlDateTimeTrigger]="dt1" (dateTimeInput)="timeChange($event)" formControlName="pickupTime" [owlDateTime]="dt1">
-                <owl-date-time [pickerType]="'timer'" [hour12Timer]="true" #dt1></owl-date-time>
-              </div>
-              <div class="col-md-12 col-xs-12" *ngIf="pickupDateTime != null">
-                <table class="font-weight-bold">
-                  <tr class="head-color">
-                    <th class="text-center">Pickup Date & Time</th>
-                  <tr>
-                  <tr>
-                    <td class="text-center"> {{pickupDateTime | date:'medium' }}</td>
-                  <tr>
-                </table>
               <div class="text-left col-xs-12 col-md-12">
                 <label>Special Instructions :</label>
                 <textarea type="text" class="form-control" formControlName="notes"></textarea>
@@ -493,54 +522,122 @@
             </div>
           </div>
 
-        </div>
-
-        <div class="row pb-1 d-flex justify-content-center">
-          <div class="col-md-12 col-xs-12 d-flex justify-content-center">
-            <button type="button" class="btn btn-form" (click)="createOrders()">Book</button>
+          <div class="row pb-1 d-flex justify-content-center">
+            <div class="col-md-12 col-xs-12 d-flex justify-content-center">
+              <button type="button" class="btn btn-form" (click)="createOrders()">Book</button>
+            </div>
           </div>
-        </div>
 
-      </div>
-      <div class="modal-footer head-color">
-        <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+        </div>
+        <div class="modal-footer head-color">
+          <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Payment success successfully booked product -->
-<div [ngStyle]="{'display': paymentSuccess ? 'block'  : 'none' }" class="component-contents">
-  <div class="lightbox-model open dateVisible ">
-    <div class="lightbox-contents" style="width: 351px !important;">
-      <div class="lightbox-header clearfix">
-        <div class="lightbox-title lightbox-title-bill">
-          <span class="popu-billamo">Booked Successfully</span>
-        </div>
-        <div class="lightbox-close">
-          <i class="fa fa-times" aria-hidden="true" (click)="paymentSuccess=false"></i>
-        </div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': paymentSuccess ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header head-color">
+        <h4 class="modal-title un-colorc">Order Status</h4>
+        <button type="button" class="close" aria-label="Close" (click)="paymentAfterCall()"><span
+            aria-hidden="true">&times;</span></button>
       </div>
-      <div class="lightbix-inner-contents">
-        <div class="tab-block-conetnts">
-          <!--  -->
-          <div class="row">
-            <div class="col-md-12">
-              <div class="button-controls">
-                You booked Camera Successfully
-                <p>Your Order Id - {{paymentResponse?.razorpay_order_id}}</p>
-                <p>Your Payment Id - {{paymentResponse?.razorpay_payment_id}}</p>
-                <input type="button" (click)="paymentSuccess=false" value="Cancel" class="btn btn-clear" />
+      <div class="modal-body">
+        <!--  -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="button-controls">
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">Order Status</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" *ngIf="bookingData?.payment_status =='paid'" class="text-center font-weight-bold">
+                      You booked Camera Successfully - Go to Orders </th>
+                    <th colspan="2" *ngIf="bookingData?.payment_status !='paid'" class="text-center font-weight-bold">
+                      Your payment was failed. Please try again. If debited without booking, Kindly check your order
+                      status in the next 10 to 20 minutes in My Order Section.</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">SELECTED PRODUCT</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" class="text-center font-weight-bold">
+                      {{bookingData?.product_name}}<br>{{bookingData?.product_model[0]?.modelName}}<br>{{bookingData?.product_model[1]?.modelName}}
+                    </th>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 col-xs-12">
+                <table class="font-weight-bold">
+                  <tr class="head-color">
+                    <th colspan="2" class="text-center un-colorc">Payment Details</th>
+                  </tr>
+                  <tr>
+                    <td>Order Id</td>
+                    <td>:&nbsp; {{bookingData?.order_details.id}}</td>
+                  </tr>
+                  <tr>
+                    <td>Customer Name</td>
+                    <td>:&nbsp; {{bookingData?.customer_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Customer Mobile</td>
+                    <td>:&nbsp; {{bookingData?.customer_phone}}</td>
+                  </tr>
+                  <tr *ngIf="bookingData?.payment_status =='paid'">
+                    <td>Pickup DateTime</td>
+                    <td>:&nbsp; {{bookingData?.pickup_dateTime | date:'medium'}}</td>
+                  </tr>
+                  <tr *ngIf="bookingData?.payment_status =='paid'">
+                    <td>Rental Start Date</td>
+                    <td>:&nbsp; {{bookingData?.booking_start_date | date}}</td>
+                  </tr>
+                  <tr *ngIf="bookingData?.payment_status =='paid'">
+                    <td>Rental End Date</td>
+                    <td>:&nbsp; {{bookingData?.booking_end_date | date}}</td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
-          <!--  -->
         </div>
+        <!--  -->
+
+      </div>
+      <div class="modal-footer head-color">
+        <button type="button" class="btn btn-default" (click)="paymentAfterCall()">Close</button>
       </div>
     </div>
   </div>
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': myOrders ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header head-color">
+        <h4 class="modal-title un-colorc">My Orders</h4>
+        <button type="button" class="close" aria-label="Close" (click)="myOrderClose()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body p-0">
+        <ngx-my-orders></ngx-my-orders>
+      </div>
+      <div class="modal-footer head-color">
+        <button type="button" class="btn btn-default" (click)="myOrderClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="succesfull-info-popup" [ngClass]="{ 'open': popupAlert }">
   <i class="far fa-thumbs-up"></i> <span>{{popupMessage}} </span>
 </div>

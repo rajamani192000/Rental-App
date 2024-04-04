@@ -35,12 +35,14 @@
                     <div id="drop_price_545" class="wrapper-dropdown-3 priceDrop" tabindex="1">
                       <ul class="dropdown">
                         <li id="itm_1" class="active"><a id="itm_href_1"><i class="product-detail">
-                              <button type="button" class=" btn btn-form" (click)="callProduct(x)">Book</button>
+                              <button type="button" class=" btn btn-form" [disabled]="x.availableQty<'1'" (click)="callProduct(x)">Book</button>
 
                             </i><span class="price-left pt-3"> Rs. {{x.displayAmt}} /
                               day</span> </a></li>
                         <li id="itm_1" class="active ml-1 pl-5"> <span *ngIf="logInError"
                             class="required-span text-center ml-3">Please Login In First</span>
+                            <span *ngIf="x.availableQty<'1'"
+                            class="required-span text-center ml-3">Out Of Stock</span>
                         </li>
 
                       </ul>

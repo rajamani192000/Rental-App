@@ -13,6 +13,8 @@ import {
   NbIconModule,
   NbThemeModule,
   NbTabsetModule,
+  NbDatepickerModule,
+  NbTimepickerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -44,6 +46,7 @@ import { CustomerRegistrationLoginComponent } from './customer-registration-logi
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../@components/components.module';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 const NB_MODULES = [
   ReactiveFormsModule,
   NbLayoutModule,
@@ -59,7 +62,9 @@ const NB_MODULES = [
   NbIconModule,
   NbEvaIconsModule,
   NbTabsetModule,
-  ComponentsModule
+  ComponentsModule,
+  NbDatepickerModule,
+  NbTimepickerModule
 ];
 const COMPONENTS = [
   CustomerRegistrationLoginComponent,
@@ -70,6 +75,7 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  MyOrdersComponent,
 ];
 const PIPES = [
   CapitalizePipe,
